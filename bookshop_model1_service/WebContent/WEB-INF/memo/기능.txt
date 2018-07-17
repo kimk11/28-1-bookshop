@@ -1,0 +1,72 @@
+	테이블		권한			기능
+-------------------------------------------------------------------
+	bookcode	
+
+insert - jsp/action	관리자			select조회하여 name이 있나 없나 확인 후 insert메서드 호출	
+delete - action		관리자
+
+	publisher
+
+insert - jsp/action	관리자			select조회하여 name이 있나 없나 확인 후 insert메서드 호출
+delete - action		관리자
+
+	book
+
+insert - jsp/action	관리자
+delete - action		관리자
+searchList - jsp	관리자/사용자		page기능,전체리스트, bookcode, 작가, 책이름, 몇개씩보기
+update - jsp/action	관리자
+detail - jsp/action	관리자/사용자		리스트에서 책이름 클릭시 상세정보 보여주기
+
+	intro
+
+insert - jsp/action	관리자
+delete - action		관리자
+update - jsp/action	관리자
+
+	review
+
+insert - jsp/action	관리자/사용자		5개까지만 가능
+delete - action		관리자/사용자
+update - jsp/action	관리자/사용자
+list - jsp/action				댓글기능처럼		
+
+	member
+
+insert - jsp/action	사용자			select조회하여 id있나 없나 확인하여 없을 때만 insert메서드 호출
+delete - action		관리자/사용자		
+update - jsp/action	사용자
+searchlist - jsp	관리자			전체리스트, 이름, 아이디
+
+	memberinter
+
+insert - jsp/action	사용자			bookcode체크박스로 값받아서 입력, 최소 1개, 최대 3개
+delete - action		관리자/사용자
+list - jsp		관리자/사용자		member리스트에서 해당member의 관심사 링크나 버튼 클릭해서 보여주기
+
+	cart
+
+insert - jsp/action	사용자			bookdetail 페이지에서 장바구니로 추가
+delete - action		사용자
+list - jsp		관리자/사용자		page작업, 각 사용자의 장바구니에 담긴 총 가격 보여주기
+
+	order 
+
+insert - jsp/action	사용자			추가시 state에 '주문완료' 입력
+delete - action		관리자/사용자		주문 취소시
+searchlist - jsp	관리자/사용자		page기능, 주문 날짜, 책이름
+
+	qna
+
+insert - jsp/action	사용자	
+delete - action		관리자/사용자		
+searchlist - jsp	관리자/사용자		page기능, 제목
+update - jsp/action	사용자
+
+	qna_comment
+
+insert - jsp/action	관리자			
+delete - action		관리자
+list - jsp		관리자/사용자
+
+
