@@ -11,7 +11,7 @@ public class BookPublisherDAO {
 		ArrayList<BookPublisherDTO> arrayList = new ArrayList<>();
 
 		// 출판사 이름 검색 시 한 개의 출판사가 조회된다.
-		String sql = "SELECT publisher_name FROM publisher";
+		String sql = "SELECT publisher_no,publisher_name FROM publisher";
 		
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
 		
@@ -24,7 +24,8 @@ public class BookPublisherDAO {
 			
 			while(JdbcObject.getResultSet().next()) { 		//   쿼리의 결과를 arlist에 담음
 				BookPublisherDTO bookPublisherDTO = new BookPublisherDTO();
-				bookPublisherDTO.setPubliserName(JdbcObject.getResultSet().getString(1));
+				bookPublisherDTO.setPublisherNo(JdbcObject.getResultSet().getInt(1));
+				bookPublisherDTO.setPubliserName(JdbcObject.getResultSet().getString(2));
 				arrayList.add(bookPublisherDTO);
 			}
 		} catch (Exception e) {

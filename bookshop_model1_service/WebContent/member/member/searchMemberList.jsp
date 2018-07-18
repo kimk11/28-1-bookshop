@@ -12,7 +12,18 @@
 		
 <%
 	request.setCharacterEncoding("utf8");
-	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+
+	//검색 조건 변수
+	String searchSelect ="";
+	if(request.getParameter("searchSelect")!=null){
+		searchSelect=request.getParameter("searchSelect");
+	}
+	//검색 단어 변수
+	String searchTxt ="";
+	if(request.getParameter("searchTxt")!=null){
+		searchSelect=request.getParameter("searchTxt");
+	}
+	
 	MemberService memberService = new MemberService();
 	ArrayList<MemberDTO> list = memberService.selectAllMember();
 %>
@@ -20,7 +31,7 @@
 	<h2>회원 검색 리스트</h2>
 	
 	<form action="<%= request.getContextPath()%>/member/member/searchMemberList.jsp"  method="post">
-		<select id="searchSelect">
+		<select name="searchSelect">
 			<option value ="">전체</option>
 			<optgroup label="----------"></optgroup>
 			<option value ="memberName">이름</option>
@@ -54,8 +65,8 @@
 			<td><%=memberDTO.getMemberAddr()%></td>
 			<td><%=memberDTO.getMemberPoint()%></td>
 			<td><%=memberDTO.getMemberDate()%></td>
-			<td><a href="<%= request.getContextPath()%>/member/member/updateMemberForm.jsp?memberNo=<%=memberNo%>">수정</a></td>
-			<td><a href="<%= request.getContextPath()%>/member/member/deleteMemberAction.jsp?memberNo=<%=memberNo%>">삭제</a></td>
+			<td><a href="<%= request.getContextPath()%>/member/member/updateMemberForm.jsp?memberNo=<%=memberDTO.getMemberNo()%>">수정</a></td>
+			<td><a href="<%= request.getContextPath()%>/member/member/deleteMemberAction.jsp?memberNo=<%=memberDTO.getMemberNo()%>">삭제</a></td>
 		</tr>
 <%
 		}
