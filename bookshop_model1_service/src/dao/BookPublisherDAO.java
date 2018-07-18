@@ -2,8 +2,38 @@ package dao;
 
 import dto.BookPublisherDTO;
 import jdbcObject.JdbcObject;
+import java.util.ArrayList;
 
 public class BookPublisherDAO {
+	// 모든 출판사 조회 메서드
+	// 리턴값 0 : db값 없음 , 1 : db에 중복값 있음
+	public ArrayList<BookPublisherDTO> selectAllBookPublisher() {
+		ArrayList<BookPublisherDTO> arrayList = new ArrayList<>();
+
+		// 출판사 이름 검색 시 한 개의 출판사가 조회된다.
+		String sql = "SELECT publisher_name FROM publisher";
+		
+		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
+		
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			
+			while(JdbcObject.getResultSet().next()) { 		//   쿼리의 결과를 arlist에 담음
+				BookPublisherDTO bookPublisherDTO = new BookPublisherDTO();
+				bookPublisherDTO.setPubliserName(JdbcObject.getResultSet().getString(1));
+				arrayList.add(bookPublisherDTO);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return arrayList;
+	}
+	
 	
 	// 매개변수 int publisherName :: 출판사 이름
 	// 리턴값 0:실패(DB에 정보 없음), !0:성공 
