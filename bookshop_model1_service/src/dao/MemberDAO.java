@@ -1,3 +1,6 @@
+//28기 현희문
+//2018.07.18(수)/
+
 package dao;
 
 import dto.MemberDTO;
@@ -34,6 +37,7 @@ public class MemberDAO {
 		}
 		return check;
 	}
+	
 	//아이디 중복확인 메서드
 	// 리턴 0:실패, 1:성공
 	public int selectIdCheckMember(String memberId) {
@@ -62,6 +66,7 @@ public class MemberDAO {
 		}
 		return check;
 	}
+	
 	//회원정보 수정을 위한 member 테이블 전체 조회
 	//리턴 값 memberDTO = 수정할 회원 번호를 받아 member 테이블을 조회한 값들을 세팅된 MemberDTO 객체의 객체참조변수
 	public MemberDTO selectMemberForUpdate(int memberNo) {
@@ -96,6 +101,36 @@ public class MemberDAO {
 		return memberDTO;
 	}
 	
+	//회원 정보 수정 메서드
+	// 리턴 0:실패, 1:성공
+	public int updateMember(MemberDTO memberDTO) {
+		
+		String sql = "UPDATE member SET member_pw = ?, member_addr = ? WHERE member_no = ?;";
+		
+		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
+		int check = 0;
+		
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+			JdbcObject.getPreparedStatement().setString(1, memberDTO.getMemberPw());//수정화면에서 입력한 비밀번호
+			JdbcObject.getPreparedStatement().setString(2, memberDTO.getMemberAddr());//수정화면에서 입력한 주소
+			JdbcObject.getPreparedStatement().setInt(3, memberDTO.getMemberNo());
+
+			check = JdbcObject.getPreparedStatement().executeUpdate();
+			
+			//수정 실패 0, 수정 성공 1
+			if(JdbcObject.getResultSet().next()) {
+				check = 1;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return check;
+	}
+	
 	//member 테이블 삭제
 	// 리턴 0:실패, 1:성공
 	public int deleteMember(int memberNo) {
@@ -112,9 +147,9 @@ public class MemberDAO {
 			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
 			JdbcObject.getPreparedStatement().setInt(1, memberNo);//회원가입 시 입력한 아이디
 
-			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
-			//아이디 삭제 실패 0, 아이디 삭제 성공 1
+			//삭제 실패 0, 삭제 성공 1
 			if(JdbcObject.getResultSet().next()) {
 				check = 1;
 			}
@@ -126,7 +161,7 @@ public class MemberDAO {
 	}
 	
 	//member 테이블 조회(검색)
-	
+	//리턴 값 list = member 테이블을 조회한 값들이 세팅 된 MemberDTO 객체의 객체참조변수들이 들어있는 ArrayList 객체의 객체참조변수
 	public ArrayList<MemberDTO> selectAllMember() {
 		
 		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
