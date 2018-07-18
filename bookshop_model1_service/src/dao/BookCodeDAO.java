@@ -50,6 +50,7 @@ public class BookCodeDAO {
 			e.printStackTrace();
 		}
 		
+		System.out.println(check+"<--중복검사 체크");
 		//리턴값이 0=중복, 1=중복이 아님
 		return check;
 	}
@@ -88,6 +89,7 @@ public class BookCodeDAO {
 			e.printStackTrace();
 		}
 		
+		System.out.println(check+"<--카테고리 입력 체크");
 		//리턴값이 0=실패, 1=성공
 		return check;
 	}
@@ -126,6 +128,7 @@ public class BookCodeDAO {
 			e.printStackTrace();
 		}
 		
+		System.out.println(check+"<--카테고리 삭제 체크");
 		//리턴값이 0=실패, 1=성공
 		return check;
 	}
