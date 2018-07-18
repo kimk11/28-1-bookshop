@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import dto.BookCodeDTO;
 import jdbcObject.JdbcObject;
 
 public class BookCodeDAO {
@@ -35,7 +38,7 @@ public class BookCodeDAO {
 			//리턴받은 주소값을 setResultSet메서드를 호출해 JdbcObject클래스의 멤버변수 resultSet에 대입한다.
 			JdbcObject.setResultSet(resultSet);
 			
-			//ResultSet객체의 테이블을 검색해서 검색값이 없을때까지 반복
+			//ResultSet객체의 테이블을 검색
 			if(JdbcObject.getResultSet().next()) {
 				//카테고리의 이름이 중복일경우 check의 값이 0
 				check = 0;
@@ -131,5 +134,51 @@ public class BookCodeDAO {
 		System.out.println(check+"<--카테고리 삭제 체크");
 		//리턴값이 0=실패, 1=성공
 		return check;
+	}
+	
+	//책 카테고리 전체를 검색할 리스트 메서드
+	public ArrayList<BookCodeDTO> selectBookCodeList(){
+		//책 카테고리의 정보가 담긴 객체의 주소값을 담을 배열객체 생성
+		ArrayList<BookCodeDTO> bookCodeList = new ArrayList<BookCodeDTO>();
+		
+		try {
+			//드라이버 로딩 및 db연결 메서드 호출, Connection객체의 주소값을 리턴받는다.
+			Connection connection = JdbcObject.getConnetionInfo();
+			//리턴받은 주소값을 setConnection메서드를 호출해 JdbcObject클래스의 멤버변수 connection에 대입한다.
+			JdbcObject.setConnection(connection);
+			
+			//bookcode테이블에서 책 카테고리넘버와 이름을 전체검색
+			String sql = "select bookcode_no, bookcode_name from bookcode";
+			
+			//getConnection메서드를 호출해서 리턴받은 주소값으로 PreparedStatement객체를 생성하고 준비한 쿼리문을 매개변수로 대입, PreparedStatement의 주소값을 리턴받는다.
+			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
+			//리턴받은 주소값을 setPreparedStatement메서드를 호출해 JdbcObject클래스의 멤버변수 preparedStatement에 대입한다.
+			JdbcObject.setPreparedStatement(preparedStatement);
+			
+			//getPreparedStatement메서드를 호출해서 리턴받은 주소값으로 쿼리문을 실행시키는 메서드 호출, ResultSet객체의 주소값을 리턴받는다.
+			ResultSet resultSet = JdbcObject.getPreparedStatement().executeQuery();
+			//리턴받은 주소값을 setResultSet메서드를 호출해 JdbcObject클래스의 멤버변수 resultSet에 대입한다.
+			JdbcObject.setResultSet(resultSet);
+			
+			//ResultSet객체의 테이블을 검색해서 검색값이 없을때까지 반복
+			while(JdbcObject.getResultSet().next()) {
+				//카테고리의 정보를 담을 DTO객체 생성
+				BookCodeDTO bookCodeDTO = new BookCodeDTO();
+				JdbcObject.getResultSet().getInt("bookcode_no");
+				JdbcObject.getResultSet().getString("bookcode_name");
+				
+				//카테고리의 정보를 담은 객체의 주소값을 배열객체에 대입
+				bookCodeList.add(bookCodeDTO);
+			} 
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(bookCodeList+"<--주소값이 null인지 체크");
+		//리턴값은 배열객체의 주소값
+		return bookCodeList;
 	}
 }
