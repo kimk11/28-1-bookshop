@@ -6,7 +6,7 @@ public class MemberDTO {
 	private String memberPw;
 	private String memberName;
 	private String memberAddr;
-	private String memberPoint;
+	private int memberPoint;
 	private String memberDate;
 	
 	public int getMemberNo() {
@@ -39,10 +39,10 @@ public class MemberDTO {
 	public void setMemberAddr(String memberAddr) {
 		this.memberAddr = memberAddr;
 	}
-	public String getMemberPoint() {
+	public int getMemberPoint() {
 		return memberPoint;
 	}
-	public void setMemberPoint(String memberPoint) {
+	public void setMemberPoint(int memberPoint) {
 		this.memberPoint = memberPoint;
 	}
 	public String getMemberDate() {
