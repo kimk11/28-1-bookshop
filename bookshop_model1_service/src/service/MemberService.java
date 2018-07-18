@@ -11,7 +11,7 @@ import dao.MemberDAO;
 public class MemberService {
 	private MemberDAO memberDAO;
 	
-	private MemberService() {
+	public MemberService() {
 		this.memberDAO = new MemberDAO();
 	}
 	//member 테이블 추가

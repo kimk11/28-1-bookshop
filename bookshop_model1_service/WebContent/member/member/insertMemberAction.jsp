@@ -22,8 +22,8 @@
 	memberDTO.setMemberAddr(request.getParameter("memberAddr"));
 	
 	// memberService 객체 안에 insertMember메서드에 있는 리턴 값을 int check에 할당
-	MemberService memberService =new MemberService();
-	int check = memberService.insertMember(memberDTO);
+	MemberService memberService = new MemberService();
+	int check = memberService.insertMemberService(memberDTO);
 	
 	// DB 저장 성공 시에 
 	if(1==check){
