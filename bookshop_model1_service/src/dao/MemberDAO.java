@@ -176,12 +176,19 @@ public class MemberDAO {
 			
 			if(searchKey.equals("") && searchValue.equals("")) {
 				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql1));
-			}else if(!searchKey.equals("") && searchValue.equals("")) {
+			}else if(searchKey.equals("") && !searchValue.equals("")) {
+				sql1 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member WHERE member_no = 0 ORDER BY member_no DESC";
+				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql1));
+			}else if(searchKey.equals("memberId") && searchValue.equals("")) {
 				sql1 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member WHERE member_no = 0 ORDER BY member_no DESC";
 				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql1));
 			}else if(searchKey.equals("memberId") && !searchValue.equals("")) {
 				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql2));
 				JdbcObject.getPreparedStatement().setString(1, "%"+searchValue+"%");
+			
+			}else if(searchKey.equals("memberName") && searchValue.equals("")) {
+				sql1 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member WHERE member_no = 0 ORDER BY member_no DESC";
+				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql1));
 			}else if(searchKey.equals("memberName") && !searchValue.equals("")) {
 				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql3));
 				JdbcObject.getPreparedStatement().setString(1, "%"+searchValue+"%");
