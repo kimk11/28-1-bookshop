@@ -23,11 +23,11 @@ public class MemberService {
 		int insertCheck = 0;
 		
 		try {
-			int selectCheck = memberDAO.selectIdCheckMember();
+			int selectCheck = memberDAO.selectIdCheckMember(memberDTO.getMemberId());
 			
 			//아이디 중복 확인
 			if(0 == selectCheck) {
-				insertCheck = memberDAO.insertMember();
+				insertCheck = memberDAO.insertMember(memberDTO);
 			}
 			
 			//DAO들이 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
@@ -50,12 +50,12 @@ public class MemberService {
 	
 	//member 테이블 삭제
 	//리턴값(check) - 0 : 실패, 1 : 성공
-	public int deleteMemberService(String memberNo) {
+	public int deleteMemberService(int memberNo) {
 		//리턴값 담을 변수
 		int check = 0;
 			
 		try {
-			int deleteCheck = memberDAO.deleteMember();
+			int deleteCheck = memberDAO.deleteMember(memberNo);
 			
 			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
 			if(0 != deleteCheck) {
@@ -80,11 +80,11 @@ public class MemberService {
 	//member 테이블 수정
 	
 	//수정할 데이터 조회
-	public MemberDTO selectOneMemberService(String memberNo) {
+	public MemberDTO selectOneMemberService(int memberNo) {
 		MemberDTO memberDTO = new MemberDTO();
 		
 		try {
-			memberDTO = memberDAO.selectOneMember();
+			memberDTO = memberDAO.selectMemberForUpdate(memberNo);
 			
 			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
 			if(memberDTO.getMemberId() != null) {
@@ -111,7 +111,7 @@ public class MemberService {
 		int check = 0;
 		
 		try {
-			 int updateCheck = memberDAO.updateMember();
+			 int updateCheck = memberDAO.updateMember(memberDTO);
 			
 			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
 			if(0 != updateCheck) {
@@ -133,11 +133,11 @@ public class MemberService {
 		return check;
 	}
 	//member 테이블 조회(검색)
-	public ArrayList<MemberDTO> selectSearchMemberService(){
+	public ArrayList<MemberDTO> selectSearchMemberService(String searchKey, String searchValue){
 		ArrayList<MemberDTO> arrayList = new ArrayList<>();
 		
 		try {
-			arrayList = memberDAO.selectSearchMember();
+			arrayList = memberDAO.selectSearchMember(searchKey, searchValue);
 			
 			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
 			if(null != arrayList.get(0)) {
