@@ -15,9 +15,11 @@
 	BookPublisherDTO bookPublisherDTO = new BookPublisherDTO();
 	bookPublisherDTO.setPubliserName(request.getParameter("publiserName"));
 	bookPublisherDTO.setPublisherWebsite(request.getParameter("publisherWebsite"));
+	//System.out.println(bookPublisherDTO.getPubliserName());
+	//System.out.println(bookPublisherDTO.getPublisherWebsite());
 	
 	BookPublisherService bookPublisherService = new BookPublisherService();
-	int check = bookPublisherService.insertBookPubliserService(bookPublisherDTO);
+	int check = bookPublisherService.insertBookPublisherService(bookPublisherDTO);
 	
 	// db저장 성공시
 	if(1==check){
@@ -27,7 +29,7 @@
 	}else{
 		//입력폼으로
 		response.sendRedirect(request.getContextPath()+"/member/bookPubliser/insertBookPubliserForm.jsp");
-		System.out.print("입력실패");
+		System.out.println("입력실패");
 	}
 %>
 </body>

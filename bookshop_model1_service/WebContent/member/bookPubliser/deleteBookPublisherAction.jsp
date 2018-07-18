@@ -11,7 +11,7 @@
 	int publisherNo = Integer.parseInt(request.getParameter("publisherNo"));
 	
 	BookPublisherService bookPublisherService = new BookPublisherService();
-	int check = bookPublisherService.deleteBookPubliserService(publisherNo);
+	int check = bookPublisherService.deleteBookPublisherService(publisherNo);
 	
 	// db저장 성공시
 		if(1==check){
