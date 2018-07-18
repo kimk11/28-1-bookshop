@@ -164,8 +164,8 @@ public class BookCodeDAO {
 			while(JdbcObject.getResultSet().next()) {
 				//카테고리의 정보를 담을 DTO객체 생성
 				BookCodeDTO bookCodeDTO = new BookCodeDTO();
-				JdbcObject.getResultSet().getInt("bookcode_no");
-				JdbcObject.getResultSet().getString("bookcode_name");
+				bookCodeDTO.setBookCodeNo(JdbcObject.getResultSet().getInt("bookcode_no"));
+				bookCodeDTO.setBookCodeName(JdbcObject.getResultSet().getString("bookcode_name"));
 				
 				//카테고리의 정보를 담은 객체의 주소값을 배열객체에 대입
 				bookCodeList.add(bookCodeDTO);

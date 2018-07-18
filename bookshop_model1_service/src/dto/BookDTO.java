@@ -1,7 +1,5 @@
 package dto;
 
-import java.util.ArrayList;
-
 public class BookDTO {
 	private int bookNo;
 	private int bookcodeNo;
@@ -13,8 +11,6 @@ public class BookDTO {
 	private int bookAmount;
 	private String bookOut;
 	private String bookDate;
-	private ArrayList<BookCodeDTO> bookCodeList;
-	private ArrayList<BookPublisherDTO> bookPublisherList;
 	
 	public int getBookNo() {
 		return bookNo;
@@ -75,17 +71,5 @@ public class BookDTO {
 	}
 	public void setBookDate(String bookDate) {
 		this.bookDate = bookDate;
-	}
-	public ArrayList<BookCodeDTO> getBookCodeList() {
-		return bookCodeList;
-	}
-	public void setBookCodeList(ArrayList<BookCodeDTO> bookCodeList) {
-		this.bookCodeList = bookCodeList;
-	}
-	public ArrayList<BookPublisherDTO> getBookPublisherList() {
-		return bookPublisherList;
-	}
-	public void setBookPublisherList(ArrayList<BookPublisherDTO> bookPublisherList) {
-		this.bookPublisherList = bookPublisherList;
 	}
 }
