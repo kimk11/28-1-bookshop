@@ -168,8 +168,8 @@ public class MemberDAO {
 		
 		//회원가입 시 입력한 아이디로 member 테이블의 member_id 컬럼 값을 조회하여 중복확인
 		String sql1 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member ORDER BY member_no DESC";
-		String sql2 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member WHERE member_id =? ORDER BY member_no DESC";
-		String sql3 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member WHERE member_name =? ORDER BY member_no DESC";
+		String sql2 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member WHERE member_id LIKE ? ORDER BY member_no DESC";
+		String sql3 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member WHERE member_name LIKE ? ORDER BY member_no DESC";
 		
 		try {
 			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
@@ -177,14 +177,14 @@ public class MemberDAO {
 			if(searchKey.equals("") && searchValue.equals("")) {
 				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql1));
 			}else if(!searchKey.equals("") && searchValue.equals("")) {
-				sql1 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member ORDER BY member_no DESC WHERE member_no = 0";
+				sql1 = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member WHERE member_no = 0 ORDER BY member_no DESC";
 				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql1));
-			}else if(searchKey.equals("memberName") && !searchValue.equals("")) {
-				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql3));
-				JdbcObject.getPreparedStatement().setString(1, searchValue);
 			}else if(searchKey.equals("memberId") && !searchValue.equals("")) {
 				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql2));
-				JdbcObject.getPreparedStatement().setString(1, searchValue);
+				JdbcObject.getPreparedStatement().setString(1, "%"+searchValue+"%");
+			}else if(searchKey.equals("memberName") && !searchValue.equals("")) {
+				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql3));
+				JdbcObject.getPreparedStatement().setString(1, "%"+searchValue+"%");
 			}
 
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
