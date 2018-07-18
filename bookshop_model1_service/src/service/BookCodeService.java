@@ -15,13 +15,14 @@ public class BookCodeService {
 			BookCodeDAO bookCodeDAO = new BookCodeDAO();
 			int check1 = bookCodeDAO.selectDuplicateBook(bookCodeName);
 			
+			
 			int check2 = 0;
 			// 책 카테고리 이름 중복 확인
 			if(1 == check1) {
 				check2 = bookCodeDAO.insertBookCode(bookCodeName);
 			}
 			// 책 카테고리 인설트 성공 여부 확인
-			if(1 != check2) {
+			if(1 == check2) {
 				// Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
 				JdbcObject.getConnection().commit();
 				check = 1;
@@ -35,9 +36,9 @@ public class BookCodeService {
 			JdbcUtil.rollback(JdbcObject.getConnection());
 		} finally {
 			
-			JdbcUtil.close(JdbcObject.getConnection());
-			JdbcUtil.close(JdbcObject.getPreparedStatement());
 			JdbcUtil.close(JdbcObject.getResultSet());
+			JdbcUtil.close(JdbcObject.getPreparedStatement());
+			JdbcUtil.close(JdbcObject.getConnection());				
 		}
 		
 		return check;
