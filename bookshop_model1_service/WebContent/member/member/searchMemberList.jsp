@@ -2,6 +2,8 @@
 <!-- searchMemberList.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="service.MemberService"%>
+<%@ page import="dto.MemberDTO"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,30 +16,30 @@
 	request.setCharacterEncoding("utf8");
 
 	//검색 조건 변수
-	String searchSelect ="";
-	if(request.getParameter("searchSelect")!=null){
-		searchSelect=request.getParameter("searchSelect");
+	String searchKey ="";
+	if(request.getParameter("searchKey")!=null){
+		searchKey=request.getParameter("searchKey");
 	}
 	//검색 단어 변수
-	String searchTxt ="";
-	if(request.getParameter("searchTxt")!=null){
-		searchSelect=request.getParameter("searchTxt");
+	String searchValue ="";
+	if(request.getParameter("searchValue")!=null){
+		searchKey=request.getParameter("searchValue");
 	}
 	
 	MemberService memberService = new MemberService();
-	ArrayList<MemberDTO> list = memberService.selectAllMember();
+	ArrayList<MemberDTO> list = memberService.selectSearchMemberService(searchKey, searchValue);
 %>
 	
 	<h2>회원 검색 리스트</h2>
 	
 	<form action="<%= request.getContextPath()%>/member/member/searchMemberList.jsp"  method="post">
-		<select name="searchSelect">
+		<select name="searchKey">
 			<option value ="">전체</option>
 			<optgroup label="----------"></optgroup>
 			<option value ="memberName">이름</option>
 			<option value ="memberId">아이디</option>
 		</select>
-		<input type= "text" name ="searchTxt">
+		<input type= "text" name ="searchValue">
 		<button type="submit">검색</button>
 	</form>
 

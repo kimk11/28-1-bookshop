@@ -25,7 +25,7 @@
 	memberDTO.setMemberAddr(request.getParameter("memberAddr"));
 	
 	MemberService memberService = new MemberService();
-	memberService.updateMember(memberNo);
+	memberService.updateMemberService(memberDTO);
 	
 %>
 </body>

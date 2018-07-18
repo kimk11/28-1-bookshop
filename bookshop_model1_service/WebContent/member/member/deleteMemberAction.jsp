@@ -11,8 +11,7 @@
 	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 
 	MemberService memberService = new MemberService();
-	int check = memberService.deleteMember(memberNo);
-	
+	int check = memberService.deleteMemberService(memberNo);
 	
 	// db저장 성공시
 	if(1==check){
