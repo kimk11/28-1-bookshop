@@ -1,4 +1,4 @@
--- --------------------------------------------------------
+﻿-- --------------------------------------------------------
 -- 호스트:                          127.0.0.1
 -- 서버 버전:                        5.5.32 - MySQL Community Server (GPL)
 -- 서버 OS:                        Win32
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 -- 테이블 bookshop의 구조를 덤프합니다. publisher
 CREATE TABLE IF NOT EXISTS `publisher` (
   `publisher_no` int(10) NOT NULL AUTO_INCREMENT,
-  `publiser_name` varchar(50) NOT NULL,
+  `publisher_name` varchar(50) NOT NULL,
   `publisher_website` varchar(50) NOT NULL,
   PRIMARY KEY (`publisher_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -1,3 +1,5 @@
+<!-- 28기 김진우 -->
+<!-- 2018/07/18 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="service.BookPublisherService" %>
 <!DOCTYPE html>

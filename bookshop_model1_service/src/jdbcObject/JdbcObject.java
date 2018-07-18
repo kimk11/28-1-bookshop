@@ -1,3 +1,5 @@
+//28기 김진우
+//2018/07/18
 package jdbcObject;
 
 import java.sql.Connection;

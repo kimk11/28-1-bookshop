@@ -1,8 +1,5 @@
 package dao;
 
-import java.sql.ResultSet;
-
-import dto.BookPublisherDTO;
 import dto.BookPublisherDTO;
 import jdbcObject.JdbcObject;
 
