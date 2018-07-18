@@ -5,6 +5,28 @@ import jdbcObject.JdbcObject;
 
 public class BookPublisherDAO {
 	
+	// 매개변수 int publisherName :: 출판사 이름
+	// 리턴값 0:실패(DB에 정보 없음), !0:성공 
+	public int selectPublisherNo(String publisherName) {
+		int publisherNo=0;
+		
+		String sql = "select publisher_no from publisher where publisher_name = ?";
+		
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+			JdbcObject.getPreparedStatement().setString(1, publisherName); // publisher_name 출판사 이름
+		
+			JdbcObject.getPreparedStatement().executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return publisherNo;
+	}
+	
 	// 매개변수 int publisherNo :: 출판사 no
 	//리턴 0:실패, 1:성공
 	public int deleteBookPublisher(int publisherNo) {
