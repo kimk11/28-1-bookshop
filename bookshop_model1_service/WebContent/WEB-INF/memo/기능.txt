@@ -1,72 +1,72 @@
-	Å×ÀÌºí		±ÇÇÑ			±â´É
+	í…Œì´ë¸”		ê¶Œí•œ			ê¸°ëŠ¥
 -------------------------------------------------------------------
 	bookcode	
 
-insert - jsp/action	°ü¸®ÀÚ			selectÁ¶È¸ÇÏ¿© nameÀÌ ÀÖ³ª ¾ø³ª È®ÀÎ ÈÄ insert¸Ş¼­µå È£Ãâ	
-delete - action		°ü¸®ÀÚ
+insert - jsp/action	ê´€ë¦¬ì			selectì¡°íšŒí•˜ì—¬ nameì´ ìˆë‚˜ ì—†ë‚˜ í™•ì¸ í›„ insertë©”ì„œë“œ í˜¸ì¶œ	
+delete - action		ê´€ë¦¬ì
 
 	publisher
 
-insert - jsp/action	°ü¸®ÀÚ			selectÁ¶È¸ÇÏ¿© nameÀÌ ÀÖ³ª ¾ø³ª È®ÀÎ ÈÄ insert¸Ş¼­µå È£Ãâ
-delete - action		°ü¸®ÀÚ
+insert - jsp/action	ê´€ë¦¬ì			selectì¡°íšŒí•˜ì—¬ nameì´ ìˆë‚˜ ì—†ë‚˜ í™•ì¸ í›„ insertë©”ì„œë“œ í˜¸ì¶œ
+delete - action		ê´€ë¦¬ì
 
 	book
 
-insert - jsp/action	°ü¸®ÀÚ
-delete - action		°ü¸®ÀÚ
-searchList - jsp	°ü¸®ÀÚ/»ç¿ëÀÚ		page±â´É,ÀüÃ¼¸®½ºÆ®, bookcode, ÀÛ°¡, Ã¥ÀÌ¸§, ¸î°³¾¿º¸±â
-update - jsp/action	°ü¸®ÀÚ
-detail - jsp/action	°ü¸®ÀÚ/»ç¿ëÀÚ		¸®½ºÆ®¿¡¼­ Ã¥ÀÌ¸§ Å¬¸¯½Ã »ó¼¼Á¤º¸ º¸¿©ÁÖ±â
+insert - jsp/action	ê´€ë¦¬ì
+delete - action		ê´€ë¦¬ì
+searchList - jsp	ê´€ë¦¬ì/ì‚¬ìš©ì		pageê¸°ëŠ¥,ì „ì²´ë¦¬ìŠ¤íŠ¸, bookcode, ì‘ê°€, ì±…ì´ë¦„, ëª‡ê°œì”©ë³´ê¸°
+update - jsp/action	ê´€ë¦¬ì
+detail - jsp/action	ê´€ë¦¬ì/ì‚¬ìš©ì		ë¦¬ìŠ¤íŠ¸ì—ì„œ ì±…ì´ë¦„ í´ë¦­ì‹œ ìƒì„¸ì •ë³´ ë³´ì—¬ì£¼ê¸°
 
 	intro
 
-insert - jsp/action	°ü¸®ÀÚ
-delete - action		°ü¸®ÀÚ
-update - jsp/action	°ü¸®ÀÚ
+insert - jsp/action	ê´€ë¦¬ì
+delete - action		ê´€ë¦¬ì
+update - jsp/action	ê´€ë¦¬ì
 
 	review
 
-insert - jsp/action	°ü¸®ÀÚ/»ç¿ëÀÚ		5°³±îÁö¸¸ °¡´É
-delete - action		°ü¸®ÀÚ/»ç¿ëÀÚ
-update - jsp/action	°ü¸®ÀÚ/»ç¿ëÀÚ
-list - jsp/action				´ñ±Û±â´ÉÃ³·³		
+insert - jsp/action	ê´€ë¦¬ì/ì‚¬ìš©ì		5ê°œê¹Œì§€ë§Œ ê°€ëŠ¥
+delete - action		ê´€ë¦¬ì/ì‚¬ìš©ì
+update - jsp/action	ê´€ë¦¬ì/ì‚¬ìš©ì
+list - jsp/action				ëŒ“ê¸€ê¸°ëŠ¥ì²˜ëŸ¼		
 
 	member
 
-insert - jsp/action	»ç¿ëÀÚ			selectÁ¶È¸ÇÏ¿© idÀÖ³ª ¾ø³ª È®ÀÎÇÏ¿© ¾øÀ» ¶§¸¸ insert¸Ş¼­µå È£Ãâ
-delete - action		°ü¸®ÀÚ/»ç¿ëÀÚ		
-update - jsp/action	»ç¿ëÀÚ
-searchlist - jsp	°ü¸®ÀÚ			ÀüÃ¼¸®½ºÆ®, ÀÌ¸§, ¾ÆÀÌµğ
+insert - jsp/action	ì‚¬ìš©ì			selectì¡°íšŒí•˜ì—¬ idìˆë‚˜ ì—†ë‚˜ í™•ì¸í•˜ì—¬ ì—†ì„ ë•Œë§Œ insertë©”ì„œë“œ í˜¸ì¶œ
+delete - action		ê´€ë¦¬ì/ì‚¬ìš©ì		
+update - jsp/action	ì‚¬ìš©ì
+searchlist - jsp	ê´€ë¦¬ì			ì „ì²´ë¦¬ìŠ¤íŠ¸, ì´ë¦„, ì•„ì´ë””
 
 	memberinter
 
-insert - jsp/action	»ç¿ëÀÚ			bookcodeÃ¼Å©¹Ú½º·Î °ª¹Ş¾Æ¼­ ÀÔ·Â, ÃÖ¼Ò 1°³, ÃÖ´ë 3°³
-delete - action		°ü¸®ÀÚ/»ç¿ëÀÚ
-list - jsp		°ü¸®ÀÚ/»ç¿ëÀÚ		member¸®½ºÆ®¿¡¼­ ÇØ´çmemberÀÇ °ü½É»ç ¸µÅ©³ª ¹öÆ° Å¬¸¯ÇØ¼­ º¸¿©ÁÖ±â
+insert - jsp/action	ì‚¬ìš©ì			bookcodeì²´í¬ë°•ìŠ¤ë¡œ ê°’ë°›ì•„ì„œ ì…ë ¥, ìµœì†Œ 1ê°œ, ìµœëŒ€ 3ê°œ
+delete - action		ê´€ë¦¬ì/ì‚¬ìš©ì
+list - jsp		ê´€ë¦¬ì/ì‚¬ìš©ì		memberë¦¬ìŠ¤íŠ¸ì—ì„œ í•´ë‹¹memberì˜ ê´€ì‹¬ì‚¬ ë§í¬ë‚˜ ë²„íŠ¼ í´ë¦­í•´ì„œ ë³´ì—¬ì£¼ê¸°
 
 	cart
 
-insert - jsp/action	»ç¿ëÀÚ			bookdetail ÆäÀÌÁö¿¡¼­ Àå¹Ù±¸´Ï·Î Ãß°¡
-delete - action		»ç¿ëÀÚ
-list - jsp		°ü¸®ÀÚ/»ç¿ëÀÚ		pageÀÛ¾÷, °¢ »ç¿ëÀÚÀÇ Àå¹Ù±¸´Ï¿¡ ´ã±ä ÃÑ °¡°İ º¸¿©ÁÖ±â
+insert - jsp/action	ì‚¬ìš©ì			bookdetail í˜ì´ì§€ì—ì„œ ì¥ë°”êµ¬ë‹ˆë¡œ ì¶”ê°€
+delete - action		ì‚¬ìš©ì
+list - jsp		ê´€ë¦¬ì/ì‚¬ìš©ì		pageì‘ì—…, ê° ì‚¬ìš©ìì˜ ì¥ë°”êµ¬ë‹ˆì— ë‹´ê¸´ ì´ ê°€ê²© ë³´ì—¬ì£¼ê¸°
 
 	order 
 
-insert - jsp/action	»ç¿ëÀÚ			Ãß°¡½Ã state¿¡ 'ÁÖ¹®¿Ï·á' ÀÔ·Â
-delete - action		°ü¸®ÀÚ/»ç¿ëÀÚ		ÁÖ¹® Ãë¼Ò½Ã
-searchlist - jsp	°ü¸®ÀÚ/»ç¿ëÀÚ		page±â´É, ÁÖ¹® ³¯Â¥, Ã¥ÀÌ¸§
+insert - jsp/action	ì‚¬ìš©ì			ì¶”ê°€ì‹œ stateì— 'ì£¼ë¬¸ì™„ë£Œ' ì…ë ¥
+delete - action		ê´€ë¦¬ì/ì‚¬ìš©ì		ì£¼ë¬¸ ì·¨ì†Œì‹œ
+searchlist - jsp	ê´€ë¦¬ì/ì‚¬ìš©ì		pageê¸°ëŠ¥, ì£¼ë¬¸ ë‚ ì§œ, ì±…ì´ë¦„
 
 	qna
 
-insert - jsp/action	»ç¿ëÀÚ	
-delete - action		°ü¸®ÀÚ/»ç¿ëÀÚ		
-searchlist - jsp	°ü¸®ÀÚ/»ç¿ëÀÚ		page±â´É, Á¦¸ñ
-update - jsp/action	»ç¿ëÀÚ
+insert - jsp/action	ì‚¬ìš©ì	
+delete - action		ê´€ë¦¬ì/ì‚¬ìš©ì		
+searchlist - jsp	ê´€ë¦¬ì/ì‚¬ìš©ì		pageê¸°ëŠ¥, ì œëª©
+update - jsp/action	ì‚¬ìš©ì
 
 	qna_comment
 
-insert - jsp/action	°ü¸®ÀÚ			
-delete - action		°ü¸®ÀÚ
-list - jsp		°ü¸®ÀÚ/»ç¿ëÀÚ
+insert - jsp/action	ê´€ë¦¬ì			
+delete - action		ê´€ë¦¬ì
+list - jsp		ê´€ë¦¬ì/ì‚¬ìš©ì
 
 
