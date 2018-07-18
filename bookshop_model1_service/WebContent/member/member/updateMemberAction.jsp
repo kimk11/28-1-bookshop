@@ -13,9 +13,6 @@
 <body>
 <%
 	request.setCharacterEncoding("utf8");
-	
-	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
-	System.out.println(memberNo +"<--memberNo");
 
 	MemberDTO memberDTO = new MemberDTO();
 	memberDTO.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
@@ -23,6 +20,7 @@
 	memberDTO.setMemberPw(request.getParameter("memberPw"));
 	memberDTO.setMemberName(request.getParameter("memberName"));
 	memberDTO.setMemberAddr(request.getParameter("memberAddr"));
+	System.out.println(request.getParameter("memberPw"));
 	
 	MemberService memberService = new MemberService();
 	memberService.updateMemberService(memberDTO);

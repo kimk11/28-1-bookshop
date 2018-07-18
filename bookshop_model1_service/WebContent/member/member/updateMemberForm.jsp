@@ -15,17 +15,17 @@
 	int memberNo = Integer.parseInt(request.getParameter("memberNo"));	
 	System.out.println("memberNo : " + memberNo);
 	MemberService memberService = new MemberService();
-	MemberDTO memberDTO = memberService.selectMemberForUpdate(memberNo);
+	MemberDTO memberDTO = memberService.selectOneMemberService(memberNo);
 
 %>
-	<form action = "<%=request.getContextPath()+ "/member/member/updateMemberAction.jsp" %> %>" method="post">
+	<form action = "<%=request.getContextPath()+ "/member/member/updateMemberAction.jsp" %>" method="post">
 		<input type="hidden" name = "memberNo" value="<%= memberNo %>">	
 		<label>아이디 : </label>
-		<input type ="text" name="memberId" value="<%= memberDTO.getMemberId() %>" size="7"><br>
+		<input type ="text" name="memberId" value="<%= memberDTO.getMemberId() %>" size="7" readonly="readonly"><br>
 		<label>비밀번호 : </label>
 		<input type ="password" name="memberPw" value="<%= memberDTO.getMemberPw() %>"  size="7"><br>
 		<label>이름 : </label>
-		<input type ="text" name="memberName" value="<%= memberDTO.getMemberName() %>"  size="7" ><br>
+		<input type ="text" name="memberName" value="<%= memberDTO.getMemberName() %>"  size="7" readonly="readonly"><br>
 		<label>주소 : </label>
 		<input type ="text" name="memberAddr" value="<%= memberDTO.getMemberAddr() %>"  size="30"><br>
 		<button type ="submit">수정</button>
