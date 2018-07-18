@@ -16,14 +16,14 @@
 	request.setCharacterEncoding("utf8");
 
 	//검색 조건 변수
-	String searchKey ="";
-	if(request.getParameter("searchKey")!=null){
-		searchKey=request.getParameter("searchKey");
+	String searchKey = request.getParameter("searchKey");
+	if(searchKey == null){
+		searchKey="";
 	}
 	//검색 단어 변수
-	String searchValue ="";
-	if(request.getParameter("searchValue")!=null){
-		searchKey=request.getParameter("searchValue");
+	String searchValue =request.getParameter("searchValue");
+	if(searchValue == null){
+		searchKey="";
 	}
 	
 	MemberService memberService = new MemberService();
