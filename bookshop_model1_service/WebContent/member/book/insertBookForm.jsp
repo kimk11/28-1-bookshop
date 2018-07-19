@@ -6,12 +6,10 @@
 <!DOCTYPE html>
 <%
 	// 카테고리 번호와 출판사 번호를 받아옴
-	
 	BookService bookService = new BookService();
 	BookArrayListJoinDTO bookArrayListJoinDTO = bookService.selectBookCodePublisherListService();
 	ArrayList<BookCodeDTO> bookCodeDTO = bookArrayListJoinDTO.getBookCodeList();
-	ArrayList<BookPublisherDTO> bookPublisherDTO = bookArrayListJoinDTO.getBookPublisherList();
-	
+	ArrayList<BookPublisherDTO> bookPublisherDTO = bookArrayListJoinDTO.getBookPublisherList();	
 %>
 <html>
 	<head>
@@ -24,6 +22,7 @@
 			<form action="<%= request.getContextPath() %>/member/book/insertBookAction.jsp" method="post">
 			<%
 				for(BookCodeDTO bookCode : bookCodeDTO) {
+					System.out.println(bookCode.getBookCodeNo() + "<- 번호값");
 			%>
 					<input type="radio" name="bookCodeNo" value="<%=bookCode.getBookCodeNo()%>"><%=bookCode.getBookCodeName()%>
 			<%	
@@ -31,6 +30,7 @@
 			%>
 			<%
 				for(BookPublisherDTO bookPublisher : bookPublisherDTO)	{
+					System.out.println(bookPublisher.getPublisherNo() + "<- 출판사값");
 			%>			
 					<input type="radio" name="bookPublisherNo" value="<%=bookPublisher.getPublisherNo()%>"><%=bookPublisher.getPubliserName()%>
 			<%
@@ -38,7 +38,7 @@
 			%>	
 				<div>
 					<label>책 이름</label>
-					<input type="text" name="bookName">
+					<input type="text" name="bookName" >
 				</div>
 				<div>
 					<label>저자</label>

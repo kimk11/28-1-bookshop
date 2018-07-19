@@ -2,22 +2,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="service.BookService"%>
 <%@ page import="dto.BookDTO" %>
+<%@ page import="dao.BookDAO" %>
 <!DOCTYPE html>
 <%
+	//글자 호환을 utf-8로 변경
+	request.setCharacterEncoding("utf-8");	
+
 	// insertBookForm에서 받아온 파라미터 값들 각각의 변수들에 값 복사
 	int bookCodeNo = Integer.parseInt(request.getParameter("bookCodeNo"));
-	int publisherNo = Integer.parseInt(request.getParameter("publisherNo"));
+	int bookpublisherNo = Integer.parseInt(request.getParameter("bookPublisherNo"));
 	String bookName = request.getParameter("bookName");
 	String bookAuthor = request.getParameter("bookAuthor");
 	int bookPrice = Integer.parseInt(request.getParameter("bookPrice"));
 	int bookAmount = Integer.parseInt(request.getParameter("bookAmount"));
 	String bookOut = request.getParameter("bookOut");
 	System.out.println(bookCodeNo + "<-- 카테고리넘버값");
-	System.out.println(bookCodeNo + "<-- 출판사넘버값");
+	System.out.println(bookpublisherNo + "<-- 출판사넘버값");
+	System.out.println(bookName + "<-- 책이름값");
+	System.out.println(bookAuthor + "<-- 저자값");
+	System.out.println(bookPrice + "<-- 값");
+	System.out.println(bookAmount + "<-- 수량값");
+	System.out.println(bookOut + "<-- ");
 	
 	BookDTO bookDTO = new BookDTO();
 	bookDTO.setBookNo(bookCodeNo);
-	bookDTO.setPublisherNo(publisherNo);
+	bookDTO.setPublisherNo(bookpublisherNo);
 	bookDTO.setBookName(bookName);
 	bookDTO.setBookAuthor(bookAuthor);
 	bookDTO.setBookPrice(bookPrice);
@@ -25,5 +34,6 @@
 	bookDTO.setBookOut(bookOut);
 	
 	BookService bookService = new BookService();
+	
 	bookService.insertBookService(bookDTO);
 %>
