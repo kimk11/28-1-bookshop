@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import dto.BookDTO;
+import dto.BookCodePublisherJoinDTO;
+import dto.BookCodeDTO;
+import dto.BookPublisherDTO;
 import jdbcObject.JdbcObject;
 import java.util.ArrayList;
 
@@ -77,22 +80,54 @@ public class BookDAO {
 		return check;
 	}
 	
-	// 책 리스트 메서드
-	public ArrayList<BookDTO> selectBookList() {
-		ArrayList<BookDTO> bookList = new ArrayList<BookDTO>();
+	// 책 리스트 + 검색 메서드
+	public ArrayList<BookCodePublisherJoinDTO> selectBookList(int currentPage, int pagePerRow, String searchKey, String searchValue ) { 
+																								// 검색키 , 검색값
+		ArrayList<BookCodePublisherJoinDTO> bookList = new ArrayList<BookCodePublisherJoinDTO>();
+		
+		int firstPage = (currentPage-1)*pagePerRow;
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "SELECT book_no, bookcode_no, publisher_no, book_name, book_author, book_price, book_point, book_amount, book_out, book_date FROM book ORDER BY book_no DESC ";
-			
-			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
-			
-			JdbcObject.setPreparedStatement(preparedStatement);
+			if(searchKey.equals("") && searchValue.equals("")) { // 검색키 없고 검색값 없을 때 리스트 출력
+				String sql1 = "SELECT a.book_no, a.bookcode_no, a.publisher_no, b.bookcode_name, c.publisher_name, a.book_name, a.book_author, a.book_price, a.book_point, a.book_amount, a.book_out, a.book_date FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no ORDER BY a.book_no DESC LIMIT ?, ?";
+				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql1);
+				JdbcObject.setPreparedStatement(preparedStatement);
+				
+				JdbcObject.getPreparedStatement().setInt(1, firstPage);
+				JdbcObject.getPreparedStatement().setInt(2, pagePerRow);
+				
+			} else if(searchKey.equals("") && !searchValue.equals("")) { // 검색키 없고 검색값 있을 때 책 이름으로 검색 후 리스트 출력
+				String sql2 = "SELECT a.book_no, a.bookcode_no, a.publisher_no, b.bookcode_name, c.publisher_name, a.book_name, a.book_author, a.book_price, a.book_point, a.book_amount, a.book_out, a.book_date FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no WHERE a.book_name LIKE ? ORDER BY a.book_no DESC LIMIT ?, ?";
+				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql2);
+				JdbcObject.setPreparedStatement(preparedStatement);
+				
+				JdbcObject.getPreparedStatement().setString(1, "%"+searchValue+"%");
+				JdbcObject.getPreparedStatement().setInt(2, firstPage);
+				JdbcObject.getPreparedStatement().setInt(3, pagePerRow);
+				
+			} else if(!searchKey.equals("") && !searchValue.equals("")) { // 검색키 있고 검색값 있을 때 그 값으로 리스트 출력
+				String sql3 = "SELECT a.book_no, a.bookcode_no, a.publisher_no, b.bookcode_name, c.publisher_name, a.book_name, a.book_author, a.book_price, a.book_point, a.book_amount, a.book_out, a.book_date FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no WHERE " + searchKey + " LIKE ? ORDER BY a.book_no DESC LIMIT ?, ?";
+				
+				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql3);
+				JdbcObject.setPreparedStatement(preparedStatement);
+				
+				JdbcObject.getPreparedStatement().setString(1, "%"+searchValue+"%");
+				JdbcObject.getPreparedStatement().setInt(2, firstPage);
+				JdbcObject.getPreparedStatement().setInt(3, pagePerRow);
+				
+			} else { // 그 외 상황 발생 시 리스트 출력
+				String sql1 = "SELECT a.book_no, a.bookcode_no, a.publisher_no, b.bookcode_name, c.publisher_name, a.book_name, a.book_author, a.book_price, a.book_point, a.book_amount, a.book_out, a.book_date FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no ORDER BY a.book_no DESC LIMIT ?, ?";
+				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql1);
+				JdbcObject.setPreparedStatement(preparedStatement);
+				
+				JdbcObject.getPreparedStatement().setInt(1, firstPage);
+				JdbcObject.getPreparedStatement().setInt(2, pagePerRow);
+			}
 			
 			JdbcObject.getPreparedStatement().executeQuery();
-			
 			while(JdbcObject.getResultSet().next()) {
 				BookDTO bookDTO = new BookDTO();
 				bookDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
@@ -105,7 +140,18 @@ public class BookDAO {
 				bookDTO.setBookAmount(JdbcObject.getResultSet().getInt("book_amount"));
 				bookDTO.setBookOut(JdbcObject.getResultSet().getString("book_out"));
 				bookDTO.setBookDate(JdbcObject.getResultSet().getString("book_date"));
-				bookList.add(bookDTO);
+				
+				BookCodeDTO bookCodeDTO = new BookCodeDTO();
+				bookCodeDTO.setBookCodeName(JdbcObject.getResultSet().getString("bookcode_name"));
+				
+				BookPublisherDTO bookPublisherDTO = new BookPublisherDTO();
+				bookPublisherDTO.setPubliserName(JdbcObject.getResultSet().getString("publisher_name"));
+				
+				BookCodePublisherJoinDTO bookCodePublisherJoinDTO = new BookCodePublisherJoinDTO();
+				bookCodePublisherJoinDTO.setBookDTO(bookDTO);
+				bookCodePublisherJoinDTO.setBookCodeDTO(bookCodeDTO);
+				bookCodePublisherJoinDTO.setBookPublisherDTO(bookPublisherDTO);
+				bookList.add(bookCodePublisherJoinDTO);
 			}
 						
 		} catch (Exception e) {
