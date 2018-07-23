@@ -80,9 +80,69 @@ public class BookDAO {
 		return check;
 	}
 	
-	// 책 리스트 + 검색 메서드
+	// book, bookcode, publisher 테이블을 조인해서 나타낸 책 리스트의 전체행을 구하는 페이징 메서드
+	public int paging(int pagePerRow, String searchKey, String searchValue) {
+		int totalRow = 0; // 모든 행 갯수의 변수
+		int lastPage = 0; // 마지막 페이지의 변수
+		
+		try {
+			Connection connection = JdbcObject.getConnetionInfo();
+			JdbcObject.setConnection(connection);
+			
+			if(searchKey.equals("") && searchValue.equals("")) { // 검색키 없고 검색값 없을 때 리스트 출력
+				String sql1 = "SELECT count(*) FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no";
+				// book, bookcode, publisher 테이블을 조인한 테이블 전체 행을 구하는 쿼리문
+				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql1);
+				JdbcObject.setPreparedStatement(preparedStatement);
+				
+			} else if(searchKey.equals("") && !searchValue.equals("")) { // 검색키 없고 검색값 있을 때 책 이름으로 검색 후 리스트 출력
+				String sql2 = "SELECT count(*) FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no WHERE a.book_name LIKE ?";
+				// book, bookcode, publisher 테이블을 조인한 테이블 전체 행을 구하고 책 이름 컬럼으로 검색값이 포함된 결과의 전체 행을 구하는 쿼리문
+				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql2);
+				JdbcObject.setPreparedStatement(preparedStatement);
+				
+				JdbcObject.getPreparedStatement().setString(1, "%"+searchValue+"%");
+
+			} else if(!searchKey.equals("") && !searchValue.equals("")) { // 검색키 있고 검색값 있을 때 그 값으로 리스트 출력
+				String sql3 = "SELECT count(*) FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no WHERE " + searchKey + " LIKE ?";
+				// book, bookcode, publisher 테이블을 조인한 테이블 전체 행을 구하고 검색키 이름의 컬럼으로 검색값이 포함된 결과의 전체행을 구하는 쿼리문
+				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql3);
+				JdbcObject.setPreparedStatement(preparedStatement);
+				
+				JdbcObject.getPreparedStatement().setString(1, "%"+searchValue+"%");
+				
+			} else {
+				String sql1 = "SELECT count(*) FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no";
+				// book, bookcode, publisher 테이블을 조인한 테이블 전체 행을 구하는 쿼리문
+				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql1);
+				JdbcObject.setPreparedStatement(preparedStatement);
+			}
+			
+			JdbcObject.getPreparedStatement().executeQuery();
+			
+			if(JdbcObject.getResultSet().next()) {
+				// 전체 행의 갯수를 totalRow에 대입한다
+				totalRow = JdbcObject.getResultSet().getInt("count(*)");
+			}
+			
+			if(totalRow % pagePerRow == 0){
+				lastPage = totalRow / pagePerRow;
+			} else {
+				lastPage = (totalRow / pagePerRow) + 1;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		System.out.println(lastPage +"<-- Paging 리턴값");
+			return lastPage;	
+	}
+	
+	
+	// book, bookcode, publisher 테이블을 조인해서 나타낸 책 리스트 + 검색포함
 	public ArrayList<BookCodePublisherJoinDTO> selectBookList(int currentPage, int pagePerRow, String searchKey, String searchValue) { 
-																								// 검색키 , 검색값
+		// String 검색키 , 검색값
+		// 리턴값 bookList --> 세개의 테이블을 조인하고 조회한 값들이 세팅 된 BookCodePublisherJoinDTO 객체의 객체참조변수들이 들어있는 ArrayList 객체의 객체참조변수
 		ArrayList<BookCodePublisherJoinDTO> bookList = new ArrayList<BookCodePublisherJoinDTO>();
 		
 		int firstPage = (currentPage-1)*pagePerRow;
@@ -93,6 +153,7 @@ public class BookDAO {
 			// 쿼리 실행 문장
 			if(searchKey.equals("") && searchValue.equals("")) { // 검색키 없고 검색값 없을 때 리스트 출력
 				String sql1 = "SELECT a.book_no, a.bookcode_no, a.publisher_no, b.bookcode_name, c.publisher_name, a.book_name, a.book_author, a.book_price, a.book_point, a.book_amount, a.book_out, a.book_date FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no ORDER BY a.book_no DESC LIMIT ?, ?";
+				// 검색키 검색값이 없으므로 book, bookcode, publisher 테이블을 조인해서 책 카테고리 이름과 퍼블리셔 이름을 불러온다.
 				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql1);
 				JdbcObject.setPreparedStatement(preparedStatement);
 				
@@ -101,6 +162,7 @@ public class BookDAO {
 				
 			} else if(searchKey.equals("") && !searchValue.equals("")) { // 검색키 없고 검색값 있을 때 책 이름으로 검색 후 리스트 출력
 				String sql2 = "SELECT a.book_no, a.bookcode_no, a.publisher_no, b.bookcode_name, c.publisher_name, a.book_name, a.book_author, a.book_price, a.book_point, a.book_amount, a.book_out, a.book_date FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no WHERE a.book_name LIKE ? ORDER BY a.book_no DESC LIMIT ?, ?";
+				// book, bookcode, publisher 테이블을 조인해서 책 카테고리 이름과 퍼블리셔 이름을 불러오고 검색키가 없으므로 책 이름 컬럼을 검색값이 포함된 문자를 검색한다.
 				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql2);
 				JdbcObject.setPreparedStatement(preparedStatement);
 				
@@ -110,7 +172,7 @@ public class BookDAO {
 				
 			} else if(!searchKey.equals("") && !searchValue.equals("")) { // 검색키 있고 검색값 있을 때 그 값으로 리스트 출력
 				String sql3 = "SELECT a.book_no, a.bookcode_no, a.publisher_no, b.bookcode_name, c.publisher_name, a.book_name, a.book_author, a.book_price, a.book_point, a.book_amount, a.book_out, a.book_date FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no WHERE " + searchKey + " LIKE ? ORDER BY a.book_no DESC LIMIT ?, ?";
-				
+				// book, bookcode, publisher 테이블을 조인해서 책 카테고리 이름과 퍼블리셔 이름을 불러오고 검색키와 검색값이 있으므로 검색키 이름의 컬럼으로 검색값이 포함된 문자를 검색한다.
 				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql3);
 				JdbcObject.setPreparedStatement(preparedStatement);
 				
@@ -120,6 +182,7 @@ public class BookDAO {
 				
 			} else { // 그 외 상황 발생 시 리스트 출력
 				String sql1 = "SELECT a.book_no, a.bookcode_no, a.publisher_no, b.bookcode_name, c.publisher_name, a.book_name, a.book_author, a.book_price, a.book_point, a.book_amount, a.book_out, a.book_date FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no ORDER BY a.book_no DESC LIMIT ?, ?";
+				// 검색키 검색값이 없으므로 book, bookcode, publisher 테이블을 조인해서 책 카테고리 이름과 퍼블리셔 이름을 불러온다.
 				PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql1);
 				JdbcObject.setPreparedStatement(preparedStatement);
 				
@@ -129,7 +192,7 @@ public class BookDAO {
 			
 			JdbcObject.getPreparedStatement().executeQuery();
 			while(JdbcObject.getResultSet().next()) {
-				BookDTO bookDTO = new BookDTO();
+				BookDTO bookDTO = new BookDTO(); // BookDTO 책DTO
 				bookDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
 				bookDTO.setBookcodeNo(JdbcObject.getResultSet().getInt("bookcode_no"));
 				bookDTO.setPublisherNo(JdbcObject.getResultSet().getInt("publisher_no"));
@@ -141,16 +204,17 @@ public class BookDAO {
 				bookDTO.setBookOut(JdbcObject.getResultSet().getString("book_out"));
 				bookDTO.setBookDate(JdbcObject.getResultSet().getString("book_date"));
 				
-				BookCodeDTO bookCodeDTO = new BookCodeDTO();
+				BookCodeDTO bookCodeDTO = new BookCodeDTO(); // BookCodeDTO 책 코드DTO
 				bookCodeDTO.setBookCodeName(JdbcObject.getResultSet().getString("bookcode_name"));
 				
-				BookPublisherDTO bookPublisherDTO = new BookPublisherDTO();
+				BookPublisherDTO bookPublisherDTO = new BookPublisherDTO(); // BookPublisherDTO 책 퍼블리셔DTO
 				bookPublisherDTO.setPubliserName(JdbcObject.getResultSet().getString("publisher_name"));
 				
-				BookCodePublisherJoinDTO bookCodePublisherJoinDTO = new BookCodePublisherJoinDTO();
+				BookCodePublisherJoinDTO bookCodePublisherJoinDTO = new BookCodePublisherJoinDTO(); // BookCodePulisherJoinDTO 책 책코드 책퍼블리셔 조인DTO
 				bookCodePublisherJoinDTO.setBookDTO(bookDTO);
 				bookCodePublisherJoinDTO.setBookCodeDTO(bookCodeDTO);
 				bookCodePublisherJoinDTO.setBookPublisherDTO(bookPublisherDTO);
+				
 				bookList.add(bookCodePublisherJoinDTO);
 			}
 						
