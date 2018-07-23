@@ -1,7 +1,8 @@
 <!-- 07.18 송원민 / 책 정보 수정 화면 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="service.BookService" %>
-<%@ page import="dto.BookDTO" %>
+<%@ page import="dto.*" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <%
 	//selectBookList.jsp 에서 받아온 책 번호(bookNo) 값
@@ -9,8 +10,11 @@
 	
 	//책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
-	BookDTO bookDTO = new BookDTO();
-	int check = bookService.selectDetailBookService(bookNo);
+	BookDTO selectDetailBookServicebookDTO = bookService.selectDetailBookService(bookNo);
+	BookArrayListJoinDTO bookArrayListJoinDTO = bookService.selectBookCodePublisherListService();
+	ArrayList<BookCodeDTO> bookCodeDTO = bookArrayListJoinDTO.getBookCodeList();
+	ArrayList<BookPublisherDTO> bookPublisherDTO = bookArrayListJoinDTO.getBookPublisherList();
+	
 %>
 <html>
 	<head>
@@ -21,31 +25,46 @@
 	<body>
 		<div>
 			<form action="<%= request.getContextPath() %>/member/book/updateBookAction.jsp" method="post">
+				카테고리번호<br>
+			<%
+				for(BookCodeDTO bookCode : bookCodeDTO) {
+					System.out.println(bookCode.getBookCodeNo() + "<- 번호값");
+			%>
+					<input type="radio" name="bookCodeNo" value="<%=bookCode.getBookCodeNo()%>"><%=bookCode.getBookCodeName()%>
+			<%	
+				}
+			%>
+				<br>출판사번호<br>
+			<%
+				for(BookPublisherDTO bookPublisher : bookPublisherDTO)	{
+					System.out.println(bookPublisher.getPublisherNo() + "<- 출판사값");
+			%>			
+					<input type="radio" name="bookPublisherNo" value="<%=bookPublisher.getPublisherNo()%>"><%=bookPublisher.getPubliserName()%>
+			<%
+				}
+			%>	
+			
 			<%
 				// bookService 에서 값을 받아오는데 실패 => 리턴값 0 , 성공 => 리턴값 1
 				// 성공할 경우 화면에 수정화면을 표시
-				if(check == 1) {
+				if(selectDetailBookServicebookDTO != null) {
 			%>
 					<div>
 						<label>책이름</label>
-						<input type="text" name="bookName" value="<%=bookDTO.getBookName()%>">
+						<input type="text" name="bookName" value="<%=selectDetailBookServicebookDTO.getBookName()%>">
 					</div>
 					<div>
 						<label>저자</label>
-						<input type="text" name="bookAuthor" value="<%=bookDTO.getBookAuthor()%>">
+						<input type="text" name="bookAuthor" value="<%=selectDetailBookServicebookDTO.getBookAuthor()%>">
 					</div>
 					<div>
 						<label>가격</label>
-						<input type="text" name="bookPrice" value="<%=bookDTO.getBookPrice()%>">원
-					</div>
-					<div>
-						<label>포인트</label>
-						<input type="text" name="bookPoint" value="<%=bookDTO.getBookPoint()%>">
+						<input type="text" name="bookPrice" value="<%=selectDetailBookServicebookDTO.getBookPrice()%>">원
 					</div>
 					<div>
 						<label>책 수량</label>
-						<input type="text" name="bookAmount" value="<%=bookDTO.getBookAmount()%>">
-						<input type="hidden" name="bookOut" value="<%=bookDTO.getBookOut()%>">
+						<input type="text" name="bookAmount" value="<%=selectDetailBookServicebookDTO.getBookAmount()%>">
+						<input type="hidden" name="bookOut" value="<%=selectDetailBookServicebookDTO.getBookOut()%>">
 						<input type="submit" value="입력">
 					</div>
 			<%		
