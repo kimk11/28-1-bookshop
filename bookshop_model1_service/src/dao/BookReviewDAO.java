@@ -60,11 +60,7 @@ public class BookReviewDAO {
 			
 			JdbcObject.getPreparedStatement().setInt(1, bookReviewNo); // bookintro_no
 		
-			JdbcObject.getPreparedStatement().executeUpdate();
-			// 쿼리 처리 성공 1 , 실패 0
-			if(JdbcObject.getResultSet().next()) {
-				check = 1;
-			}
+			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -125,10 +121,7 @@ public class BookReviewDAO {
 			
 			JdbcObject.getPreparedStatement().setString(1, bookReviewDTO.getBookReviewContent());
 			
-			// 쿼리 처리 성공 1 , 실패 0
-			if(JdbcObject.getResultSet().next()) {
-				check = 1;
-			}
+			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
 		} catch (Exception e) {
 			// TODO: handle exception

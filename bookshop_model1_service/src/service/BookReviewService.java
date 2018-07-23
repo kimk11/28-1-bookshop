@@ -40,14 +40,13 @@ public class BookReviewService {
 	}
 	
 	//책 하나의 리뷰정보를 검색하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
-	public BookReviewDTO selectBookReviewService(int bookNo) {
-		//리턴결과값을 담을 변수
-		BookReviewDTO bookReviewDTO = null;
+	public BookReviewDTO selectBookReviewService(BookReviewDTO bookReviewDTO) {
 		
 		try {
 			BookReviewDAO bookReviewDAO = new BookReviewDAO();
 			//책을 식별하기위해 bookNo를 매개변수로 책 리뷰 정보를 검색하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
-			bookReviewDTO = bookReviewDAO.selectBookReview(bookNo);
+			bookReviewDTO = bookReviewDAO.selectBookReview(bookReviewDTO.getBookNo());
+			bookReviewDTO = bookReviewDAO.selectBookReview(bookReviewDTO.getMemberNo());
 			
 			if(null == bookReviewDTO) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영

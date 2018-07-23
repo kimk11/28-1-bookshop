@@ -58,11 +58,7 @@ public class BookIntroDAO {
 			
 			JdbcObject.getPreparedStatement().setInt(1, bookIntroNo); // bookintro_no
 		
-			JdbcObject.getPreparedStatement().executeUpdate();
-			// 쿼리 처리 성공 1 , 실패 0
-			if(JdbcObject.getResultSet().next()) {
-				check = 1;
-			}
+			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -124,10 +120,7 @@ public class BookIntroDAO {
 			JdbcObject.getPreparedStatement().setString(1, bookIntroDTO.getBookIntroContent());
 			JdbcObject.getPreparedStatement().setString(2, bookIntroDTO.getBookIntroWriter());
 			
-			// 쿼리 처리 성공 1 , 실패 0
-			if(JdbcObject.getResultSet().next()) {
-				check = 1;
-			}
+			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
