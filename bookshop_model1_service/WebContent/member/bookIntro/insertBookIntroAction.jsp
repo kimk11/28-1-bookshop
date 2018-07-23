@@ -21,5 +21,10 @@
 	BookIntroService bookIntroService = new BookIntroService();
 	int insertBookIntroServiceCheck = bookIntroService.insertBookIntroService(bookIntroDTO);
 	
-	
+	if(insertBookIntroServiceCheck == 1) {
+		response.sendRedirect(request.getContextPath() + "/member/bookIntro/selectBookIntroList.jsp");
+	} else {
+%>
+<%		
+	}
 %>

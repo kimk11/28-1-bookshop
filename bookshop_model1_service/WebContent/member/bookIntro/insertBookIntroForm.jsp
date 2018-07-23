@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<h3>책의 줄거리</h3><br>
-		<form action="<%=request.getContextPath()%>/member/book/insertBookIntroAction.jsp" method="post">
+		<form action="<%=request.getContextPath()%>/member/bookIntro/insertBookIntroAction.jsp" method="post">
 			<input type="hidden" name="bookNo" value="<%=bookNo %>">
 			<textarea name="bookIntroContent" cols="100" rows="20"></textarea><br>
 			작성자 : <input type="text" name="introWriter">
