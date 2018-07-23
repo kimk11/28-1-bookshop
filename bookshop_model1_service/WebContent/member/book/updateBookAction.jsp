@@ -8,6 +8,7 @@
 	request.setCharacterEncoding("utf-8");
 	
 	// updateBookForm.jsp에서 받아온 파라미터 값들
+	int bookNo = Integer.parseInt(request.getParameter("bookNo"));
 	int bookCodeNo = Integer.parseInt(request.getParameter("bookCodeNo"));
 	int bookPublisherNo = Integer.parseInt(request.getParameter("bookPublisherNo"));
 	String bookName = request.getParameter("bookName");
@@ -15,7 +16,7 @@
 	int bookPrice = Integer.parseInt(request.getParameter("bookPrice"));
 	int bookAmount = Integer.parseInt(request.getParameter("bookAmount"));
 	String bookOut = request.getParameter("bookOut");
-	
+	System.out.println(bookCodeNo + "<-책번호");
 	System.out.println(bookCodeNo + "<-카테고리번호");
 	System.out.println(bookPublisherNo + "<-출판사번호");
 	System.out.println(bookName + "<-책이름");
@@ -28,6 +29,7 @@
 	
 	// 새로운 객체를 생성하여 파라미터에 값들을 셋팅
 	BookDTO bookDTO = new BookDTO();
+	bookDTO.setBookNo(bookNo);
 	bookDTO.setBookcodeNo(bookCodeNo);
 	bookDTO.setPublisherNo(bookPublisherNo);
 	bookDTO.setBookName(bookName);

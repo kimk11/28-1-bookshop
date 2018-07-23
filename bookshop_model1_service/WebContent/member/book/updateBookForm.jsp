@@ -50,6 +50,10 @@
 				if(selectDetailBookServicebookDTO != null) {
 			%>
 					<div>
+						<label>책번호</label>
+						<input type="text" name="bookNo" value="<%=selectDetailBookServicebookDTO.getBookNo()%>" readonly>
+					</div>
+					<div>
 						<label>책이름</label>
 						<input type="text" name="bookName" value="<%=selectDetailBookServicebookDTO.getBookName()%>">
 					</div>

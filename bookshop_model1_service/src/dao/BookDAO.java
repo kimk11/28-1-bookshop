@@ -215,13 +215,19 @@ public class BookDAO {
 			JdbcObject.getPreparedStatement().setString(8, bookDTO.getBookOut()); // book_out
 			JdbcObject.getPreparedStatement().setInt(9, bookDTO.getBookNo()); // book_no
 			
-			check = JdbcObject.getPreparedStatement().executeUpdate();
+			JdbcObject.getPreparedStatement().executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
+			//모든 처리가 완료되면 check값을 1로 변경
+			check = 1;
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(check +"<-- updateBook 리턴값");
+		
+		System.out.println(check+"<-- updateBook 리턴값");
+		//리턴값이 0=실패, 1=성공
 		return check;
 	}
 	

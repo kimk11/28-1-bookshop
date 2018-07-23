@@ -120,13 +120,19 @@ public class BookIntroDAO {
 			JdbcObject.getPreparedStatement().setString(1, bookIntroDTO.getBookIntroContent());
 			JdbcObject.getPreparedStatement().setString(2, bookIntroDTO.getBookIntroWriter());
 			
-			check = JdbcObject.getPreparedStatement().executeUpdate();
+			JdbcObject.getPreparedStatement().executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
+			//모든 처리가 완료되면 check값을 1로 변경
+			check = 1;
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(check +"<-- updateBookIntro 리턴값");
+		
+		System.out.println(check+"<-- updateBook 리턴값");
+		//리턴값이 0=실패, 1=성공
 		return check;
 	}
 	
