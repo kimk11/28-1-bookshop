@@ -5,7 +5,7 @@
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <%
-	// 카테고리 번호와 출판사 번호를 받아옴
+	//카테고리번호와 출판사 번호를 조회하기위한 배열객체 생성
 	BookService bookService = new BookService();
 	BookArrayListJoinDTO bookArrayListJoinDTO = bookService.selectBookCodePublisherListService();
 	ArrayList<BookCodeDTO> bookCodeDTO = bookArrayListJoinDTO.getBookCodeList();
@@ -14,12 +14,13 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>책 정보 입력 화면</title>
 	</head>
 
 	<body>
 		<div>
 			<form action="<%= request.getContextPath() %>/member/book/insertBookAction.jsp" method="post">
+				카테고리번호<br>
 			<%
 				for(BookCodeDTO bookCode : bookCodeDTO) {
 					System.out.println(bookCode.getBookCodeNo() + "<- 번호값");
@@ -28,6 +29,7 @@
 			<%	
 				}
 			%>
+				<br>출판사번호<br>
 			<%
 				for(BookPublisherDTO bookPublisher : bookPublisherDTO)	{
 					System.out.println(bookPublisher.getPublisherNo() + "<- 출판사값");
@@ -47,16 +49,6 @@
 				<div>
 					<label>가격</label>
 					<input type="text" name="bookPrice">
-				</div>
-				<div>
-					<label>포인트적립</label>
-					<select>
-						<option value="point">100</option>
-						<option value="point">90</option>
-						<option value="point">80</option>
-						<option value="point">70</option>
-						<option value="point">60</option>
-					</select>
 				</div>
 				<div>
 					<label>책 수량</label>

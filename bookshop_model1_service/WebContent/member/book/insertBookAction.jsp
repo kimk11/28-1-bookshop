@@ -13,27 +13,32 @@
 	int bookpublisherNo = Integer.parseInt(request.getParameter("bookPublisherNo"));
 	String bookName = request.getParameter("bookName");
 	String bookAuthor = request.getParameter("bookAuthor");
+	int bookPoint = Integer.parseInt(request.getParameter("bookPoint"));
 	int bookPrice = Integer.parseInt(request.getParameter("bookPrice"));
 	int bookAmount = Integer.parseInt(request.getParameter("bookAmount"));
 	String bookOut = request.getParameter("bookOut");
+	String bookDate = null;
+	
 	System.out.println(bookCodeNo + "<-- 카테고리넘버값");
 	System.out.println(bookpublisherNo + "<-- 출판사넘버값");
 	System.out.println(bookName + "<-- 책이름값");
 	System.out.println(bookAuthor + "<-- 저자값");
-	System.out.println(bookPrice + "<-- 값");
+	System.out.println(bookPoint + "<-- 포인트값");
+	System.out.println(bookPrice + "<-- 가격");
 	System.out.println(bookAmount + "<-- 수량값");
-	System.out.println(bookOut + "<-- ");
+	System.out.println(bookOut + "<-- 등록일");
 	
 	BookDTO bookDTO = new BookDTO();
-	bookDTO.setBookNo(bookCodeNo);
+	bookDTO.setBookcodeNo(bookCodeNo);
 	bookDTO.setPublisherNo(bookpublisherNo);
 	bookDTO.setBookName(bookName);
 	bookDTO.setBookAuthor(bookAuthor);
 	bookDTO.setBookPrice(bookPrice);
+	bookDTO.setBookPoint(bookPoint);
 	bookDTO.setBookAmount(bookAmount);
 	bookDTO.setBookOut(bookOut);
+	bookDTO.setBookDate(bookDate);
 	
 	BookService bookService = new BookService();
-	
 	bookService.insertBookService(bookDTO);
 %>
