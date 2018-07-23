@@ -16,7 +16,7 @@
 	int bookPrice = Integer.parseInt(request.getParameter("bookPrice"));
 	int bookAmount = Integer.parseInt(request.getParameter("bookAmount"));
 	String bookOut = request.getParameter("bookOut");
-	System.out.println(bookCodeNo + "<-책번호");
+	System.out.println(bookNo + "<-책번호");
 	System.out.println(bookCodeNo + "<-카테고리번호");
 	System.out.println(bookPublisherNo + "<-출판사번호");
 	System.out.println(bookName + "<-책이름");
