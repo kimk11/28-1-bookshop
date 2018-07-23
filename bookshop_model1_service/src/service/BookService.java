@@ -108,11 +108,14 @@ public class BookService {
 	//책 정보를 리스트을 처리하는 Service메서드(매개변수로 현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)
 	public ArrayList<BookCodePublisherJoinDTO> selectSearchBookListService(int currentPage, int pagePerRow, String searchKey, String searchValue) {
 		BookDAO bookDAO = new BookDAO();
-		//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
-		//출판사와 카테고리와 책 정보들의 값이 들어간 객체의 주소값을 저장한 배열객체의 주소값을 리턴값으로 받는다.
-		ArrayList<BookCodePublisherJoinDTO> bookList = bookDAO.selectBookList(currentPage, pagePerRow, searchKey, searchValue);
+		ArrayList<BookCodePublisherJoinDTO> bookList = null;
+		
 		
 		try {
+			//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
+			//출판사와 카테고리와 책 정보들의 값이 들어간 객체의 주소값을 저장한 배열객체의 주소값을 리턴값으로 받는다.
+			bookList = bookDAO.selectBookList(currentPage, pagePerRow, searchKey, searchValue);
+			
 			if(null != bookList) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 검색 결과를 커밋
 				JdbcObject.getConnection().commit();

@@ -38,9 +38,12 @@
 	}
 	
 	BookService bookService = new BookService();
+	//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
+	//출판사와 카테고리와 책 정보들의 값이 들어간 객체의 주소값을 저장한 배열객체의 주소값을 리턴값으로 받는다.
 	ArrayList<BookCodePublisherJoinDTO> bookList = bookService.selectSearchBookListService(currentPage, pagePerRow, searchKey, searchValue);
 	
-	int lastPage = bookService.pagingService(pagePerRow, searchKey, searchValue); //페이징 작업 후 마지막 페이지값을 리턴
+	//페이징 작업 후 마지막 페이지값을 리턴
+	int lastPage = bookService.pagingService(pagePerRow, searchKey, searchValue);
 %>
 <html>
 	<head>
@@ -86,7 +89,14 @@
 			%>
 		</table><br>
 		<form action="<%=request.getContextPath() %>/book/selectBookList.jsp" method="post">
-			<div><input type="text" name="nameKeyword"> &nbsp; <input type="submit" value="이름검색"></div> <!-- 검색입력폼 -->
+			<div>
+				<select name="searchKey">
+    				<option value="">선택</option>
+    				<option value="book_name">이름</option>
+    				<option value="book_author">저자</option>
+				</select>
+			</div>
+			<div><input type="text" name="searchValue" value=""> &nbsp; <input type="submit" value="이름검색"></div> <!-- 검색입력폼 -->
 		</form>
 		<div>
 		<%
