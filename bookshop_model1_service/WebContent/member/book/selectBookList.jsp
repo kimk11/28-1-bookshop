@@ -68,6 +68,7 @@
 				<th>출판일</th>
 				<th>수정</th>
 				<th>삭제</th>
+				<th>책소개(테스트)</th>
 			</tr>
 			<%
 				for(BookCodePublisherJoinDTO bookJoin : bookList){
@@ -85,6 +86,7 @@
 				<td><%=bookJoin.getBookDTO().getBookDate() %></td>
 				<td><a href="<%=request.getContextPath() %>/member/book/updateBookForm.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">수정</a></td>
 				<td><a href="<%=request.getContextPath() %>/member/book/deleteBookAction.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">삭제</a></td>
+				<td><a href="<%=request.getContextPath() %>/member/bookIntro/insertBookIntroForm.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">책소개(임시)</a></td>
 			</tr>
 			<%
 				}
