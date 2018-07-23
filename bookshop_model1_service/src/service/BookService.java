@@ -172,19 +172,18 @@ public class BookService {
 	}
 	
 	//책 상세정보의 내용을 처리하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
-	public int selectDetailBookService(int bookNo) {
+	public BookDTO selectDetailBookService(int bookNo) {
 		//리턴값을 담을 변수
-		int check = 0;
+		BookDTO detailBook = null;
 		
 		try {
 			BookDAO bookDAO = new BookDAO();
 			//책을 식별하기위해 bookNo를 매개변수로 책 정보를 검색하는 메서드 호출, 리턴값으로 책의 정보가 저장된 객체의 참조값을 리턴받는다.
-			BookDTO detailBook = bookDAO.selectBook(bookNo);
+			detailBook = bookDAO.selectBook(bookNo);
 			
 			if(null != detailBook) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 검색 결과를 커밋
 				JdbcObject.getConnection().commit();
-				check=1;
 			} else {
 				//Connection 수행 중 예기치 않은 에러가 발생하였다면 모든 과정을 취소하고 DB를 Connection이 수행되기 이전상태로 변경
 				JdbcUtil.rollback(JdbcObject.getConnection());
@@ -199,9 +198,9 @@ public class BookService {
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
 		
-		System.out.println(check+"<--selectDetailBookService 메서드 처리 성공 여부");
-		//리턴값이 0=실패, 1=성공
-		return check;
+		System.out.println(detailBook+"<--selectDetailBookService 메서드 처리 성공 여부");
+		//리턴값은 책 정보가 저장된 객체의 주소값
+		return detailBook;
 	}
 	
 	//책 정보 수정을 처리하는 Service메서드(책 정보들이 저장되어있는 객체의 참조값을 매개변수로 받음) 

@@ -66,7 +66,7 @@ public class BookIntroService {
 			JdbcUtil.close(JdbcObject.getPreparedStatement());
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
-		System.out.println(bookintroDTO+"<--insertBookIntroService 메서드 처리 성공 여부");
+		System.out.println(bookintroDTO+"<--selectBookIntroService 메서드 처리 성공 여부");
 		//책소개정보들이 저장된 객체의 주소값
 		return bookintroDTO;
 	}
@@ -97,7 +97,7 @@ public class BookIntroService {
 			JdbcUtil.close(JdbcObject.getPreparedStatement());
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
-		System.out.println(bookIntroList+"<--insertBookIntroService 메서드 처리 성공 여부");
+		System.out.println(bookIntroList+"<--selectBookIntroListService 메서드 처리 성공 여부");
 		//리턴값은 책소개정보들이 저장된 배열객체의 주소값
 		return bookIntroList;
 	}
@@ -110,7 +110,7 @@ public class BookIntroService {
 		try {
 			BookIntroDAO bookIntroDAO = new BookIntroDAO();
 			//책 소개정보가 담겨있는 객체의 참조값을 매개변수로 책 소개 정보를 db에 수정하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
-			check = bookIntroDAO.insertBookIntro(bookIntroDTO);
+			check = bookIntroDAO.updateBookIntro(bookIntroDTO);
 			
 			if(1 == check) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
@@ -129,7 +129,7 @@ public class BookIntroService {
 			JdbcUtil.close(JdbcObject.getPreparedStatement());
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
-		System.out.println(check+"<--insertBookIntroService 메서드 처리 성공 여부");
+		System.out.println(check+"<--updateBookIntroService 메서드 처리 성공 여부");
 		//리턴값이 0=실패, 1=성공
 		return check;
 	}
@@ -161,7 +161,7 @@ public class BookIntroService {
 			JdbcUtil.close(JdbcObject.getPreparedStatement());
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
-		System.out.println(check+"<--insertBookIntroService 메서드 처리 성공 여부");
+		System.out.println(check+"<--deleteBookIntroService 메서드 처리 성공 여부");
 		//리턴값이 0=실패, 1=성공
 		return check;
 	}
