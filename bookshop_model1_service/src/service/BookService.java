@@ -21,6 +21,16 @@ public class BookService {
 		int check = 0;
 		
 		try {
+			//책 마일리지 포인트 계산
+			//책 가격값
+			double bookPrice = (double)bookDTO.getBookPrice();
+			System.out.println(bookPrice+"책 가격값");
+			
+			//마일리지 포인트 변수
+			int bookPoint = (int)(bookPrice * ((double)5 / (double)100));
+			System.out.println(bookPoint+"마일리지 값");
+			bookDTO.setBookPoint(bookPoint);
+			
 			BookDAO bookDAO = new BookDAO();
 			//책 정보가 담겨있는 객체의 참조값을 매개변수로 책 정보를 db에 저장하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
 			check = bookDAO.insertBook(bookDTO);
@@ -96,21 +106,16 @@ public class BookService {
 	}
 	
 	//책 정보를 리스트을 처리하는 Service메서드(매개변수로 현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)
-	public int selectSearchBookListService(int currentPage, int pagePerRow, String searchKey, String searchValue) {
-		//리턴값을 담을 변수
-		int check = 0;
+	public ArrayList<BookCodePublisherJoinDTO> selectSearchBookListService(int currentPage, int pagePerRow, String searchKey, String searchValue) {
+		BookDAO bookDAO = new BookDAO();
+		//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
+		//출판사와 카테고리와 책 정보들의 값이 들어간 객체의 주소값을 저장한 배열객체의 주소값을 리턴값으로 받는다.
+		ArrayList<BookCodePublisherJoinDTO> bookList = bookDAO.selectBookList(currentPage, pagePerRow, searchKey, searchValue);
 		
 		try {
-			BookDAO bookDAO = new BookDAO();
-			//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
-			//출판사와 카테고리와 책 정보들의 값이 들어간 객체의 주소값을 저장한 배열객체의 주소값을 리턴값으로 받는다.
-			ArrayList<BookCodePublisherJoinDTO> bookList = bookDAO.selectBookList(currentPage, pagePerRow, searchKey, searchValue);
-			
-			
 			if(null != bookList) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 검색 결과를 커밋
 				JdbcObject.getConnection().commit();
-				check=1;
 			} else {
 				//Connection 수행 중 예기치 않은 에러가 발생하였다면 모든 과정을 취소하고 DB를 Connection이 수행되기 이전상태로 변경
 				JdbcUtil.rollback(JdbcObject.getConnection());
@@ -125,9 +130,9 @@ public class BookService {
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
 		
-		System.out.println(check+"<--selectSearchBookListService 메서드 처리 성공 여부");
-		//리턴값이 0=실패, 1=성공
-		return check;
+		System.out.println(bookList+"<--selectSearchBookListService 메서드 처리 성공 여부");
+		//리턴값은 배열객체들이 저장된 객체
+		return bookList;
 	}
 	
 	//책 상세정보의 내용을 처리하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
