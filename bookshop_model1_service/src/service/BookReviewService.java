@@ -35,7 +35,7 @@ public class BookReviewService {
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
 		System.out.println(check+"<--insertBookReviewService 메서드 처리 성공 여부");
-		//리턴값이 0=실패, 1=성공
+		// 리턴값이 0=실패, 1=성공
 		return check;
 	}
 	
