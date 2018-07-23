@@ -87,7 +87,7 @@ public class BookIntroDAO {
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
-			JdbcObject.getPreparedStatement().executeQuery();
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			while(JdbcObject.getResultSet().next()) {
 				BookIntroDTO bookintroDTO = new BookIntroDTO();
@@ -154,7 +154,7 @@ public class BookIntroDAO {
 			
 			JdbcObject.getPreparedStatement().setInt(1, bookIntroNo);
 			
-			JdbcObject.getPreparedStatement().executeQuery();
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			if(JdbcObject.getResultSet().next()) {
 				

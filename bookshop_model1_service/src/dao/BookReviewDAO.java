@@ -89,7 +89,7 @@ public class BookReviewDAO {
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
-			JdbcObject.getPreparedStatement().executeQuery();
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			while(JdbcObject.getResultSet().next()) {
 				BookReviewDTO bookReviewDTO = new BookReviewDTO();
@@ -155,7 +155,7 @@ public class BookReviewDAO {
 			
 			JdbcObject.getPreparedStatement().setInt(1, bookReviewNo);
 			
-			JdbcObject.getPreparedStatement().executeQuery();
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			if(JdbcObject.getResultSet().next()) {
 

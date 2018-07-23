@@ -247,7 +247,7 @@ public class BookDAO {
 			
 			JdbcObject.getPreparedStatement().setInt(1, bookNo);
 			
-			JdbcObject.getPreparedStatement().executeQuery();
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			if(JdbcObject.getResultSet().next()) {
 				
