@@ -38,9 +38,14 @@
 	}
 	
 	BookService bookService = new BookService();
+	//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
+	//출판사와 카테고리와 책 정보들의 값이 들어간 객체의 주소값을 저장한 배열객체의 주소값을 리턴값으로 받는다.
 	ArrayList<BookCodePublisherJoinDTO> bookList = bookService.selectSearchBookListService(currentPage, pagePerRow, searchKey, searchValue);
 	
-	int lastPage = bookService.pagingService(pagePerRow, searchKey, searchValue); //페이징 작업 후 마지막 페이지값을 리턴
+	//페이징 작업 후 마지막 페이지값을 리턴
+	int lastPage = bookService.pagingService(pagePerRow, searchKey, searchValue);
+	
+	
 %>
 <html>
 	<head>
@@ -70,7 +75,7 @@
 			<tr>
 				<td><%=bookJoin.getBookDTO().getBookNo() %></td>
 				<td><%=bookJoin.getBookCodeDTO().getBookCodeName() %></td>
-				<td><%=bookJoin.getBookDTO().getBookName() %></td>
+				<td><a href="<%=request.getContextPath() %>/member/book/selectBook.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>"><%=bookJoin.getBookDTO().getBookName() %></a></td>
 				<td><%=bookJoin.getBookDTO().getBookAuthor() %></td>
 				<td><%=bookJoin.getBookPublisherDTO().getPubliserName() %></td>
 				<td><%=bookJoin.getBookDTO().getBookPrice() %></td>
@@ -78,15 +83,22 @@
 				<td><%=bookJoin.getBookDTO().getBookAmount() %></td>
 				<td><%=bookJoin.getBookDTO().getBookOut() %></td>
 				<td><%=bookJoin.getBookDTO().getBookDate() %></td>
-				<td><a href="#"></a>수정</td>
-				<td><a href="#"></a>삭제</td>
+				<td><a href="<%=request.getContextPath() %>/member/book/updateBookForm.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">수정</a></td>
+				<td><a href="<%=request.getContextPath() %>/member/book/deleteBookAction.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">삭제</a></td>
 			</tr>
 			<%
 				}
 			%>
 		</table><br>
-		<form action="<%=request.getContextPath() %>/book/selectBookList.jsp" method="post">
-			<div><input type="text" name="nameKeyword"> &nbsp; <input type="submit" value="이름검색"></div> <!-- 검색입력폼 -->
+		<form action="<%=request.getContextPath() %>/member/book/selectBookList.jsp" method="post">
+			<div>
+				<select name="searchKey">
+    				<option value="">직업선택</option>
+    				<option value="book_name">책 이름</option>
+   					 <option value="book_author">저자</option>
+				</select>
+				<input type="text" name="searchValue"> &nbsp; <input type="submit" value="검색">
+			</div> <!-- 검색입력폼 -->
 		</form>
 		<div>
 		<%

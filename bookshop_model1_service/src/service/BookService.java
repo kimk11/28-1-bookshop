@@ -110,7 +110,6 @@ public class BookService {
 		BookDAO bookDAO = new BookDAO();
 		ArrayList<BookCodePublisherJoinDTO> bookList = null;
 		
-		
 		try {
 			//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
 			//출판사와 카테고리와 책 정보들의 값이 들어간 객체의 주소값을 저장한 배열객체의 주소값을 리턴값으로 받는다.
@@ -267,53 +266,6 @@ public class BookService {
 		}
 		
 		System.out.println(check+"<--deleteBookService 메서드 처리 성공 여부");
-		//리턴값이 0=실패, 1=성공
-		return check;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//책 소개 입력을 처리하는 Service메서드(책 소개 정보들이 저장되어있는 객체의 참조값을 매개변수로 받음)
-	public int insertBookIntroService(BookIntroDTO bookIntroDTO) {
-		//리턴결과값을 담을 변수
-		int check = 0;
-		
-		try {
-			BookIntroDAO bookIntroDAO = new BookIntroDAO();
-			//책 소개 정보가 담겨있는 객체의 참조값을 매개변수로 책 소개 정보를 db에 저장하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
-			check = bookIntroDAO.insertBookIntro(bookIntroDTO);
-			
-			if(1 == check) {
-				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
-				JdbcObject.getConnection().commit();
-				check=1;
-			}else {
-				//Connection 수행 중 예기치 않은 에러가 발생하였다면 모든 과정을 취소하고 DB를 Connection이 수행되기 이전상태로 변경
-				JdbcUtil.rollback(JdbcObject.getConnection());
-			}
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-			JdbcUtil.rollback(JdbcObject.getConnection());
-		} finally {
-			JdbcUtil.close(JdbcObject.getResultSet());
-			JdbcUtil.close(JdbcObject.getPreparedStatement());
-			JdbcUtil.close(JdbcObject.getConnection());
-		}
-		System.out.println(check+"<--insertBookIntroService 메서드 처리 성공 여부");
 		//리턴값이 0=실패, 1=성공
 		return check;
 	}
