@@ -135,6 +135,40 @@ public class BookService {
 		return bookList;
 	}
 	
+	//리스트 페이지에서 페이징 작업을 처리하는 Service메서드(매개변수로 리스트의 갯수, 검색 조건값, 검색 단어값)
+	public int pagingService(int pagePerRow, String searchKey, String searchValue) {
+		//리턴결과값을 받을 마지막 페이지의 변수
+		int lastPage = 0;
+		
+		try {
+			BookDAO bookDAO = new BookDAO();
+			//(리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 페이징 작업을 하는 메서드 호출
+			//마지막 페이지의 변수값을 리턴값으로 받는다
+			lastPage = bookDAO.paging(pagePerRow, searchKey, searchValue);
+			
+			//변수에 값이 있을경우 실행
+			if(0 != lastPage) {
+				//Connection의 요청을 완료하고 특별한 에러가 없다면 검색 결과를 커밋
+				JdbcObject.getConnection().commit();
+			} else {
+				//Connection 수행 중 예기치 않은 에러가 발생하였다면 모든 과정을 취소하고 DB를 Connection이 수행되기 이전상태로 변경
+				JdbcUtil.rollback(JdbcObject.getConnection());
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			JdbcUtil.rollback(JdbcObject.getConnection());
+		} finally {
+			JdbcUtil.close(JdbcObject.getResultSet());
+			JdbcUtil.close(JdbcObject.getPreparedStatement());
+			JdbcUtil.close(JdbcObject.getConnection());
+		}
+		
+		System.out.println(lastPage+"<--pagingService 메서드 처리 성공 여부");
+		//리턴값은 마지막 페이지의 변수
+		return lastPage;
+	}
+	
 	//책 상세정보의 내용을 처리하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
 	public int selectDetailBookService(int bookNo) {
 		//리턴값을 담을 변수

@@ -9,7 +9,7 @@
 	request.setCharacterEncoding("utf8");
 
 	//페이징 작업
-	int pagePerRow = 7; //한 페이지당 보는 갯수
+	int pagePerRow = 3; //한 페이지당 보는 갯수
 	int currentPage = 1; //현재 페이지
 	if(request.getParameter("currentPage") != null){ //페이지 이동 후 currentPage가 String타입이 되기때문에 int 데이터타입으로 변경
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -39,6 +39,8 @@
 	
 	BookService bookService = new BookService();
 	ArrayList<BookCodePublisherJoinDTO> bookList = bookService.selectSearchBookListService(currentPage, pagePerRow, searchKey, searchValue);
+	
+	int lastPage = bookService.pagingService(pagePerRow, searchKey, searchValue); //페이징 작업 후 마지막 페이지값을 리턴
 %>
 <html>
 	<head>
@@ -83,8 +85,27 @@
 				}
 			%>
 		</table><br>
-		<form action="<%=request.getContextPath() %>/Student/studentList.jsp" method="post">
+		<form action="<%=request.getContextPath() %>/book/selectBookList.jsp" method="post">
 			<div><input type="text" name="nameKeyword"> &nbsp; <input type="submit" value="이름검색"></div> <!-- 검색입력폼 -->
 		</form>
+		<div>
+		<%
+			if(currentPage > 1){
+		%>
+			<a href="<%=request.getContextPath() %>/book/selectBookList.jsp?currentPage=<%=currentPage-1 %>">이전</a>
+		<%
+			}
+			for(int j=1; j<=lastPage; j++){
+		%>
+			<a href="<%=request.getContextPath() %>/book/selectBookList.jsp?currentPage=<%=j %>"><%=j %></a> <!-- 1 ~ 마지막페이지까지 링크 -->
+		<%
+			}
+			if(currentPage < lastPage){
+		%>
+			<a href="<%=request.getContextPath() %>/book/selectBookList.jsp?currentPage=<%=currentPage+1 %>">다음</a>
+		<%	
+			}
+		%>
+		</div><br>
 	</body>
 </html>
