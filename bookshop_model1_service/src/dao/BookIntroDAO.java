@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class BookIntroDAO {
 
 	// 책 인트로 추가 메서드
-	public int insertBookIntro(BookIntroDTO bookintroDTO) {
+	public int insertBookIntro(BookIntroDTO bookIntroDTO) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
 		int check = 0;
 		
@@ -24,9 +24,9 @@ public class BookIntroDAO {
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
-			JdbcObject.getPreparedStatement().setInt(1, bookintroDTO.getBookNo()); // book_no
-			JdbcObject.getPreparedStatement().setString(2, bookintroDTO.getBookIntroContent()); // bookintro_content
-			JdbcObject.getPreparedStatement().setString(3, bookintroDTO.getBookIntroWriter());	// bookintro_writer
+			JdbcObject.getPreparedStatement().setInt(1, bookIntroDTO.getBookNo()); // book_no
+			JdbcObject.getPreparedStatement().setString(2, bookIntroDTO.getBookIntroContent()); // bookintro_content
+			JdbcObject.getPreparedStatement().setString(3, bookIntroDTO.getBookIntroWriter());	// bookintro_writer
 			
 			// 쿼리 처리 성공 1 , 실패 0
 			check = JdbcObject.getPreparedStatement().executeUpdate();
@@ -42,7 +42,7 @@ public class BookIntroDAO {
 	}
 	
 	// 책 인트로 삭제 메서드
-	public int deleteBookIntro(int bookintroNo) {
+	public int deleteBookIntro(int bookIntroNo) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
 		int check = 0;
 		// 쿼리 실행 문장
@@ -56,7 +56,7 @@ public class BookIntroDAO {
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
-			JdbcObject.getPreparedStatement().setInt(1, bookintroNo); // bookintro_no
+			JdbcObject.getPreparedStatement().setInt(1, bookIntroNo); // bookintro_no
 		
 			JdbcObject.getPreparedStatement().executeUpdate();
 			// 쿼리 처리 성공 1 , 실패 0
@@ -107,7 +107,7 @@ public class BookIntroDAO {
 	}
 	
 	// 책 인트로 업데이트 메서드
-	public int updateBookIntro(BookIntroDTO bookintroDTO) {
+	public int updateBookIntro(BookIntroDTO bookIntroDTO) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
 		int check = 0;
 		
@@ -121,8 +121,8 @@ public class BookIntroDAO {
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
-			JdbcObject.getPreparedStatement().setString(1, bookintroDTO.getBookIntroContent());
-			JdbcObject.getPreparedStatement().setString(2, bookintroDTO.getBookIntroWriter());
+			JdbcObject.getPreparedStatement().setString(1, bookIntroDTO.getBookIntroContent());
+			JdbcObject.getPreparedStatement().setString(2, bookIntroDTO.getBookIntroWriter());
 			
 			// 쿼리 처리 성공 1 , 실패 0
 			if(JdbcObject.getResultSet().next()) {
@@ -138,7 +138,7 @@ public class BookIntroDAO {
 	}
 	
 	// 책 인트로 하나의 정보를 불러오기 위한 메서드
-	public BookIntroDTO selectBookIntro(int bookintroNo) {
+	public BookIntroDTO selectBookIntro(int bookIntroNo) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
 		BookIntroDTO bookintroDTO = new BookIntroDTO();
 		
@@ -152,7 +152,7 @@ public class BookIntroDAO {
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
-			JdbcObject.getPreparedStatement().setInt(1, bookintroNo);
+			JdbcObject.getPreparedStatement().setInt(1, bookIntroNo);
 			
 			JdbcObject.getPreparedStatement().executeQuery();
 			
