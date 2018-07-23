@@ -140,13 +140,13 @@ public class BookIntroDAO {
 	// 책 인트로 하나의 정보를 불러오기 위한 메서드
 	public BookIntroDTO selectBookIntro(int bookIntroNo) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
-		BookIntroDTO bookintroDTO = new BookIntroDTO();
+		BookIntroDTO bookIntroDTO = new BookIntroDTO();
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "SELECT bookintro_no, book_no, bookintro_content, bookintro_writer FROM book WHERE bookintro_no=?";
+			String sql = "SELECT bookintro_no, book_no, bookintro_content, bookintro_writer FROM bookintro WHERE bookintro_no=?";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
@@ -158,16 +158,16 @@ public class BookIntroDAO {
 			
 			if(JdbcObject.getResultSet().next()) {
 				
-				bookintroDTO.setBookIntroNo(JdbcObject.getResultSet().getInt("bookintro_no"));
-				bookintroDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
-				bookintroDTO.setBookIntroContent(JdbcObject.getResultSet().getString("bookintro_content"));
-				bookintroDTO.setBookIntroWriter(JdbcObject.getResultSet().getString("bookintro_writer"));
+				bookIntroDTO.setBookIntroNo(JdbcObject.getResultSet().getInt("bookintro_no"));
+				bookIntroDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
+				bookIntroDTO.setBookIntroContent(JdbcObject.getResultSet().getString("bookintro_content"));
+				bookIntroDTO.setBookIntroWriter(JdbcObject.getResultSet().getString("bookintro_writer"));
 			}
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-		System.out.println(bookintroDTO +"<-- selectBookIntro 리턴값");
-		return bookintroDTO;
+		System.out.println(bookIntroDTO +"<-- selectBookIntro 리턴값");
+		return bookIntroDTO;
 	}
 }

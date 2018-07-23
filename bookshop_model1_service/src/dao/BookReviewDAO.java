@@ -70,7 +70,7 @@ public class BookReviewDAO {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		System.out.println(check +"<-- deleteBookIntro 리턴값");
+		System.out.println(check +"<-- deleteBookReview 리턴값");
 		return check;
 		
 	}
@@ -104,7 +104,71 @@ public class BookReviewDAO {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		System.out.println(bookReviewList +"<-- selectBookIntroList 리턴값");
+		System.out.println(bookReviewList +"<-- selectBookReviewList 리턴값");
 		return bookReviewList;
+	}
+	
+	// 책 리뷰 업데이트 메서드
+	public int updateBookReview(BookReviewDTO bookReviewDTO) {
+		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
+		int check = 0;
+		
+		try {
+			Connection connection = JdbcObject.getConnetionInfo();
+			JdbcObject.setConnection(connection);
+			// 쿼리 실행 문장
+			String sql = "UPDATE bookreview SET bookreview_content=? WHERE bookreview_no=?";
+			
+			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
+			
+			JdbcObject.setPreparedStatement(preparedStatement);
+			
+			JdbcObject.getPreparedStatement().setString(1, bookReviewDTO.getBookReviewContent());
+			
+			// 쿼리 처리 성공 1 , 실패 0
+			if(JdbcObject.getResultSet().next()) {
+				check = 1;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		System.out.println(check +"<-- updateBookReview 리턴값");
+		return check;
+	}
+	
+	// 책 리뷰 하나의 정보를 불러오기 위한 메서드
+	public BookReviewDTO selectBookReview(int bookReviewNo) {
+		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
+		BookReviewDTO bookReviewDTO = new BookReviewDTO();
+		
+		try {
+			Connection connection = JdbcObject.getConnetionInfo();
+			JdbcObject.setConnection(connection);
+			// 쿼리 실행 문장
+			String sql = "SELECT bookreview_no, book_no, member_no, bookreview_content FROM bookreview WHERE bookreview_no=?";
+			
+			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
+			
+			JdbcObject.setPreparedStatement(preparedStatement);
+			
+			JdbcObject.getPreparedStatement().setInt(1, bookReviewNo);
+			
+			JdbcObject.getPreparedStatement().executeQuery();
+			
+			if(JdbcObject.getResultSet().next()) {
+
+				bookReviewDTO.setBookReviewNo(JdbcObject.getResultSet().getInt("bookreview_no"));
+				bookReviewDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
+				bookReviewDTO.setMemberNo(JdbcObject.getResultSet().getInt("member_no"));
+				bookReviewDTO.setBookReviewContent(JdbcObject.getResultSet().getString("bookreview_content"));
+			}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		System.out.println(bookReviewDTO +"<-- selectBookReview 리턴값");
+		return bookReviewDTO;
 	}
 }
