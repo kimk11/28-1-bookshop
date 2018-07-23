@@ -118,9 +118,9 @@ public class BookDAO {
 				JdbcObject.setPreparedStatement(preparedStatement);
 			}
 			
-			JdbcObject.getPreparedStatement().executeQuery();
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
-			if(JdbcObject.getResultSet().next()) {
+			while(JdbcObject.getResultSet().next()) {
 				// 전체 행의 갯수를 totalRow에 대입한다
 				totalRow = JdbcObject.getResultSet().getInt("count(*)");
 			}
@@ -190,7 +190,8 @@ public class BookDAO {
 				JdbcObject.getPreparedStatement().setInt(2, pagePerRow);
 			}
 			
-			JdbcObject.getPreparedStatement().executeQuery();
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			
 			while(JdbcObject.getResultSet().next()) {
 				BookDTO bookDTO = new BookDTO(); // BookDTO 책DTO
 				bookDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
