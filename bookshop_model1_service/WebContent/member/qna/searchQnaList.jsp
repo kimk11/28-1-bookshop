@@ -63,7 +63,7 @@
 		<select name="searchKey">
 			<option value ="">전체</option>
 			<optgroup label="----------"></optgroup>
-			<option value ="qnaName">이름</option>
+			<option value ="memberName">이름</option>
 			<option value ="qnaId">아이디</option>
 		</select>
 		<input type= "text" name ="searchValue">

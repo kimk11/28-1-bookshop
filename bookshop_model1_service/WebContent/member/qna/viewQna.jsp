@@ -9,7 +9,7 @@
 </head>
 <body>
 <%
-	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+	int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 
 %>
 	
@@ -18,6 +18,12 @@
 			<tr>
 				<td colspan="2">
 					<input type="hidden" name="memberNo" value="">
+				</td>
+			</tr>
+			<tr>
+				<th>No.</th>
+				<td>
+					<input type="text" name="qnaNo" value="" readonly="readonly">
 				</td>
 			</tr>	
 			<tr>
@@ -34,8 +40,8 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
-					<a href="<%=request.getContextPath()%>/member/qna/updateQnaForm.jsp?memberNo=<%=memberNo%>"><button>수정</button></a>
-					<a href="<%=request.getContextPath()%>/member/qna/deleteQnaAction.jsp?memberNo=<%=memberNo%>"><button>삭제</button></a>
+					<a href="<%=request.getContextPath()%>/member/qna/updateQnaForm.jsp?qnaNo=<%=qnaNo%>"><button>수정</button></a>
+					<a href="<%=request.getContextPath()%>/member/qna/deleteQnaAction.jsp?qnaNo=<%=qnaNo%>"><button>삭제</button></a>
 					<a href="<%=request.getContextPath()%>/member/qna/searchQnaList.jsp"><button>목록</button></a>
 				</td>
 			</tr>

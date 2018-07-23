@@ -18,6 +18,7 @@
 	QnaDTO qnaDTO = QnaService.selectOneUpdateService(memberNo);
 	
 %>
+	<!-- 제목, 내용만 수정 -->
 	<form action="<%=request.getContextPath()%>/member/qna/updateQnaAction.jsp" method="post">
 		<table>
 			<h3>Q&A 등록</h3>
@@ -28,7 +29,7 @@
 			</tr>	
 			<tr>
 				<th>이름</th> 	<!-- 세션처리 -->
-				<td><input type="text" name="memberName" size="10" value="<%=%>"></td>		
+				<td><input type="text" name="memberName" size="10" value="<%=%>" readonly="readonly"></td>		
 			</tr>
 			<tr>
 				<th>제목</th>

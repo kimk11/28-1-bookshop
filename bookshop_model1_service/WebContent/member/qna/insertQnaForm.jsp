@@ -2,7 +2,7 @@
 <!-- insertQnaForm.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html>	<!-- 세션으로 멤버넘버, 이름 받아옴 -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Q&A 입력</title>
@@ -12,13 +12,15 @@
 		<table>
 			<h3>Q&A 등록</h3>
 			<tr>
-				<td colspan="2">
-					<input type="hidden" name="memberNo" value="">
+			<!-- memberNo 세션 -->
+				<td colspan="2">	
+					<input type="hidden" name="memberNo" value="<%= %>">
 				</td>
 			</tr>	
 			<tr>
+			<!-- 이름 세션 -->
 				<th>이름</th>
-				<td><input type="text" name="memberName" size="10"></td>
+				<td><input type="text" name="memberName" size="10" value="<%= %>"></td>
 			</tr>
 			<tr>
 				<th>제목</th>

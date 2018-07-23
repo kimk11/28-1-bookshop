@@ -10,10 +10,10 @@
 </head>
 <body>
 <%
-int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 
 QnaService qnaService = new QnaService();
-int check = qnaService.deleteQnaService(memberNo);
+int check = qnaService.deleteQnaService(qnaNo);
 
 //삭제 성공 시 
 if(1==check){
