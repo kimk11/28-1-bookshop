@@ -200,7 +200,7 @@ public class BookDAO {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "UPDATE book SET bookcode_no=?, publisher_no=?, book_name=?, book_author=?, book_price=?, book_point=?, book_amount=?, book_out=? WHERE book_no=?";
+			String sql = "UPDATE book SET bookcode_no=?, publisher_no=?, book_name=?, book_author=?, book_price=?, book_amount=?, book_out=? WHERE book_no=?";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
@@ -211,10 +211,9 @@ public class BookDAO {
 			JdbcObject.getPreparedStatement().setString(3, bookDTO.getBookName()); // book_name
 			JdbcObject.getPreparedStatement().setString(4, bookDTO.getBookAuthor()); // book_author
 			JdbcObject.getPreparedStatement().setInt(5, bookDTO.getBookPrice()); // book_price
-			JdbcObject.getPreparedStatement().setInt(6, bookDTO.getBookPoint()); // book_point
-			JdbcObject.getPreparedStatement().setInt(7, bookDTO.getBookAmount()); // book_amount
-			JdbcObject.getPreparedStatement().setString(8, bookDTO.getBookOut()); // book_out
-			JdbcObject.getPreparedStatement().setInt(9, bookDTO.getBookNo()); // book_no
+			JdbcObject.getPreparedStatement().setInt(6, bookDTO.getBookAmount()); // book_amount
+			JdbcObject.getPreparedStatement().setString(7, bookDTO.getBookOut()); // book_out
+			JdbcObject.getPreparedStatement().setInt(8, bookDTO.getBookNo()); // book_no
 			
 			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
