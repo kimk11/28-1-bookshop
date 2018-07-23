@@ -81,7 +81,7 @@ public class BookDAO {
 	}
 	
 	// 책 리스트 + 검색 메서드
-	public ArrayList<BookCodePublisherJoinDTO> selectBookList(int currentPage, int pagePerRow, String searchKey, String searchValue ) { 
+	public ArrayList<BookCodePublisherJoinDTO> selectBookList(int currentPage, int pagePerRow, String searchKey, String searchValue) { 
 																								// 검색키 , 검색값
 		ArrayList<BookCodePublisherJoinDTO> bookList = new ArrayList<BookCodePublisherJoinDTO>();
 		
