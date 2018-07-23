@@ -11,5 +11,11 @@
 	
 	//BookCodeService 객체생성 , bookCodeName값을 DB에 입력결과값 처리 , 중복 결과 리턴값 확인
 	BookCodeService bookCodeService = new BookCodeService();
-	bookCodeService.insertBookCodeService(bookCodeName);
+	int insertBookCodeServiceCheck = bookCodeService.insertBookCodeService(bookCodeName);
+	
+	if(insertBookCodeServiceCheck == 1){
+		response.sendRedirect(request.getContextPath() + "/member/book/insertBookForm.jsp");	
+	} else {
+		
+	}
 %>

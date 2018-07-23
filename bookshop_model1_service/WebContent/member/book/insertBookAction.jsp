@@ -40,10 +40,10 @@
 	
 	
 	BookService bookService = new BookService();
-	int insertBookCheck = bookService.insertBookService(bookDTO);
+	int insertBookServiceCheck = bookService.insertBookService(bookDTO);
 	
-	if(insertBookCheck == 1) {
-		response.sendRedirect(request.getContextPath() + "/book/selectBookList.jsp");
+	if(insertBookServiceCheck == 1){
+		response.sendRedirect(request.getContextPath() + "/member/book/selectBookList.jsp");	
 	} else {
 		
 	}

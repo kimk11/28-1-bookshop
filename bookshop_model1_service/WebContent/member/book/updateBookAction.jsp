@@ -27,11 +27,11 @@
 	bookDTO.setBookOut(bookOut);
 	
 	// updateBookService 메소드의 리턴값 : 실패=0, 성공=1
-	int updateBookCheck = bookService.updateBookService(bookDTO);
+	int updateBookServiceCheck = bookService.updateBookService(bookDTO);
 	
 	// 성공일 경우 책 정보 전체 화면으로가서 수정된 정보 확인 
-	if(updateBookCheck == 1) {
-		response.sendRedirect(request.getContextPath() + "/book/selectBookList.jsp");	
+	if(updateBookServiceCheck == 1) {
+		response.sendRedirect(request.getContextPath() + "/member/book/selectBookList.jsp");	
 	} else {
 		
 	}

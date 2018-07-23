@@ -9,8 +9,7 @@
 	
 	// 책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
-	BookDTO bookDTO = new BookDTO();
-	int selectDetailBookcheck = bookService.selectDetailBookService(bookNo);
+	BookDTO detailBookDTO = bookService.selectDetailBookService(bookNo);
 %>	
 <html>
 	<head>
@@ -32,21 +31,20 @@
 				<th>출판일</th>
 			</tr>
 	<%
-		// bookService 에서 값을 받아오는데 실패 => 리턴값 0 , 성공 => 리턴값 1
-		if(selectDetailBookcheck == 1) {
+		if(detailBookDTO != null) {
 	%>	
 		<!-- 성공일 경우 화면에 출력되는 책 하나에 대한 정보들-->
 			<tr>
-				<td><%=bookDTO.getBookNo() %></td>
-				<td><%=bookDTO.getBookcodeNo() %></td>
-				<td><%=bookDTO.getPublisherNo() %></td>
-				<td><%=bookDTO.getBookName() %></td>
-				<td><%=bookDTO.getBookAuthor() %></td>
-				<td><%=bookDTO.getBookPrice() %></td>
-				<td><%=bookDTO.getBookPoint() %></td>
-				<td><%=bookDTO.getBookAmount() %></td>
-				<td><%=bookDTO.getBookOut() %></td>
-				<td><%=bookDTO.getBookDate()%></td>
+				<td><%=detailBookDTO.getBookNo() %></td>
+				<td><%=detailBookDTO.getBookcodeNo() %></td>
+				<td><%=detailBookDTO.getPublisherNo() %></td>
+				<td><%=detailBookDTO.getBookName() %></td>
+				<td><%=detailBookDTO.getBookAuthor() %></td>
+				<td><%=detailBookDTO.getBookPrice() %></td>
+				<td><%=detailBookDTO.getBookPoint() %></td>
+				<td><%=detailBookDTO.getBookAmount() %></td>
+				<td><%=detailBookDTO.getBookOut() %></td>
+				<td><%=detailBookDTO.getBookDate()%></td>
 			</tr>
 		</table>
 	<%
