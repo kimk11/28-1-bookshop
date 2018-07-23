@@ -7,6 +7,7 @@
 	int bookNo = Integer.parseInt(request.getParameter("bookNo"));
 	BookService bookService = new BookService();
 	BookDTO bookDTO = new BookDTO();
+	int check = bookService.selectDetailBookService(bookNo);
 %>
 <html>
 	<head>
@@ -17,6 +18,10 @@
 	<body>
 		<div>
 			<form action="<%= request.getContextPath() %>/member/book/updateBookAction.jsp" method="post">
+			<%
+				// bookService 에서 값을 받아오는데 실패 => 리턴값 0 , 성공 => 리턴값 1
+				if(check == 1) {
+			%>
 				<div>
 					<label>카테고리번호</label>
 					<input type="text" name="bookCodeNo" value="">
@@ -39,6 +44,14 @@
 					<input type="hidden" name="bookOut" value="">
 					<input type="submit" value="입력">
 				</div>
+			<%		
+				} else {
+			%>
+				
+			<%		
+				}
+			%>
+				
 			</form>
 		</div>
 	</body>
