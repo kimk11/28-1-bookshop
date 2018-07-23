@@ -3,14 +3,14 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import dto.BookintroDTO;
+import dto.BookIntroDTO;
 import jdbcObject.JdbcObject;
 import java.util.ArrayList;
 
 public class BookIntroDAO {
 
 	// 책 인트로 추가 메서드
-	public int insertBookIntro(BookintroDTO bookintroDTO) {
+	public int insertBookIntro(BookIntroDTO bookintroDTO) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
 		int check = 0;
 		
@@ -25,8 +25,8 @@ public class BookIntroDAO {
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
 			JdbcObject.getPreparedStatement().setInt(1, bookintroDTO.getBookNo()); // book_no
-			JdbcObject.getPreparedStatement().setString(2, bookintroDTO.getBookintroContent()); // bookintro_content
-			JdbcObject.getPreparedStatement().setString(3, bookintroDTO.getBookintroWriter());	// bookintro_writer
+			JdbcObject.getPreparedStatement().setString(2, bookintroDTO.getBookIntroContent()); // bookintro_content
+			JdbcObject.getPreparedStatement().setString(3, bookintroDTO.getBookIntroWriter());	// bookintro_writer
 			
 			// 쿼리 처리 성공 1 , 실패 0
 			check = JdbcObject.getPreparedStatement().executeUpdate();
@@ -74,8 +74,8 @@ public class BookIntroDAO {
 	}
 	
 	// 책 인트로 리스트 메서드
-	public ArrayList<BookintroDTO> selectBookIntroList() {
-		ArrayList<BookintroDTO> bookIntroList = new ArrayList<BookintroDTO>();
+	public ArrayList<BookIntroDTO> selectBookIntroList() {
+		ArrayList<BookIntroDTO> bookIntroList = new ArrayList<BookIntroDTO>();
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
@@ -90,11 +90,11 @@ public class BookIntroDAO {
 			JdbcObject.getPreparedStatement().executeQuery();
 			
 			while(JdbcObject.getResultSet().next()) {
-				BookintroDTO bookintroDTO = new BookintroDTO();
-				bookintroDTO.setBookintroNo(JdbcObject.getResultSet().getInt("bookintro_no"));
+				BookIntroDTO bookintroDTO = new BookIntroDTO();
+				bookintroDTO.setBookIntroNo(JdbcObject.getResultSet().getInt("bookintro_no"));
 				bookintroDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
-				bookintroDTO.setBookintroContent(JdbcObject.getResultSet().getString("bookintro_content"));
-				bookintroDTO.setBookintroWriter(JdbcObject.getResultSet().getString("bookintro_writer"));
+				bookintroDTO.setBookIntroContent(JdbcObject.getResultSet().getString("bookintro_content"));
+				bookintroDTO.setBookIntroWriter(JdbcObject.getResultSet().getString("bookintro_writer"));
 				bookIntroList.add(bookintroDTO);
 			}
 						
@@ -107,7 +107,7 @@ public class BookIntroDAO {
 	}
 	
 	// 책 인트로 업데이트 메서드
-	public int updateBookIntro(BookintroDTO bookintroDTO) {
+	public int updateBookIntro(BookIntroDTO bookintroDTO) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
 		int check = 0;
 		
@@ -121,8 +121,8 @@ public class BookIntroDAO {
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
-			JdbcObject.getPreparedStatement().setString(1, bookintroDTO.getBookintroContent());
-			JdbcObject.getPreparedStatement().setString(2, bookintroDTO.getBookintroWriter());
+			JdbcObject.getPreparedStatement().setString(1, bookintroDTO.getBookIntroContent());
+			JdbcObject.getPreparedStatement().setString(2, bookintroDTO.getBookIntroWriter());
 			
 			// 쿼리 처리 성공 1 , 실패 0
 			if(JdbcObject.getResultSet().next()) {
@@ -138,9 +138,9 @@ public class BookIntroDAO {
 	}
 	
 	// 책 인트로 하나의 정보를 불러오기 위한 메서드
-	public BookintroDTO selectBookIntro(int bookintroNo) {
+	public BookIntroDTO selectBookIntro(int bookintroNo) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
-		BookintroDTO bookintroDTO = new BookintroDTO();
+		BookIntroDTO bookintroDTO = new BookIntroDTO();
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
@@ -158,10 +158,10 @@ public class BookIntroDAO {
 			
 			if(JdbcObject.getResultSet().next()) {
 				
-				bookintroDTO.setBookintroNo(JdbcObject.getResultSet().getInt("bookintro_no"));
+				bookintroDTO.setBookIntroNo(JdbcObject.getResultSet().getInt("bookintro_no"));
 				bookintroDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
-				bookintroDTO.setBookintroContent(JdbcObject.getResultSet().getString("bookintro_content"));
-				bookintroDTO.setBookintroWriter(JdbcObject.getResultSet().getString("bookintro_writer"));
+				bookintroDTO.setBookIntroContent(JdbcObject.getResultSet().getString("bookintro_content"));
+				bookintroDTO.setBookIntroWriter(JdbcObject.getResultSet().getString("bookintro_writer"));
 			}
 			} catch (Exception e) {
 				// TODO: handle exception
