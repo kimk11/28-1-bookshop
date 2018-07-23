@@ -10,7 +10,7 @@
 	// 책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
 	BookDTO bookDTO = new BookDTO();
-	int check = bookService.selectDetailBookService(bookNo);
+	int selectDetailBookcheck = bookService.selectDetailBookService(bookNo);
 %>	
 <html>
 	<head>
@@ -26,14 +26,14 @@
 				<th>책 이름</th>
 				<th>저자</th>
 				<th>가격</th>
-				<th>포인트적립</th>
+				<th>포인트</th>
 				<th>책수량</th>
 				<th>책절판상태</th>
 				<th>출판일</th>
 			</tr>
 	<%
 		// bookService 에서 값을 받아오는데 실패 => 리턴값 0 , 성공 => 리턴값 1
-		if(check == 1) {
+		if(selectDetailBookcheck == 1) {
 	%>	
 		<!-- 성공일 경우 화면에 출력되는 책 하나에 대한 정보들-->
 			<tr>

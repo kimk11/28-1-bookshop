@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>책 이름 입력화면</title>
+		<title>책 카테고리 입력화면</title>
 	</head>
 	
 	<body>

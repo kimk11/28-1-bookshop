@@ -18,6 +18,7 @@
 	String bookOut = request.getParameter("bookOut");
 	String bookDate = null;
 	
+	// 넘어온 값들이 정상적으로 출력되는 지 확인
 	System.out.println(bookCodeNo + "<-- 카테고리넘버값");
 	System.out.println(bookpublisherNo + "<-- 출판사넘버값");
 	System.out.println(bookName + "<-- 책이름값");
@@ -26,6 +27,7 @@
 	System.out.println(bookAmount + "<-- 수량값");
 	System.out.println(bookOut + "<-- 등록일");
 	
+	// 새로운 객체를 생성하여 파라미터에 값들을 셋팅
 	BookDTO bookDTO = new BookDTO();
 	bookDTO.setBookcodeNo(bookCodeNo);
 	bookDTO.setPublisherNo(bookpublisherNo);
@@ -36,6 +38,13 @@
 	bookDTO.setBookOut(bookOut);
 	bookDTO.setBookDate(bookDate);
 	
+	
 	BookService bookService = new BookService();
-	bookService.insertBookService(bookDTO);
+	int insertBookCheck = bookService.insertBookService(bookDTO);
+	
+	if(insertBookCheck == 1) {
+		response.sendRedirect(request.getContextPath() + "/book/selectBookList.jsp");
+	} else {
+		
+	}
 %>

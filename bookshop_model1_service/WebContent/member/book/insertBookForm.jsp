@@ -48,7 +48,7 @@
 				</div>
 				<div>
 					<label>가격</label>
-					<input type="text" name="bookPrice">
+					<input type="text" name="bookPrice">원
 				</div>
 				<div>
 					<label>책 수량</label>
