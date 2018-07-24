@@ -5,7 +5,7 @@ public class BookIntroDTO {
 	private int bookIntroNo;
 	private int bookNo;
 	private String bookIntroContent;
-	private String bookIntroWriter;
+	private String bookIntroWrite;
 	
 	public int getBookIntroNo() {
 		return bookIntroNo;
@@ -25,10 +25,10 @@ public class BookIntroDTO {
 	public void setBookIntroContent(String bookIntroContent) {
 		this.bookIntroContent = bookIntroContent;
 	}
-	public String getBookIntroWriter() {
-		return bookIntroWriter;
+	public String getBookIntroWrite() {
+		return bookIntroWrite;
 	}
-	public void setBookIntroWriter(String bookIntroWriter) {
-		this.bookIntroWriter = bookIntroWriter;
+	public void setBookIntroWrite(String bookIntroWrite) {
+		this.bookIntroWrite = bookIntroWrite;
 	}
 }

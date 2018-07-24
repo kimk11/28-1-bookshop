@@ -18,7 +18,7 @@ public class BookIntroDAO {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "INSERT INTO bookintro(book_no, bookintro_content, bookintro_writer) VALUES(?, ?, ?)";
+			String sql = "INSERT INTO bookintro(book_no, bookintro_content, bookintro_write) VALUES(?, ?, ?)";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
@@ -26,7 +26,7 @@ public class BookIntroDAO {
 			
 			JdbcObject.getPreparedStatement().setInt(1, bookIntroDTO.getBookNo()); // book_no
 			JdbcObject.getPreparedStatement().setString(2, bookIntroDTO.getBookIntroContent()); // bookintro_content
-			JdbcObject.getPreparedStatement().setString(3, bookIntroDTO.getBookIntroWriter());	// bookintro_writer
+			JdbcObject.getPreparedStatement().setString(3, bookIntroDTO.getBookIntroWrite());	// bookintro_write
 			
 			// 쿼리 처리 성공 1 , 실패 0
 			check = JdbcObject.getPreparedStatement().executeUpdate();
@@ -77,7 +77,7 @@ public class BookIntroDAO {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "SELECT bookintro_no, book_no, bookintro_content, bookintro_writer FROM bookintro ORDER BY bookintro_no DESC ";
+			String sql = "SELECT bookintro_no, book_no, bookintro_content, bookintro_write FROM bookintro ORDER BY bookintro_no DESC ";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
@@ -90,7 +90,7 @@ public class BookIntroDAO {
 				bookintroDTO.setBookIntroNo(JdbcObject.getResultSet().getInt("bookintro_no"));
 				bookintroDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
 				bookintroDTO.setBookIntroContent(JdbcObject.getResultSet().getString("bookintro_content"));
-				bookintroDTO.setBookIntroWriter(JdbcObject.getResultSet().getString("bookintro_writer"));
+				bookintroDTO.setBookIntroWrite(JdbcObject.getResultSet().getString("bookintro_write"));
 				bookIntroList.add(bookintroDTO);
 			}
 						
@@ -111,14 +111,14 @@ public class BookIntroDAO {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "UPDATE bookintro SET bookintro_content=? bookintro_writer=? WHERE bookintro_no=?";
+			String sql = "UPDATE bookintro SET bookintro_content=? bookintro_write=? WHERE bookintro_no=?";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
 			JdbcObject.getPreparedStatement().setString(1, bookIntroDTO.getBookIntroContent());
-			JdbcObject.getPreparedStatement().setString(2, bookIntroDTO.getBookIntroWriter());
+			JdbcObject.getPreparedStatement().setString(2, bookIntroDTO.getBookIntroWrite());
 			
 			JdbcObject.getPreparedStatement().executeUpdate();
 			
@@ -145,7 +145,7 @@ public class BookIntroDAO {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "SELECT bookintro_no, book_no, bookintro_content, bookintro_writer FROM bookintro WHERE bookintro_no=?";
+			String sql = "SELECT bookintro_no, book_no, bookintro_content, bookintro_write FROM bookintro WHERE bookintro_no=?";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
@@ -160,7 +160,7 @@ public class BookIntroDAO {
 				bookIntroDTO.setBookIntroNo(JdbcObject.getResultSet().getInt("bookintro_no"));
 				bookIntroDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
 				bookIntroDTO.setBookIntroContent(JdbcObject.getResultSet().getString("bookintro_content"));
-				bookIntroDTO.setBookIntroWriter(JdbcObject.getResultSet().getString("bookintro_writer"));
+				bookIntroDTO.setBookIntroWrite(JdbcObject.getResultSet().getString("bookintro_write"));
 			}
 			} catch (Exception e) {
 				// TODO: handle exception
