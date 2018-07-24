@@ -14,7 +14,7 @@
 	int insertBookCodeServiceCheck = bookCodeService.insertBookCodeService(bookCodeName);
 	
 	if(insertBookCodeServiceCheck == 1){
-		response.sendRedirect(request.getContextPath() + "/member/book/insertBookForm.jsp");	
+		response.sendRedirect(request.getContextPath() + "/member/bookCode/selectBookCodeList.jsp");	
 	} else {
 		
 	}
