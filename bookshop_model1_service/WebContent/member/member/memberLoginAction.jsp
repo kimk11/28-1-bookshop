@@ -20,8 +20,9 @@
 	System.out.println(memberDTO.getMemberId()+"<<<<<<<memberDTO ID");
 	
 	if(null != memberDTO){
-		session.setAttribute("sessionId", memberDTO.getMemberId());
-		session.setAttribute("sessionName", memberDTO.getMemberName());
+		session.setAttribute("sessionMemberNo", memberDTO.getMemberNo());
+		session.setAttribute("sessionMemberId", memberDTO.getMemberId());
+		session.setAttribute("sessionMerberName", memberDTO.getMemberName());
 	}
 	
 	response.sendRedirect(request.getContextPath()+"/member/member/memberLoginForm.jsp");

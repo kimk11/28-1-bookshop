@@ -9,12 +9,12 @@
 </head>
 <body>
 <%
-	String sessionId = (String)session.getAttribute("sessionId");
-	String sessionName = (String)session.getAttribute("sessionName");
+	String sessionId = (String)session.getAttribute("sessionMemberId");
+	String sessionName = (String)session.getAttribute("sessionMemberName");
 	
 	// 세션이 없을 경우 로그인 폼
 	// 세션이 있을 경우 회원 정보
-	if(null==session.getAttribute("sessionId")){
+	if(null==session.getAttribute("sessionMemberId")){
 %>
 		<div>
 			<h3>로그인</h3>
