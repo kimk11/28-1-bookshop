@@ -231,16 +231,17 @@ public class BookDAO {
 		return check;
 	}
 	
-	// 책 하나의 정보를 불러오기 위한 메서드
-	public BookDTO selectBook(int bookNo) {
-		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
-		BookDTO bookDTO = new BookDTO();
+	// 책 하나의 정보를 불러오기 위한 메서드(식별을 위해 bookNo를 매개변수로 대입)
+	public BookCodePublisherJoinDTO selectBook(int bookNo) {
+		// 리턴값을 담을 객체참조변수
+		BookCodePublisherJoinDTO bookCodePublisherJoinDTO = new BookCodePublisherJoinDTO();
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "SELECT book_no, bookcode_no, publisher_no, book_name, book_author, book_price, book_point, book_amount, book_out, book_date FROM book WHERE book_no=?";
+			//1:1:1로서 book과 bookCode와 publisher테이블을 조인해서 정보를 가져오는 쿼리문
+			String sql = "SELECT a.book_no, b.bookcode_name, c.publisher_name, a.book_name, a.book_author, a.book_price, a.book_point, a.book_amount, a.book_out, a.book_date FROM book a INNER JOIN bookcode b ON a.bookcode_no = b.bookcode_no INNER JOIN publisher c ON a.publisher_no = c.publisher_no where a.book_no=?";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
@@ -251,23 +252,37 @@ public class BookDAO {
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			if(JdbcObject.getResultSet().next()) {
-				
+				//book테이블의 책 정보들을 DTO객체에 대입
+				BookDTO bookDTO = new BookDTO();
 				bookDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
-				bookDTO.setBookcodeNo(JdbcObject.getResultSet().getInt("bookcode_no"));
-				bookDTO.setPublisherNo(JdbcObject.getResultSet().getInt("publisher_no"));
 				bookDTO.setBookName(JdbcObject.getResultSet().getString("book_name"));
 				bookDTO.setBookAuthor(JdbcObject.getResultSet().getString("book_author"));
 				bookDTO.setBookPrice(JdbcObject.getResultSet().getInt("book_price"));
 				bookDTO.setBookPoint(JdbcObject.getResultSet().getInt("book_point"));
 				bookDTO.setBookAmount(JdbcObject.getResultSet().getInt("book_amount"));
 				bookDTO.setBookOut(JdbcObject.getResultSet().getString("book_out"));
-				bookDTO.setBookDate(JdbcObject.getResultSet().getString("book_date"));			
+				bookDTO.setBookDate(JdbcObject.getResultSet().getString("book_date"));
+				
+				//bookCode테이블의 책 카테고리정보를 DTO객체에 대입
+				BookCodeDTO bookCodeDTO = new BookCodeDTO();
+				bookCodeDTO.setBookCodeName(JdbcObject.getResultSet().getString("bookcode_name"));
+				
+				//publisher테이블의 출판사정보를 DTO객체에 대입
+				BookPublisherDTO bookPublisherDTO = new BookPublisherDTO();
+				bookPublisherDTO.setPubliserName(JdbcObject.getResultSet().getString("publisher_name"));
+				
+				//책의 정보를 담은 DTO객체의 주소값을 joinDTO객체에 대입
+				bookCodePublisherJoinDTO.setBookDTO(bookDTO);
+				bookCodePublisherJoinDTO.setBookCodeDTO(bookCodeDTO);
+				bookCodePublisherJoinDTO.setBookPublisherDTO(bookPublisherDTO);
 			}
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-		System.out.println(bookDTO +"<-- selectBook 리턴값");
-		return bookDTO;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		System.out.println(bookCodePublisherJoinDTO +"<-- selectBook 리턴값");
+		//책의 정보를 담은 객체의 주소값
+		return bookCodePublisherJoinDTO;
 	}
 }

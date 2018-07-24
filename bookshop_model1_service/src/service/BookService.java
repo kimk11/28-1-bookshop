@@ -172,9 +172,9 @@ public class BookService {
 	}
 	
 	//책 상세정보의 내용을 처리하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
-	public BookDTO selectDetailBookService(int bookNo) {
+	public BookCodePublisherJoinDTO selectDetailBookService(int bookNo) {
 		//리턴값을 담을 변수
-		BookDTO detailBook = null;
+		BookCodePublisherJoinDTO detailBook = null;
 		
 		try {
 			BookDAO bookDAO = new BookDAO();
