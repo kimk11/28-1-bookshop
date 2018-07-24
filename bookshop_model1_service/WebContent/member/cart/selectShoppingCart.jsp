@@ -44,7 +44,7 @@
 						<tbody>
 							<tr>
 								<td>
-									<input type="radio" name="bookno" value="<%= bookJoinCartDTO.getShoppingCartDTO().getBookNo() %>">
+									<input type="radio" name="bookNo" value="<%= bookJoinCartDTO.getShoppingCartDTO().getBookNo() %>">
 								</td>
 								<td><%= bookJoinCartDTO.getShoppingCartDTO().getShoppingcartNo() %></td>
 								<td><%= bookJoinCartDTO.getShoppingCartDTO().getBookNo() %></td>
