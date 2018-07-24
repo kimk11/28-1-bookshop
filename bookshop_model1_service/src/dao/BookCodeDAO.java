@@ -81,10 +81,43 @@ public class BookCodeDAO {
 			JdbcObject.getPreparedStatement().setString(1, bookCodeName);
 			
 			//getPreparedStatement메서드를 호출해서 리턴받은 주소값으로 쿼리문을 실행시키는 메서드 호출, ResultSet객체의 주소값을 리턴받는다.
-			JdbcObject.getPreparedStatement().executeUpdate();
+			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(check+"<--카테고리 입력 체크");
+		//리턴값이 0=실패, 1=성공
+		return check;
+	}
+	
+	//책 카테고리의 이름을 수정하는 메서드
+	public int updateBookCode(BookCodeDTO bookCodeDTO) {
+		//리턴값을 담을 변수
+		int check = 0;
+		
+		try {
+			//드라이버 로딩 및 db연결 메서드 호출, Connection객체의 주소값을 리턴받는다.
+			Connection connection = JdbcObject.getConnetionInfo();
+			//리턴받은 주소값을 setConnection메서드를 호출해 JdbcObject클래스의 멤버변수 connection에 대입한다.
+			JdbcObject.setConnection(connection);
+			
+			//책 카테고리를 수정하는 쿼리문 준비
+			String sql = "update bookCode set bookcode_name=? where bookcode_no=?";
+			
+			//getConnection메서드를 호출해서 리턴받은 주소값으로 PreparedStatement객체를 생성하고 준비한 쿼리문을 매개변수로 대입, PreparedStatement의 주소값을 리턴받는다.
+			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
+			//리턴받은 주소값을 setPreparedStatement메서드를 호출해 JdbcObject클래스의 멤버변수 preparedStatement에 대입한다.
+			JdbcObject.setPreparedStatement(preparedStatement);
+			
+			JdbcObject.getPreparedStatement().setString(1, bookCodeDTO.getBookCodeName());
+			JdbcObject.getPreparedStatement().setInt(2, bookCodeDTO.getBookCodeNo());
+			
+			//getPreparedStatement메서드를 호출해서 리턴받은 주소값으로 쿼리문을 실행시키는 메서드 호출, ResultSet객체의 주소값을 리턴받는다.
 			//모든 처리가 완료되면 check값을 1로 변경
-			check = 1;
+			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -120,10 +153,8 @@ public class BookCodeDAO {
 			JdbcObject.getPreparedStatement().setInt(1, bookCodeNo);
 			
 			//getPreparedStatement메서드를 호출해서 리턴받은 주소값으로 쿼리문을 실행시키는 메서드 호출, ResultSet객체의 주소값을 리턴받는다.
-			JdbcObject.getPreparedStatement().executeUpdate();
-			
 			//모든 처리가 완료되면 check값을 1로 변경
-			check = 1;
+			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
