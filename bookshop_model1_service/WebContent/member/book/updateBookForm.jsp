@@ -10,13 +10,12 @@
 	
 	//책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
-	BookCodePublisherJoinDTO selectDetailBookServiceJoinDTO = bookService.selectDetailBookService(bookNo);
+	BookJoinDTO selectDetailBookServiceJoinDTO = bookService.selectDetailBookService(bookNo);
 	BookDTO bookDTO = selectDetailBookServiceJoinDTO.getBookDTO();
 	
 	BookArrayListJoinDTO bookArrayListJoinDTO = bookService.selectBookCodePublisherListService();
 	ArrayList<BookCodeDTO> bookCodeDTO = bookArrayListJoinDTO.getBookCodeList();
 	ArrayList<BookPublisherDTO> bookPublisherDTO = bookArrayListJoinDTO.getBookPublisherList();
-	
 %>
 <html>
 	<head>

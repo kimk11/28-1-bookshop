@@ -1,10 +1,12 @@
 package dto;
 
-public class BookCodePublisherJoinDTO {
+public class BookJoinDTO {
 	
 	private BookDTO bookDTO;
 	private BookCodeDTO bookCodeDTO;
 	private BookPublisherDTO bookPublisherDTO;
+	private BookIntroDTO bookIntroDTO;
+	private BookReviewDTO bookReviewDTO;
 	
 	public BookDTO getBookDTO() {
 		return bookDTO;
@@ -24,5 +26,16 @@ public class BookCodePublisherJoinDTO {
 	public void setBookPublisherDTO(BookPublisherDTO bookPublisherDTO) {
 		this.bookPublisherDTO = bookPublisherDTO;
 	}
-
+	public BookIntroDTO getBookIntroDTO() {
+		return bookIntroDTO;
+	}
+	public void setBookIntroDTO(BookIntroDTO bookIntroDTO) {
+		this.bookIntroDTO = bookIntroDTO;
+	}
+	public BookReviewDTO getBookReviewDTO() {
+		return bookReviewDTO;
+	}
+	public void setBookReviewDTO(BookReviewDTO bookReviewDTO) {
+		this.bookReviewDTO = bookReviewDTO;
+	}
 }

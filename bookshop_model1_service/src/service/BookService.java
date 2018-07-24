@@ -7,7 +7,7 @@ import dao.BookDAO;
 import dao.BookPublisherDAO;
 import dto.BookArrayListJoinDTO;
 import dto.BookCodeDTO;
-import dto.BookCodePublisherJoinDTO;
+import dto.BookJoinDTO;
 import dto.BookDTO;
 import dto.BookPublisherDTO;
 import jdbcObject.JdbcObject;
@@ -106,9 +106,9 @@ public class BookService {
 	}
 	
 	//책 정보를 리스트을 처리하는 Service메서드(매개변수로 현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)
-	public ArrayList<BookCodePublisherJoinDTO> selectSearchBookListService(int currentPage, int pagePerRow, String searchKey, String searchValue) {
+	public ArrayList<BookJoinDTO> selectSearchBookListService(int currentPage, int pagePerRow, String searchKey, String searchValue) {
 		BookDAO bookDAO = new BookDAO();
-		ArrayList<BookCodePublisherJoinDTO> bookList = null;
+		ArrayList<BookJoinDTO> bookList = null;
 		
 		try {
 			//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
@@ -172,9 +172,9 @@ public class BookService {
 	}
 	
 	//책 상세정보의 내용을 처리하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
-	public BookCodePublisherJoinDTO selectDetailBookService(int bookNo) {
+	public BookJoinDTO selectDetailBookService(int bookNo) {
 		//리턴값을 담을 변수
-		BookCodePublisherJoinDTO detailBook = null;
+		BookJoinDTO detailBook = null;
 		
 		try {
 			BookDAO bookDAO = new BookDAO();

@@ -1,7 +1,7 @@
 <!-- 07.18 송원민 / 하나의 책 정보를 조회하는 화면 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="service.BookService" %>
-<%@ page import="dto.BookCodePublisherJoinDTO" %>
+<%@ page import="dto.BookJoinDTO" %>
 <!DOCTYPE html>
 <%
 	// selectBookList.jsp 에서 받아온 책 번호(bookNo) 값
@@ -9,7 +9,10 @@
 	
 	// 책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
-	BookCodePublisherJoinDTO detailBookDTO = bookService.selectDetailBookService(bookNo);
+	BookJoinDTO detailBookDTO = bookService.selectDetailBookService(bookNo);
+	
+	BookIntroService bookIntroService = new BookIntroService();
+	BookIntroDTO bookIntroDTO = bookIntroService.selectBookIntroService(bookIntroNo);
 %>	
 <html>
 	<head>
@@ -17,6 +20,23 @@
 		<title>책 상세정보</title>
 	</head>	
 	<body>
+		<div>
+			<form action="<%= request.getContextPath() %>/member/bookIntro/updateBookIntroAction.jsp" method="post">
+				<div>
+					<label>책 소개글번호</label>
+					<input type="text" name="bookIntroNo" value="<%=bookIntroDTO.getBookIntroNo()%>" readonly>
+				</div>
+				<div>
+					<label>책 소개 내용</label>
+					<input type="text" name="bookIntroContent" value="<%=bookIntroDTO.getBookIntroContent()%>">
+				</div>
+				<div>
+					<label>작성자</label>
+				<input type="text" name="bookIntroWrite" value="<%=bookIntroDTO.getBookIntroWrite()%>">
+				</div>
+				<input type="submit" value="수정하기">
+			</form>
+		</div>
 		<table border="1">
 			<tr>
 				<th>책 번호</th>

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import dto.BookDTO;
-import dto.BookCodePublisherJoinDTO;
+import dto.BookJoinDTO;
 import dto.BookCodeDTO;
 import dto.BookPublisherDTO;
 import jdbcObject.JdbcObject;
@@ -122,10 +122,10 @@ public class BookDAO {
 	
 	
 	// book, bookcode, publisher 테이블을 조인해서 나타낸 책 리스트 + 검색포함
-	public ArrayList<BookCodePublisherJoinDTO> selectBookList(int currentPage, int pagePerRow, String searchKey, String searchValue) { 
+	public ArrayList<BookJoinDTO> selectBookList(int currentPage, int pagePerRow, String searchKey, String searchValue) { 
 		// String 검색키 , 검색값
 		// 리턴값 bookList --> 세개의 테이블을 조인하고 조회한 값들이 세팅 된 BookCodePublisherJoinDTO 객체의 객체참조변수들이 들어있는 ArrayList 객체의 객체참조변수
-		ArrayList<BookCodePublisherJoinDTO> bookList = new ArrayList<BookCodePublisherJoinDTO>();
+		ArrayList<BookJoinDTO> bookList = new ArrayList<BookJoinDTO>();
 		
 		int firstPage = (currentPage-1)*pagePerRow;
 		
@@ -175,12 +175,12 @@ public class BookDAO {
 				BookPublisherDTO bookPublisherDTO = new BookPublisherDTO(); // BookPublisherDTO 책 퍼블리셔DTO
 				bookPublisherDTO.setPubliserName(JdbcObject.getResultSet().getString("publisher_name"));
 				
-				BookCodePublisherJoinDTO bookCodePublisherJoinDTO = new BookCodePublisherJoinDTO(); // BookCodePulisherJoinDTO 책 책코드 책퍼블리셔 조인DTO
-				bookCodePublisherJoinDTO.setBookDTO(bookDTO);
-				bookCodePublisherJoinDTO.setBookCodeDTO(bookCodeDTO);
-				bookCodePublisherJoinDTO.setBookPublisherDTO(bookPublisherDTO);
+				BookJoinDTO bookJoinDTO = new BookJoinDTO(); // BookCodePulisherJoinDTO 책 책코드 책퍼블리셔 조인DTO
+				bookJoinDTO.setBookDTO(bookDTO);
+				bookJoinDTO.setBookCodeDTO(bookCodeDTO);
+				bookJoinDTO.setBookPublisherDTO(bookPublisherDTO);
 				
-				bookList.add(bookCodePublisherJoinDTO);
+				bookList.add(bookJoinDTO);
 			}
 						
 		} catch (Exception e) {
@@ -232,9 +232,9 @@ public class BookDAO {
 	}
 	
 	// 책 하나의 정보를 불러오기 위한 메서드(식별을 위해 bookNo를 매개변수로 대입)
-	public BookCodePublisherJoinDTO selectBook(int bookNo) {
+	public BookJoinDTO selectBook(int bookNo) {
 		// 리턴값을 담을 객체참조변수
-		BookCodePublisherJoinDTO bookCodePublisherJoinDTO = new BookCodePublisherJoinDTO();
+		BookJoinDTO bookJoinDTO = new BookJoinDTO();
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
@@ -272,17 +272,17 @@ public class BookDAO {
 				bookPublisherDTO.setPubliserName(JdbcObject.getResultSet().getString("publisher_name"));
 				
 				//책의 정보를 담은 DTO객체의 주소값을 joinDTO객체에 대입
-				bookCodePublisherJoinDTO.setBookDTO(bookDTO);
-				bookCodePublisherJoinDTO.setBookCodeDTO(bookCodeDTO);
-				bookCodePublisherJoinDTO.setBookPublisherDTO(bookPublisherDTO);
+				bookJoinDTO.setBookDTO(bookDTO);
+				bookJoinDTO.setBookCodeDTO(bookCodeDTO);
+				bookJoinDTO.setBookPublisherDTO(bookPublisherDTO);
 			}
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		System.out.println(bookCodePublisherJoinDTO +"<-- selectBook 리턴값");
+		System.out.println(bookJoinDTO +"<-- selectBook 리턴값");
 		//책의 정보를 담은 객체의 주소값
-		return bookCodePublisherJoinDTO;
+		return bookJoinDTO;
 	}
 }
