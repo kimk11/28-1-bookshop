@@ -11,8 +11,8 @@
 
 <body>
 <%
-	int bookReviewNo = Integer.parseInt(request.getParameter("bookReviewNo"));
-	int memberNo = (int)session.getAttribute("sessionNo");
+	int bookReviewNo = Integer.parseInt(request.getParameter("bookReviewNo")); // 리뷰 넘버값을 가져온다.
+	int memberNo = (int)session.getAttribute("sessionMemberNo"); // 로그인을 성공한 멤버 넘버 세션값으로 멤버번호를 등록한다.
 	
 	BookReviewService bookReviewService = new BookReviewService();
 

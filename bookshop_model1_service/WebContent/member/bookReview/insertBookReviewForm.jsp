@@ -2,8 +2,8 @@
 <%@ page import="service.BookReviewService" %>
 <!DOCTYPE html>
 <%
-	int bookNo = Integer.parseInt(request.getParameter("bookNo"));
-	int memberNo = (int)session.getAttribute("sessionNo"); 
+	int bookNo = Integer.parseInt(request.getParameter("bookNo")); // 책 번호를 가져온다.
+	int memberNo = (int)session.getAttribute("sessionMemberNo"); // 로그인을 성공한 멤버 넘버 세션값으로 멤버번호를 등록한다.
 
 %>
 <html>

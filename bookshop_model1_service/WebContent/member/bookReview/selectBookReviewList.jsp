@@ -11,7 +11,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title></title>
+		<title>select Book Review List</title>
 	</head>
 	<body>
 		<h1>리뷰 리스트</h1><br>
@@ -20,7 +20,8 @@
 				for(BookReviewDTO bookReviewListService : bookReviewList) {
 			%>
 				<tr>
-					<th><%=bookReviewListService.getMemberNo()%></th>
+					<th><%=bookReviewListService.getBookNo()%>번 책</th>
+					<th><%=bookReviewListService.getMemberNo()%>번 회원</th>
 					<td><%=bookReviewListService.getBookReviewContent()%></td>
 					<td><a href="<%=request.getContextPath() %>/member/bookReview/deleteBookReviewForm.jsp?bookReviewNo=<%=bookReviewListService.getBookReviewNo() %>">삭제</a></td>
 					<td><a href="<%=request.getContextPath() %>/member/bookReview/updateBookReviewForm.jsp?bookReviewNo=<%=bookReviewListService.getBookReviewNo() %>">수정</a></td>
