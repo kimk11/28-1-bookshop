@@ -77,18 +77,20 @@ public class BookReviewDAO {
 	}
 	
 	// 책 리뷰 리스트 메서드
-	public ArrayList<BookReviewDTO> selectBookReviewList() {
+	public ArrayList<BookReviewDTO> selectBookReviewList(int bookNo) {
 		ArrayList<BookReviewDTO> bookReviewList = new ArrayList<BookReviewDTO>();
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "SELECT bookreview_no, book_no, member_no, bookreview_content FROM bookreview ORDER BY bookreview_no ASC";
+			String sql = "SELECT bookreview_no, book_no, member_no, bookreview_content FROM bookreview where book_no=? ORDER BY book_no ASC";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
+			
+			JdbcObject.getPreparedStatement().setInt(1, bookNo);
 			
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			

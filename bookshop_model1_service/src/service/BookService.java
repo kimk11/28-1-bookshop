@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 import dao.BookCodeDAO;
 import dao.BookDAO;
+import dao.BookIntroDAO;
 import dao.BookPublisherDAO;
-import dto.BookArrayListJoinDTO;
+import dao.BookReviewDAO;
 import dto.BookCodeDTO;
-import dto.BookJoinDTO;
+import dto.BookJoinListDTO;
 import dto.BookDTO;
+import dto.BookIntroDTO;
 import dto.BookPublisherDTO;
+import dto.BookReviewDTO;
 import jdbcObject.JdbcObject;
 import jdbcUtil.JdbcUtil;
 
@@ -59,8 +62,8 @@ public class BookService {
 	}
 	
 	//출판사들의 정보와 책 카테고리들의 정보를 검색하는 메서드
-	public BookArrayListJoinDTO selectBookCodePublisherListService() {
-		BookArrayListJoinDTO bookJoin = new BookArrayListJoinDTO();
+	public BookJoinListDTO selectBookCodePublisherListService() {
+		BookJoinListDTO bookJoin = new BookJoinListDTO();
 		
 		try {
 			BookCodeDAO bookCodeDAO = new BookCodeDAO();
@@ -68,7 +71,7 @@ public class BookService {
 			ArrayList<BookCodeDTO> bookCodeList = bookCodeDAO.selectBookCodeList();
 			
 			//배열객체의 주소값을 매개변수로 참조값을 저장하는 메서드 호출
-			bookJoin.setBookCodeList(bookCodeList);
+			bookJoin.setBookCodeListDTO(bookCodeList);
 			
 			if(null != bookCodeList) {
 				BookPublisherDAO bookPublisherDAO = new BookPublisherDAO();
@@ -76,7 +79,7 @@ public class BookService {
 				ArrayList<BookPublisherDTO> bookPublisherList = bookPublisherDAO.selectAllBookPublisher();
 				
 				//배열객체의 주소값을 매개변수로 참조값을 저장하는 메서드 호출
-				bookJoin.setBookPublisherList(bookPublisherList);
+				bookJoin.setBookPublisherListDTO(bookPublisherList);
 				
 				if(null != bookPublisherList) {
 					//Connection의 요청을 완료하고 특별한 에러가 없다면 검색 결과를 커밋
@@ -106,9 +109,9 @@ public class BookService {
 	}
 	
 	//책 정보를 리스트을 처리하는 Service메서드(매개변수로 현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)
-	public ArrayList<BookJoinDTO> selectSearchBookListService(int currentPage, int pagePerRow, String searchKey, String searchValue) {
+	public ArrayList<BookJoinListDTO> selectSearchBookListService(int currentPage, int pagePerRow, String searchKey, String searchValue) {
 		BookDAO bookDAO = new BookDAO();
-		ArrayList<BookJoinDTO> bookList = null;
+		ArrayList<BookJoinListDTO> bookList = null;
 		
 		try {
 			//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
@@ -171,17 +174,38 @@ public class BookService {
 		return lastPage;
 	}
 	
-	//책 상세정보의 내용을 처리하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
-	public BookJoinDTO selectDetailBookService(int bookNo) {
-		//리턴값을 담을 변수
-		BookJoinDTO detailBook = null;
+	//책 상세정보 페이지에서 상세정보 검색과 도서 소개 및 댓글처리 메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
+	public BookJoinListDTO selectDetailBookService(int bookNo, String bookIntroNo) {
+		//리턴값을 담을 객체참조변수
+		BookJoinListDTO bookJoinListDTO = new BookJoinListDTO();
 		
 		try {
 			BookDAO bookDAO = new BookDAO();
 			//책을 식별하기위해 bookNo를 매개변수로 책 정보를 검색하는 메서드 호출, 리턴값으로 책의 정보가 저장된 객체의 참조값을 리턴받는다.
-			detailBook = bookDAO.selectBook(bookNo);
+			bookJoinListDTO = bookDAO.selectBook(bookNo);
 			
-			if(null != detailBook) {
+			BookIntroDAO bookIntroDAO = new BookIntroDAO();
+			//책 소개정보를 리스트 처리하는 메서드 호출, 책 소개정보가 담겨있는 객체의 참조값을 가진 배열객체의 참조값을 리턴받는다.
+			ArrayList<BookIntroDTO> bookIntroList = bookIntroDAO.selectBookIntroList(bookNo);
+			bookJoinListDTO.setBookIntroListDTO(bookIntroList);
+			
+			BookReviewDAO bookReviewDAO = new BookReviewDAO();
+			//댓글정보를 리스트 처리하는 메서드 호출, 댓글정보가 담겨있는 객체의 참조값을 가진 배열객체의 참조값을 리턴받는다.
+			ArrayList<BookReviewDTO> bookReviewList = bookReviewDAO.selectBookReviewList(bookNo);
+			bookJoinListDTO.setBookReviewListDTO(bookReviewList);
+			
+			if(bookIntroNo.equals("")) {
+				
+			} else {
+				//jsp페이지에서 타입변환을 하면 예외가 일어나기때문에 메서드안에서 실행
+				int bookIntroNoInt = Integer.parseInt(bookIntroNo);
+				//책을 식별하기위해 bookIntroNo를 매개변수로 책 소개 정보를 검색하는 메서드를 호출, 책 소개 정보가 저장된 객체의 참조값을 리턴한다
+				BookIntroDTO bookIntroDTO = bookIntroDAO.selectBookIntro(bookIntroNoInt);
+				bookJoinListDTO.setBookIntroDTO(bookIntroDTO);
+			}
+			
+			//책의 정보가 저장된 객체의 참조값과 책 소개정보가 저장된 객체와 댓글정보가 저장된 객체의 참조값이 null이 아니면 커밋
+			if(null != bookJoinListDTO && null != bookIntroList && null != bookReviewList) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 검색 결과를 커밋
 				JdbcObject.getConnection().commit();
 			} else {
@@ -198,9 +222,9 @@ public class BookService {
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
 		
-		System.out.println(detailBook+"<--selectDetailBookService 메서드 처리 성공 여부");
-		//리턴값은 책 정보가 저장된 객체의 주소값
-		return detailBook;
+		System.out.println(bookJoinListDTO+"<--selectDetailBookService 메서드 처리 성공 여부");
+		//리턴값은 책 정보와 책 소개정보가 저장된 객체의 주소값
+		return bookJoinListDTO;
 	}
 	
 	//책 정보 수정을 처리하는 Service메서드(책 정보들이 저장되어있는 객체의 참조값을 매개변수로 받음) 

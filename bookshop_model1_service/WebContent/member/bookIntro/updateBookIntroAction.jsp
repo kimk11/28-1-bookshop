@@ -7,6 +7,7 @@
 	request.setCharacterEncoding("utf-8");
 	
 	//updateBookIntroForm.jsp 받아온 name 값들을 받아와서 각각의 변수들에 값 복사
+	int bookNo = Integer.parseInt(request.getParameter("bookNo"));
 	int bookIntroNo = Integer.parseInt(request.getParameter("bookIntroNo"));
 	String bookIntroContent = request.getParameter("bookIntroContent");
 	String bookIntroWrite = request.getParameter("bookIntroWrite");
@@ -21,7 +22,7 @@
 	int updateBookIntroServiceCheck = bookIntroService.updateBookIntroService(bookIntroDTO);
 	
 	if(updateBookIntroServiceCheck == 1 ){
-		response.sendRedirect(request.getContextPath() + "/member/bookIntro/selectBookIntroList.jsp");
+		response.sendRedirect(request.getContextPath() + "/member/book/selectBook.jsp?bookNo="+bookNo);
 	} else {
 		out.print("실패임돠");
 	}

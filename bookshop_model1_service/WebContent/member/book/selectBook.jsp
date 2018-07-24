@@ -1,42 +1,29 @@
 <!-- 07.18 송원민 / 하나의 책 정보를 조회하는 화면 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="service.BookService" %>
-<%@ page import="dto.BookJoinDTO" %>
+<%@ page import="dto.BookJoinListDTO" %>
+<%@ page import="dto.BookReviewDTO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="dto.BookIntroDTO" %>
 <!DOCTYPE html>
 <%
 	// selectBookList.jsp 에서 받아온 책 번호(bookNo) 값
-	int bookNo = Integer.parseInt(request.getParameter("bookNo"));		
+	int bookNo = Integer.parseInt(request.getParameter("bookNo"));	
+	String bookIntroNo = request.getParameter("bookIntroNo");
+	// 로그인을 성공한 멤버 넘버 세션값으로 멤버번호를 등록한다.
+	int memberNo = (int)session.getAttribute("sessionMemberNo");
 	
 	// 책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
-	BookJoinDTO detailBookDTO = bookService.selectDetailBookService(bookNo);
-	
-	BookIntroService bookIntroService = new BookIntroService();
-	BookIntroDTO bookIntroDTO = bookIntroService.selectBookIntroService(bookIntroNo);
+	BookJoinListDTO detailBookDTO = bookService.selectDetailBookService(bookNo, bookIntroNo);
 %>	
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>책 상세정보</title>
-	</head>	
+	</head>
+	<h3>책의 상세정보</h3>
 	<body>
-		<div>
-			<form action="<%= request.getContextPath() %>/member/bookIntro/updateBookIntroAction.jsp" method="post">
-				<div>
-					<label>책 소개글번호</label>
-					<input type="text" name="bookIntroNo" value="<%=bookIntroDTO.getBookIntroNo()%>" readonly>
-				</div>
-				<div>
-					<label>책 소개 내용</label>
-					<input type="text" name="bookIntroContent" value="<%=bookIntroDTO.getBookIntroContent()%>">
-				</div>
-				<div>
-					<label>작성자</label>
-				<input type="text" name="bookIntroWrite" value="<%=bookIntroDTO.getBookIntroWrite()%>">
-				</div>
-				<input type="submit" value="수정하기">
-			</form>
-		</div>
 		<table border="1">
 			<tr>
 				<th>책 번호</th>
@@ -68,12 +55,84 @@
 			</tr>
 		</table>
 	<%
-		// 실패일 경우 아무것도 나타나지 않음
+		} if(null != detailBookDTO.getBookIntroDTO()){
+	%>
+		<h3>책의 소개</h3>
+		<form action="<%=request.getContextPath()%>/member/bookIntro/updateBookIntroAction.jsp" method="post">
+			<input type="hidden" name="bookNo" value="<%=bookNo %>">
+			<input type="hidden" name="bookIntroNo" value="<%=bookIntroNo %>">
+			<textarea name="bookIntroContent" cols="100" rows="10"><%=detailBookDTO.getBookIntroDTO().getBookIntroContent() %></textarea><br>
+			작성자 : <input type="text" name="bookIntroWrite" value="<%=detailBookDTO.getBookIntroDTO().getBookIntroWrite() %>">
+			<input type="submit" value="수정">
+		</form><br>
+	<%
 		} else {
 	%>
-	
-	<%		
+		<h3>책의 소개</h3>
+		<form action="<%=request.getContextPath()%>/member/bookIntro/insertBookIntroAction.jsp" method="post">
+			작성자 : <input type="text" name="bookIntroWrite">
+			<input type="submit" value="등록"><br><br>
+			<input type="hidden" name="bookNo" value="<%=bookNo %>">
+			<textarea name="bookIntroContent" cols="100" rows="10"></textarea>
+		</form><br>
+	<%
 		}
 	%>
+		<h3>책의 소개 리스트</h3>
+		<table border="1">
+			<tr>
+				<th>책 소개글 번호</th>
+				<th>책 소개 내용</th>
+				<th>작성자</th>
+				<th>수정</th>
+				<th>삭제</th>
+			</tr>
+		<%
+			for(BookIntroDTO bookIntroDTO : detailBookDTO.getBookIntroListDTO()){
+		%>
+			<tr>
+				<td><%=bookIntroDTO.getBookIntroNo() %></td>
+				<td><%=bookIntroDTO.getBookIntroContent() %></td>
+				<td><%=bookIntroDTO.getBookIntroWrite() %></td>
+				<td><a href="<%=request.getContextPath()%>/member/book/selectBook.jsp?bookIntroNo=<%=bookIntroDTO.getBookIntroNo() %>&bookNo=<%=bookNo %>">수정</a></td>
+				<td><a href="<%=request.getContextPath()%>/member/bookIntro/deleteBookIntroAction.jsp?bookIntroNo=<%=bookIntroDTO.getBookIntroNo() %>">삭제</a></td>
+			</tr>
+		<%
+			}
+		%>
+		</table><br>
+	<%
+		System.out.println(detailBookDTO.getBookReviewListDTO().size()+"크기");
+		if(detailBookDTO.getBookReviewListDTO().size() < 5){
+	%>
+		<h3>댓글</h3>
+		<form action="<%= request.getContextPath() %>/member/bookReview/insertBookReviewAction.jsp" method="post">
+			<input type="hidden" name="bookNo" value="<%= bookNo %>">
+			<input type="hidden" name="memberNo" value="<%= memberNo %>">
+		    <textarea cols="50" rows="5" name="bookReviewContent"></textarea><br><br>
+			<input type="submit" value="리뷰  등록">
+        </form><br><br>
+    <%
+		}
+    %>
+        <h3>댓글 리스트</h3>
+        <table border="1">
+        <%
+			for(BookReviewDTO bookReviewDTO : detailBookDTO.getBookReviewListDTO()) {
+		%>
+			<tr>
+				<th><%=bookReviewDTO.getBookNo() %>번 책</th>
+				<th><%=bookReviewDTO.getMemberNo() %>번 회원</th>
+				<td><%=bookReviewDTO.getBookReviewContent() %></td>
+
+				<td><a href="<%=request.getContextPath() %>/member/bookReview/deleteBookReviewForm.jsp?bookReviewNo=<%=bookReviewDTO.getBookReviewNo() %>&bookNo=<%= bookNo %>">삭제</a></td>
+				<td><a href="<%=request.getContextPath() %>/member/bookReview/updateBookReviewForm.jsp?bookReviewNo=<%=bookReviewDTO.getBookReviewNo() %>">수정</a></td>
+			</tr>
+		<%	
+        	}
+		%>
+		</table>
+		<br>
+		<br>
 	</body>
 </html>

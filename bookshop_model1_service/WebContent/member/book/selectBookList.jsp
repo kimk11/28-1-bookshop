@@ -1,7 +1,7 @@
 <!-- 07.18 송원민 / 책 전체 리스트 화면 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="service.BookService"%>
-<%@ page import="dto.BookJoinDTO"%>
+<%@ page import="dto.BookJoinListDTO"%>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <%
@@ -40,7 +40,7 @@
 	BookService bookService = new BookService();
 	//(현재페이지값, 리스트의 갯수, 검색 조건값, 검색 단어값)들을 매개변수로 책 정보들을 전체검색하는 메서드 호출
 	//출판사와 카테고리와 책 정보들의 값이 들어간 객체의 주소값을 저장한 배열객체의 주소값을 리턴값으로 받는다.
-	ArrayList<BookJoinDTO> bookList = bookService.selectSearchBookListService(currentPage, pagePerRow, searchKey, searchValue);
+	ArrayList<BookJoinListDTO> bookList = bookService.selectSearchBookListService(currentPage, pagePerRow, searchKey, searchValue);
 	
 	//페이징 작업 후 마지막 페이지값을 리턴
 	int lastPage = bookService.pagingService(pagePerRow, searchKey, searchValue);
@@ -69,7 +69,7 @@
 				<th>책소개(테스트)</th>
 			</tr>
 			<%
-				for(BookJoinDTO bookJoin : bookList){
+				for(BookJoinListDTO bookJoin : bookList){
 			%>
 			<tr>
 				<td><%=bookJoin.getBookDTO().getBookNo() %></td>

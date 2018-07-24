@@ -70,18 +70,20 @@ public class BookIntroDAO {
 	}
 	
 	// 책 인트로 리스트 메서드
-	public ArrayList<BookIntroDTO> selectBookIntroList() {
+	public ArrayList<BookIntroDTO> selectBookIntroList(int bookNo) {
 		ArrayList<BookIntroDTO> bookIntroList = new ArrayList<BookIntroDTO>();
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "SELECT bookintro_no, book_no, bookintro_content, bookintro_write FROM bookintro ORDER BY bookintro_no DESC ";
+			String sql = "SELECT bookintro_no, book_no, bookintro_content, bookintro_write FROM bookintro where book_no=? ORDER BY bookintro_no DESC ";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
+			
+			JdbcObject.getPreparedStatement().setInt(1, bookNo);
 			
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			

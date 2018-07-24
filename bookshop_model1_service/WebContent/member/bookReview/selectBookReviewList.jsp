@@ -4,8 +4,9 @@
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <%
+	int bookNo = 0;
 	BookReviewService bookReviewService = new BookReviewService();
-	ArrayList<BookReviewDTO> bookReviewList = bookReviewService.selectBookReviewListService();
+	ArrayList<BookReviewDTO> bookReviewList = bookReviewService.selectBookReviewListService(bookNo);
 %>
 
 <html>

@@ -18,7 +18,7 @@
 	int insertBookReviewServiceCheck = bookReviewService.insertBookReviewService(bookReviewDTO);
 	
 	if(insertBookReviewServiceCheck == 1) {
-		response.sendRedirect(request.getContextPath() + "/member/bookReview/selectBookReviewList.jsp?bookNo="+bookNo);
+		response.sendRedirect(request.getContextPath() + "/member/book/selectBook.jsp?bookNo="+bookNo);
 	} else {
 %>
 <%		

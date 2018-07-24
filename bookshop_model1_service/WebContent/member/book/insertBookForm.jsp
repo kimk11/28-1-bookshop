@@ -7,9 +7,9 @@
 <%
 	//카테고리번호와 출판사 번호를 조회하기위한 배열객체 생성
 	BookService bookService = new BookService();
-	BookArrayListJoinDTO bookArrayListJoinDTO = bookService.selectBookCodePublisherListService();
-	ArrayList<BookCodeDTO> bookCodeDTO = bookArrayListJoinDTO.getBookCodeList();
-	ArrayList<BookPublisherDTO> bookPublisherDTO = bookArrayListJoinDTO.getBookPublisherList();	
+	BookJoinListDTO bookJoinListDTO = bookService.selectBookCodePublisherListService();
+	ArrayList<BookCodeDTO> bookCodeDTO = bookJoinListDTO.getBookCodeListDTO();
+	ArrayList<BookPublisherDTO> bookPublisherDTO = bookJoinListDTO.getBookPublisherListDTO();
 %>
 <html>
 	<head>

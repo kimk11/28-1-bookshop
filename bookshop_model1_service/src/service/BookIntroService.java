@@ -72,14 +72,14 @@ public class BookIntroService {
 	}
 	
 	//책 소개정보의 내용을 리스트처리하는 Service메서드
-	public ArrayList<BookIntroDTO> selectBookIntroListService() {
+	public ArrayList<BookIntroDTO> selectBookIntroListService(int bookNo) {
 		//리턴결과값을 담을 변수
 		ArrayList<BookIntroDTO> bookIntroList = null;
 		
 		try {
 			BookIntroDAO bookIntroDAO = new BookIntroDAO();
 			//책 소개정보를 리스트 처리하는 메서드 호출, 처리에 대한 결과값을 리턴받는다.
-			bookIntroList = bookIntroDAO.selectBookIntroList();
+			bookIntroList = bookIntroDAO.selectBookIntroList(bookNo);
 			
 			if(null == bookIntroList) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영

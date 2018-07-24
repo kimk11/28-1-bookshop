@@ -7,15 +7,17 @@
 <%
 	//selectBookList.jsp 에서 받아온 책 번호(bookNo) 값
 	int bookNo = Integer.parseInt(request.getParameter("bookNo"));
+	//메서드 실행을 위한 더미변수
+	String bookIntroNo = "";
 	
 	//책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
-	BookJoinDTO selectDetailBookServiceJoinDTO = bookService.selectDetailBookService(bookNo);
+	BookJoinListDTO selectDetailBookServiceJoinDTO = bookService.selectDetailBookService(bookNo, bookIntroNo);
 	BookDTO bookDTO = selectDetailBookServiceJoinDTO.getBookDTO();
 	
-	BookArrayListJoinDTO bookArrayListJoinDTO = bookService.selectBookCodePublisherListService();
-	ArrayList<BookCodeDTO> bookCodeDTO = bookArrayListJoinDTO.getBookCodeList();
-	ArrayList<BookPublisherDTO> bookPublisherDTO = bookArrayListJoinDTO.getBookPublisherList();
+	BookJoinListDTO bookJoinListDTO = bookService.selectBookCodePublisherListService();
+	ArrayList<BookCodeDTO> bookCodeDTO = bookJoinListDTO.getBookCodeListDTO();
+	ArrayList<BookPublisherDTO> bookPublisherDTO = bookJoinListDTO.getBookPublisherListDTO();
 %>
 <html>
 	<head>
