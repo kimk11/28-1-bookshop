@@ -209,6 +209,16 @@ public class BookService {
 		int check = 0;
 		
 		try {
+			//책 마일리지 포인트 계산
+			//책 가격값
+			double bookPrice = (double)bookDTO.getBookPrice();
+			System.out.println(bookPrice+"책 가격값");
+			
+			//마일리지 포인트 변수
+			int bookPoint = (int)(bookPrice * ((double)5 / (double)100));
+			System.out.println(bookPoint+"마일리지 값");
+			bookDTO.setBookPoint(bookPoint);
+			
 			BookDAO bookDAO = new BookDAO();
 			//책 정보들이 저장되어있는 객체의 참조값을 매개변수로 책 정보를 수정하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
 			check = bookDAO.updateBook(bookDTO);
