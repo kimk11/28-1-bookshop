@@ -2,7 +2,7 @@
 <!-- viewQna.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html>	<!-- 세션으로 멤버넘버, 이름 받아옴 -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Q&A 뷰</title>

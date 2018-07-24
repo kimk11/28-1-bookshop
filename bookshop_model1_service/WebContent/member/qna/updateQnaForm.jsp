@@ -12,10 +12,10 @@
 <body>
 <%
 	request.setCharacterEncoding("utf8");
-	int memberNo = Integer.parseInt(request.getParameter("memberNo"));	
-	System.out.println("memberNo : " + memberNo);
-	QnaService memberService = new QnaService();
-	QnaDTO qnaDTO = QnaService.selectOneUpdateService(memberNo);
+	int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));	
+	System.out.println("qnaNo : " + qnaNo);
+	QnaService qnaService = new QnaService();
+	QnaDTO qnaDTO = qnaService.selectQnaForUpdateService(qnaNo);
 	
 %>
 	<!-- 제목, 내용만 수정 -->
@@ -23,7 +23,7 @@
 		<table>
 			<h3>Q&A 등록</h3>
 			<tr>
-				<td colspan="2">
+				<td colspan="2"><!-- 세션처리 -->
 					<input type="hidden" name="memberNo" value="<%=%>">
 				</td>
 			</tr>	
@@ -33,11 +33,11 @@
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="qnaTitle" size="40" value="<%=%>"></td>
+				<td><input type="text" name="qnaTitle" size="40" value="<%=qnaDTO.getQnaTitle()%>"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="qnaContent" cols="67" rows="15" value="<%=%>"></textarea></td>
+				<td><textarea name="qnaContent" cols="67" rows="15" value="<%=qnaDTO.getQnaContent()%>"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="2"><button type="submit">수정</button><td>
