@@ -1,6 +1,6 @@
 <!-- 07.18 송원민 / 책 정보 수정 화면 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="service.BookService" %>
+<%@ page import="service.*" %>
 <%@ page import="dto.*" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
@@ -10,7 +10,9 @@
 	
 	//책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
-	BookDTO selectDetailBookServicebookDTO = bookService.selectDetailBookService(bookNo);
+	BookCodePublisherJoinDTO selectDetailBookServiceJoinDTO = bookService.selectDetailBookService(bookNo);
+	BookDTO bookDTO = selectDetailBookServiceJoinDTO.getBookDTO();
+	
 	BookArrayListJoinDTO bookArrayListJoinDTO = bookService.selectBookCodePublisherListService();
 	ArrayList<BookCodeDTO> bookCodeDTO = bookArrayListJoinDTO.getBookCodeList();
 	ArrayList<BookPublisherDTO> bookPublisherDTO = bookArrayListJoinDTO.getBookPublisherList();
@@ -47,28 +49,28 @@
 			<%
 				// bookService 에서 값을 받아오는데 실패 => 리턴값 0 , 성공 => 리턴값 1
 				// 성공할 경우 화면에 수정화면을 표시
-				if(selectDetailBookServicebookDTO != null) {
+				if(selectDetailBookServiceJoinDTO != null) {
 			%>
 					<div>
 						<label>책번호</label>
-						<input type="text" name="bookNo" value="<%=selectDetailBookServicebookDTO.getBookNo()%>" readonly>
+						<input type="text" name="bookNo" value="<%=bookDTO.getBookNo()%>" readonly>
 					</div>
 					<div>
 						<label>책이름</label>
-						<input type="text" name="bookName" value="<%=selectDetailBookServicebookDTO.getBookName()%>">
+						<input type="text" name="bookName" value="<%=bookDTO.getBookName()%>">
 					</div>
 					<div>
 						<label>저자</label>
-						<input type="text" name="bookAuthor" value="<%=selectDetailBookServicebookDTO.getBookAuthor()%>">
+						<input type="text" name="bookAuthor" value="<%=bookDTO.getBookAuthor()%>">
 					</div>
 					<div>
 						<label>가격</label>
-						<input type="text" name="bookPrice" value="<%=selectDetailBookServicebookDTO.getBookPrice()%>">원
+						<input type="text" name="bookPrice" value="<%=bookDTO.getBookPrice()%>">원
 					</div>
 					<div>
 						<label>책 수량</label>
-						<input type="text" name="bookAmount" value="<%=selectDetailBookServicebookDTO.getBookAmount()%>">
-						<input type="hidden" name="bookOut" value="<%=selectDetailBookServicebookDTO.getBookOut()%>">
+						<input type="text" name="bookAmount" value="<%=bookDTO.getBookAmount()%>">
+						<input type="hidden" name="bookOut" value="<%=bookDTO.getBookOut()%>">
 						<input type="submit" value="입력">
 					</div>
 			<%		

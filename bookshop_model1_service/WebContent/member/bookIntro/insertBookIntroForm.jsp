@@ -15,7 +15,7 @@
 		<form action="<%=request.getContextPath()%>/member/bookIntro/insertBookIntroAction.jsp" method="post">
 			<input type="hidden" name="bookNo" value="<%=bookNo %>">
 			<textarea name="bookIntroContent" cols="100" rows="20"></textarea><br>
-			작성자 : <input type="text" name="introWriter">
+			작성자 : <input type="text" name="introWrite">
 			<input type="submit" value="등록">
 		</form>
 	</body>

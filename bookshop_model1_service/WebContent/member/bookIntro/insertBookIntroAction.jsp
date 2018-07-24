@@ -9,13 +9,13 @@
 	
 	int bookNo = Integer.parseInt(request.getParameter("bookNo"));
 	String bookIntroContent = request.getParameter("bookIntroContent");
-	String introWriter = request.getParameter("introWriter");
+	String introWrite = request.getParameter("introWrite");
 	
 	// 입력한 텍스트와 작성자 이름 값을 셋팅
 	BookIntroDTO bookIntroDTO = new BookIntroDTO();
 	bookIntroDTO.setBookNo(bookNo);
 	bookIntroDTO.setBookIntroContent(bookIntroContent);
-	bookIntroDTO.setBookIntroWriter(introWriter);
+	bookIntroDTO.setBookIntroWrite(introWrite);
 	
 	// 
 	BookIntroService bookIntroService = new BookIntroService();
@@ -24,7 +24,6 @@
 	if(insertBookIntroServiceCheck == 1) {
 		response.sendRedirect(request.getContextPath() + "/member/bookIntro/selectBookIntroList.jsp");
 	} else {
-%>
-<%		
+		out.print("실패임돠");
 	}
 %>

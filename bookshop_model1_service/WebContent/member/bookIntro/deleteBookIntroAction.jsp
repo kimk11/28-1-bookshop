@@ -3,17 +3,17 @@
 <%@ page import="service.BookIntroService"%>
 <!DOCTYPE html>
 <%
-	//selectBookIntroList.jsp 에서 가져온 bookNo
-	int bookNo = Integer.parseInt(request.getParameter("bookNo"));
+	//selectBookIntroList.jsp 에서 가져온 책 소개번호(bookIntroNo)
+	int bookIntroNo = Integer.parseInt(request.getParameter("bookIntroNo"));
 	
 	BookIntroService bookIntroService = new BookIntroService();
 	
 	// deleteBookIntroService 에서 받은 리턴값 성공=1, 실패=0
-	int deleteBookIntroServiceCheck = bookIntroService.deleteBookIntroService(bookNo);
+	int deleteBookIntroServiceCheck = bookIntroService.deleteBookIntroService(bookIntroNo);
 	
 	if(deleteBookIntroServiceCheck == 1) {
-		
+		response.sendRedirect(request.getContextPath() + "/member/bookIntro/selectBookIntroList.jsp");
 	} else {
-		
+		out.println("실패임돠");
 	}
 %>
