@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dto.BookDTO;
 import dto.BookJoinCartDTO;
+import dto.BookJoinOrdersDTO;
 import dto.OrdersDTO;
 import dto.ShoppingCartDTO;
 import jdbcObject.JdbcObject;
@@ -68,20 +69,53 @@ public class OrdersDAO {
 	
 	//주문 리스트 보여주기
 	//페이지기능
-	public ArrayList<> selectCartList(int currentPage, int rowPage, String searchValue, String searchKey) {
-		ArrayList<> arrayList = new ArrayList<>();
+	//검색기능
+	public ArrayList<BookJoinOrdersDTO> selectCartList(int currentPage, int rowPage, String searchValue, String searchKey) {
+		ArrayList<BookJoinOrdersDTO> arrayList = new ArrayList<>();
 		
-		String sql = "";
+		String sql = "select b.book_name, o.orders_no, o.book_no, o.member_no, o.orders_amount, o.orders_price, o.orders_date, o.orders_addr, o.orders_state from book b join orders o on b.book_no=o.book_no limit ?,?";
 		
 		try {
 			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
-			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
 
+			
+			// 처음 실행 시켰을 경우
+			if(searchValue.equals("") && searchKey.equals("")) {
+				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+				JdbcObject.getPreparedStatement().setInt(1, (currentPage-1)*rowPage);
+				JdbcObject.getPreparedStatement().setInt(2, rowPage);
+			
+			// 검색단어가 없는 경우
+			}else if(!searchValue.equals("") && searchKey.equals("")) {
+				sql = "select b.book_name, o.orders_no, o.book_no, o.member_no, o.orders_amount, o.orders_price, o.orders_date, o.orders_addr, o.orders_state from book b join orders o on b.book_no=o.book_no limit 0,0";
+				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+				JdbcObject.getPreparedStatement().setInt(1, (currentPage-1)*rowPage);
+				JdbcObject.getPreparedStatement().setInt(2, rowPage);
+				
+			// 검색단어가 있을 경우
+			}else if(!searchValue.equals("") && !searchKey.equals("")) {
+				sql = "select b.book_name, o.orders_no, o.book_no, o.member_no, o.orders_amount, o.orders_price, o.orders_date, o.orders_addr, o.orders_state from book b join orders o on b.book_no=o.book_no like book_name=? limit ?,?";
+				JdbcObject.getPreparedStatement().setString(1, "%"+searchKey+"%");
+				JdbcObject.getPreparedStatement().setInt(2, (currentPage-1)*rowPage);
+				JdbcObject.getPreparedStatement().setInt(3, rowPage);
+			}
 			
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			while(JdbcObject.getResultSet().next()) {
-				
+				BookJoinOrdersDTO bookJoinOrdersDTO = new BookJoinOrdersDTO();
+				BookDTO bookDTO = new BookDTO();
+				OrdersDTO ordersDTO = new OrdersDTO();
+				bookDTO.setBookName(JdbcObject.getResultSet().getString(1));
+				ordersDTO.setOrdersNo(JdbcObject.getResultSet().getInt(2));
+				ordersDTO.setBookNo(JdbcObject.getResultSet().getInt(3));
+				ordersDTO.setMemberNo(JdbcObject.getResultSet().getInt(4));
+				ordersDTO.setOrdersAmount(JdbcObject.getResultSet().getInt(5));
+				ordersDTO.setOrdersPrice(JdbcObject.getResultSet().getInt(6));
+				ordersDTO.setOrdersAddr(JdbcObject.getResultSet().getString(7));
+				bookJoinOrdersDTO.setBookDTO(bookDTO);
+				bookJoinOrdersDTO.setOrdersDTO(ordersDTO);
+				arrayList.add(bookJoinOrdersDTO);
 			}
 
 		} catch (Exception e) {
