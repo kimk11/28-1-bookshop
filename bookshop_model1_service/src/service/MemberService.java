@@ -132,6 +132,7 @@ public class MemberService {
 		
 		return check;
 	}
+	
 	//member 테이블 조회(검색)
 	public ArrayList<MemberDTO> selectSearchMemberService(String searchKey, String searchValue){
 		ArrayList<MemberDTO> arrayList = new ArrayList<>();
@@ -158,4 +159,34 @@ public class MemberService {
 		return arrayList;
 	}
 	
+	//memberLogin 세션처리
+	public MemberDTO loginMember(String memberId, String memberPw) {
+		MemberDTO memberDTO=null;
+		
+		try {
+			//로그인 입력값 확인
+			int check = memberDAO.selectLoginCheck(memberId, memberPw);
+			
+			//입력값과 db데이터가 같을 경우만 회원 정보를 가져옴
+			if(2==check) {
+				memberDTO = memberDAO.selectOneMember(memberId);
+			}
+			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
+			if(null != memberDTO) {
+				JdbcObject.getConnection().commit();
+			}else {
+				JdbcUtil.rollback(JdbcObject.getConnection());
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			JdbcUtil.rollback(JdbcObject.getConnection());
+		} finally {
+			JdbcUtil.close(JdbcObject.getResultSet());
+			JdbcUtil.close(JdbcObject.getPreparedStatement());
+			JdbcUtil.close(JdbcObject.getConnection());
+		}
+		
+		return memberDTO;
+	}
 }

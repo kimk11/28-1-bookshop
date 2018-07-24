@@ -214,4 +214,66 @@ public class MemberDAO {
 		}
 		return list;
 	}
+	
+	//memberLogin메서드
+	//리턴값 0:아이디 불일치, 1:비번불일치, 2:로그인 성공
+	public int selectLoginCheck(String memberId, String memberPw) {
+
+		String sql = "SELECT member_pw FROM member WHERE member_id=?";
+		
+		int check = 0;
+		
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+			JdbcObject.getPreparedStatement().setString(1, memberId);
+
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			
+			//삭제 실패 0, 삭제 성공 1
+			if(JdbcObject.getResultSet().next()) {
+				check = 1;
+				if(JdbcObject.getResultSet().getString(1).equals(memberPw)) {
+					check=2;
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return check;
+	}
+	
+	//member정보를 가져오기 위한 메서드
+	//id로 조회
+	public MemberDTO selectOneMember(String memberId) {
+		MemberDTO memberDTO = new MemberDTO();
+		String sql = "SELECT member_no,member_id,member_pw,member_name,member_addr,member_point,member_date FROM member WHERE member_id=?";
+		
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+			JdbcObject.getPreparedStatement().setString(1, memberId);
+
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			
+			//삭제 실패 0, 삭제 성공 1
+			if(JdbcObject.getResultSet().next()) {
+				memberDTO.setMemberNo(JdbcObject.getResultSet().getInt(1));
+				memberDTO.setMemberId(JdbcObject.getResultSet().getString(2));
+				memberDTO.setMemberPw(JdbcObject.getResultSet().getString(3));
+				memberDTO.setMemberName(JdbcObject.getResultSet().getString(4));
+				memberDTO.setMemberAddr(JdbcObject.getResultSet().getString(5));
+				memberDTO.setMemberPoint(JdbcObject.getResultSet().getInt(6));
+				memberDTO.setMemberDate(JdbcObject.getResultSet().getString(7));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return memberDTO;
+	}
 }
