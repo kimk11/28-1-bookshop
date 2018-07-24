@@ -5,7 +5,8 @@
 <%
 	//글자 호환을 utf-8로 변경
 	request.setCharacterEncoding("utf-8");
-
+	
+	//updateBookIntroForm.jsp 받아온 name 값들을 받아와서 각각의 변수들에 값 복사
 	int bookIntroNo = Integer.parseInt(request.getParameter("bookIntroNo"));
 	String bookIntroContent = request.getParameter("bookIntroContent");
 	String bookIntroWrite = request.getParameter("bookIntroWrite");

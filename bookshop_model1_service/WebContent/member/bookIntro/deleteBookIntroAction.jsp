@@ -11,6 +11,7 @@
 	// deleteBookIntroService 에서 받은 리턴값 성공=1, 실패=0
 	int deleteBookIntroServiceCheck = bookIntroService.deleteBookIntroService(bookIntroNo);
 	
+	// 성공시에 책 소개글 전체 리스트로 가고 실패하면 화면에 실패문구를 나타내줌
 	if(deleteBookIntroServiceCheck == 1) {
 		response.sendRedirect(request.getContextPath() + "/member/bookIntro/selectBookIntroList.jsp");
 	} else {

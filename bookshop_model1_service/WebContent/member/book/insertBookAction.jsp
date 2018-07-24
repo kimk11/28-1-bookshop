@@ -10,7 +10,7 @@
 
 	// insertBookForm에서 받아온 파라미터 값들 각각의 변수들에 값 복사
 	int bookCodeNo = Integer.parseInt(request.getParameter("bookCodeNo"));
-	int bookpublisherNo = Integer.parseInt(request.getParameter("bookPublisherNo"));
+	int bookPublisherNo = Integer.parseInt(request.getParameter("bookPublisherNo"));
 	String bookName = request.getParameter("bookName");
 	String bookAuthor = request.getParameter("bookAuthor");
 	int bookPrice = Integer.parseInt(request.getParameter("bookPrice"));
@@ -20,7 +20,7 @@
 	
 	// 넘어온 값들이 정상적으로 출력되는 지 확인
 	System.out.println(bookCodeNo + "<-- 카테고리넘버값");
-	System.out.println(bookpublisherNo + "<-- 출판사넘버값");
+	System.out.println(bookPublisherNo + "<-- 출판사넘버값");
 	System.out.println(bookName + "<-- 책이름값");
 	System.out.println(bookAuthor + "<-- 저자값");
 	System.out.println(bookPrice + "<-- 가격");
@@ -30,7 +30,7 @@
 	// 새로운 객체를 생성하여 파라미터에 값들을 셋팅
 	BookDTO bookDTO = new BookDTO();
 	bookDTO.setBookcodeNo(bookCodeNo);
-	bookDTO.setPublisherNo(bookpublisherNo);
+	bookDTO.setPublisherNo(bookPublisherNo);
 	bookDTO.setBookName(bookName);
 	bookDTO.setBookAuthor(bookAuthor);
 	bookDTO.setBookPrice(bookPrice);
@@ -40,6 +40,7 @@
 	
 	
 	BookService bookService = new BookService();
+	// 리턴값 실패=>0 , 성공=>1
 	int insertBookServiceCheck = bookService.insertBookService(bookDTO);
 	
 	if(insertBookServiceCheck == 1){

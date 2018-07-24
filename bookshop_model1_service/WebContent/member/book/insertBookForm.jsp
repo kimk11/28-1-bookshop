@@ -20,7 +20,7 @@
 	<body>
 		<div>
 			<form action="<%= request.getContextPath() %>/member/book/insertBookAction.jsp" method="post">
-				카테고리번호<br>
+				카테고리<br>
 			<%
 				for(BookCodeDTO bookCode : bookCodeDTO) {
 					System.out.println(bookCode.getBookCodeNo() + "<- 번호값");
@@ -29,7 +29,7 @@
 			<%	
 				}
 			%>
-				<br>출판사번호<br>
+				<br>출판사<br>
 			<%
 				for(BookPublisherDTO bookPublisher : bookPublisherDTO)	{
 					System.out.println(bookPublisher.getPublisherNo() + "<- 출판사값");
