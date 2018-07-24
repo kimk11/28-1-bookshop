@@ -40,15 +40,15 @@ public class BookIntroService {
 		return check;
 	}
 	
-	//책 하나의 소개정보를 검색하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
-	public BookIntroDTO selectBookIntroService(int bookNo) {
+	//책 하나의 소개정보를 검색하는 Service메서드(책 소개테이블의 기본키가되는 bookIntroNo를 매개변수로 받음)
+	public BookIntroDTO selectBookIntroService(int bookIntroNo) {
 		//리턴결과값을 담을 변수
 		BookIntroDTO bookintroDTO = null;
 		
 		try {
 			BookIntroDAO bookIntroDAO = new BookIntroDAO();
 			//책을 식별하기위해 bookNo를 매개변수로 책 소개 정보를 검색하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
-			bookintroDTO = bookIntroDAO.selectBookIntro(bookNo);
+			bookintroDTO = bookIntroDAO.selectBookIntro(bookIntroNo);
 			
 			if(null == bookintroDTO) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
@@ -134,15 +134,15 @@ public class BookIntroService {
 		return check;
 	}
 	
-	//책 소개정보 삭제를 처리하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
-	public int deleteBookIntroService(int bookNo) {
+	//책 소개정보 삭제를 처리하는 Service메서드(책 소개테이블의 기본키가되는 bookIntroNo를 매개변수로 받음)
+	public int deleteBookIntroService(int bookIntroNo) {
 		//리턴결과값을 담을 변수
 		int check = 0;
 		
 		try {
 			BookIntroDAO bookIntroDAO = new BookIntroDAO();
 			//책을 식별하기위해 bookNo를 매개변수로 책 소개정보를 삭제하는 메서드 호출, 처리에 대한 결과값을 리턴받는다.
-			check = bookIntroDAO.deleteBookIntro(bookNo);
+			check = bookIntroDAO.deleteBookIntro(bookIntroNo);
 			
 			if(1 == check) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영

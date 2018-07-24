@@ -2,6 +2,8 @@
 <!-- searchQnaList.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "dto.QnaDTO" %>
+<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "dao.QnaDAO" %>
 <%@ page import = "service.QnaService" %>
 <!DOCTYPE html>
 <html>
@@ -18,15 +20,35 @@
 	if(searchKey == null){
 		searchKey="";
 	}
+	
 	//검색 단어 변수
 	String searchValue =request.getParameter("searchValue");
 	if(searchValue == null){
 		searchKey="";
 	}
 	
+	// 페이징작업
+	int currentPage = 1; //현재페이지
+	int pagePerRow = 5; //한 페이지에 나올 row 수
+	if (request.getParameter("currentPage") != null) {
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
+	int startRow = (currentPage - 1) * pagePerRow; // 시작 페이지
+	int endRow = startRow + (pagePerRow - 1); // 끝날 페이지
+	
+	QnaDAO qnaDAO = new QnaDAO(); 
+	int totalRow = qnaDAO.count(); // 총 row 수 
+	
+	
+
 	QnaService qnaService = new QnaService();
-	ArrayList<qnaDTO> list = qnaService.selectSearchMemberService(searchKey, searchValue);
+	ArrayList<QnaDTO> list = qnaService.selectSearchQnaService(startRow, pagePerRow, searchKey, searchValue);
+	
+	if (endRow > list.size() - 1) {
+		endRow = list.size() - 1;
+	}
 %>
+	<!-- 리스트 테이블 -->
 	<h2>Q&A 목록</h2>
 	<table border=1>
 		<tr align="center" valign="middle">
@@ -48,18 +70,46 @@
 		QnaDTO qnaDTO = list.get(i);
 %>		
 		<tr>
-			<td><%= qnaDTO.getQnaNo() %></td>
-			<td><%= qnaDTO.getQnaTitle()%></td>
-			<td><%= %></td>	<!-- 세션 -->
-			<td><%= qnaDTO.getQnaDate()%></td>
+			<td><%= qnaDTO.getQnaNo() %></td>	<!-- 번호 -->
+			<td><%= qnaDTO.getQnaTitle()%></td>	<!-- 제목 -->
+			<td><%= %></td>	<!-- 세션 -->			<!-- 작성자 -->
+			<td><%= qnaDTO.getQnaDate()%></td>	<!-- 날짜 -->
 		</tr>
+<%
+	}
+%>
 	</table>
+	
+	<!-- 버튼 -->
 	<div>
-		<button>질문작성</button>
-		<button>목록</button>
+		<a href ="<%= request.getContextPath()%>/member/qna/insertQnaForm.jsp"><button>질문작성</button></a>
+		<a href ="<%= request.getContextPath()%>/member/qna/searchQnaList.jsp"><button>목록</button></a>
 	</div>
 		
-	<form action="<%=request.getContextPath()%>/member/qna/searchQnaList.jsp"  method="post">
+		
+	<!-- 페이징 작업 :: 이전과 다음페이지 -->
+			<%
+				if (currentPage > 1) {
+			%>
+			<a href="<%= request.getContextPath() %>/teacher/teacherList.jsp?currentPage=<%=currentPage - 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">이전</a>
+			<%
+				}
+
+				int lastPage = (totalRow - 1) / pagePerRow;
+				if ((totalRow - 1) % pagePerRow != 0) {
+					lastPage++;
+				}
+				if (currentPage < lastPage) {
+			%>
+			<a href="<%= request.getContextPath() %>/teacher/teacherList.jsp?currentPage=<%=currentPage + 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">다음</a> <br>
+			<br>
+			<%
+				}
+			%>
+		
+		
+	<!-- 검색창  -->
+	<form action="<%= request.getContextPath()%>/member/qna/searchQnaList.jsp"  method="post">
 		<select name="searchKey">
 			<option value ="">전체</option>
 			<optgroup label="----------"></optgroup>

@@ -13,13 +13,12 @@
 <%
 	request.setCharacterEncoding("utf8");
 
-	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+	int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 	QnaDTO qnaDTO = new QnaDTO();
-	qnaDTO.setQnaNo(Integer.parseInt(request.getParameter("qnaNo")));
 	qnaDTO.setQnaTitle(request.getParameter("qnaTitle"));
 	qnaDTO.setQnaContent(request.getParameter("qnaContent"));
 	QnaService qnaService = new QnaService();	
-	int check = qnaService.updateQnaService("memberNo");
+	int check = qnaService.updateQnaService(qnaDTO, qnaNo);
 
 	//수정 성공 시 
 	if(1==check){

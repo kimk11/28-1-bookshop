@@ -111,7 +111,7 @@ public class BookIntroDAO {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "UPDATE bookintro SET bookintro_content=? bookintro_write=? WHERE bookintro_no=?";
+			String sql = "UPDATE bookintro SET bookintro_content=?, bookintro_write=? WHERE bookintro_no=?";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
@@ -119,6 +119,7 @@ public class BookIntroDAO {
 			
 			JdbcObject.getPreparedStatement().setString(1, bookIntroDTO.getBookIntroContent());
 			JdbcObject.getPreparedStatement().setString(2, bookIntroDTO.getBookIntroWrite());
+			JdbcObject.getPreparedStatement().setInt(3, bookIntroDTO.getBookIntroNo());
 			
 			JdbcObject.getPreparedStatement().executeUpdate();
 			

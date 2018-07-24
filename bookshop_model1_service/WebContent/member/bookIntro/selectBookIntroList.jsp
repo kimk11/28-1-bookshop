@@ -11,7 +11,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title></title>
+		<title>책 소개글 전체 리스트</title>
 	</head>
 	<body>
 		<table border="1">
@@ -20,17 +20,19 @@
 				<th>책 번호</th>
 				<th>책 소개 내용</th>
 				<th>작성자</th>
+				<th>수정</th>
+				<th>삭제</th>
 			</tr>
 		<%
 			for(BookIntroDTO bookIntroListService : bookIntroList) {
 		%>
 			<tr>
 				<td><%=bookIntroListService.getBookIntroNo()%></td>
-				<td><%=bookIntroListService.getBookNo()%></td>
+				<td><a href="<%=request.getContextPath()%>/member/bookIntro/selectBookIntro.jsp?bookIntroNo=<%=bookIntroListService.getBookIntroNo()%>"><%=bookIntroListService.getBookNo()%></a></td>
 				<td><%=bookIntroListService.getBookIntroContent()%></td>
-				<td><%=bookIntroListService.getBookIntroWriter()%></td>
-				<td><a href="#"></a>수정</td>
-				<td><a href="#"></a>삭제</td>
+				<td><%=bookIntroListService.getBookIntroWrite()%></td>
+				<td><a href="<%=request.getContextPath()%>/member/bookIntro/updateBookIntroForm.jsp?bookIntroNo=<%=bookIntroListService.getBookIntroNo()%>">수정</a></td>
+				<td><a href="<%=request.getContextPath()%>/member/bookIntro/deleteBookIntroAction.jsp?bookIntroNo=<%=bookIntroListService.getBookIntroNo()%>">삭제</a></td>
 			</tr>
 		<%		
 			}

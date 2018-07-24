@@ -42,7 +42,7 @@ public class BookReviewDAO {
 	}
 	
 	// 책 리뷰 삭제 메서드
-	public int deleteBookReview(int bookReviewNo) {
+	public int deleteBookReview(BookReviewDTO bookReviewDTO) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
 		int check = 0;
 		// 쿼리 실행 문장
@@ -50,21 +50,28 @@ public class BookReviewDAO {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			
-			String sql = "DELETE FROM bookreview WHERE bookreview_no=?";
+			String sql = "DELETE FROM bookreview WHERE bookreview_no=? AND member_no=?";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
-			JdbcObject.getPreparedStatement().setInt(1, bookReviewNo); // bookintro_no
+			JdbcObject.getPreparedStatement().setInt(1, bookReviewDTO.getBookReviewNo()); // bookintro_no
+			JdbcObject.getPreparedStatement().setInt(2, bookReviewDTO.getMemberNo());
 		
-			check = JdbcObject.getPreparedStatement().executeUpdate();
+			JdbcObject.getPreparedStatement().executeUpdate();
 			
-		} catch (Exception e) {
-			// TODO: handle exception
+			//모든 처리가 완료되면 check값을 1로 변경
+			check = 1;
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(check +"<-- deleteBookReview 리턴값");
+		
+		System.out.println(check+"<-- deleteBookReview 리턴값");
+		//리턴값이 0=실패, 1=성공
 		return check;
 		
 	}
@@ -77,7 +84,7 @@ public class BookReviewDAO {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "SELECT bookreview_no, book_no, member_no, bookreview_content FROM bookreview ORDER BY bookreview_no DESC";
+			String sql = "SELECT bookreview_no, book_no, member_no, bookreview_content FROM bookreview ORDER BY bookreview_no ASC";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
@@ -111,18 +118,21 @@ public class BookReviewDAO {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "UPDATE bookreview SET bookreview_content=? WHERE bookreview_no=?";
+			String sql = "UPDATE bookreview SET book_no=?, bookreview_content=? WHERE bookreview_no=? AND member_no=?";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
 			JdbcObject.setPreparedStatement(preparedStatement);
 			
-			JdbcObject.getPreparedStatement().setString(1, bookReviewDTO.getBookReviewContent());
+			JdbcObject.getPreparedStatement().setInt(1, bookReviewDTO.getBookNo());
+			JdbcObject.getPreparedStatement().setString(2, bookReviewDTO.getBookReviewContent());
+			JdbcObject.getPreparedStatement().setInt(3, bookReviewDTO.getBookReviewNo());
+			JdbcObject.getPreparedStatement().setInt(4, bookReviewDTO.getMemberNo());
 			
-			JdbcObject.getPreparedStatement().executeUpdate();
+			check = JdbcObject.getPreparedStatement().executeUpdate();
 			
 			//모든 처리가 완료되면 check값을 1로 변경
-			check = 1;
+			
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -130,7 +140,7 @@ public class BookReviewDAO {
 			e.printStackTrace();
 		}
 		
-		System.out.println(check+"<-- updateBook 리턴값");
+		System.out.println(check+"<-- updateReviewBook 리턴값");
 		//리턴값이 0=실패, 1=성공
 		return check;
 	}

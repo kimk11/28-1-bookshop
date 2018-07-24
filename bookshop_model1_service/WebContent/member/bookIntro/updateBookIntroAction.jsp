@@ -1,12 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="service.BookIntroService" %>
+<%@ page import="dto.BookIntroDTO" %>
+<!DOCTYPE html>
+<%
+	//글자 호환을 utf-8로 변경
+	request.setCharacterEncoding("utf-8");
 
-</body>
-</html>
+	int bookIntroNo = Integer.parseInt(request.getParameter("bookIntroNo"));
+	String bookIntroContent = request.getParameter("bookIntroContent");
+	String bookIntroWrite = request.getParameter("bookIntroWrite");
+	
+	BookIntroDTO bookIntroDTO = new BookIntroDTO();
+	bookIntroDTO.setBookIntroNo(bookIntroNo);
+	bookIntroDTO.setBookIntroContent(bookIntroContent);
+	bookIntroDTO.setBookIntroWrite(bookIntroWrite);
+	
+	
+	BookIntroService bookIntroService = new BookIntroService();
+	int updateBookIntroServiceCheck = bookIntroService.updateBookIntroService(bookIntroDTO);
+	
+	if(updateBookIntroServiceCheck == 1 ){
+		response.sendRedirect(request.getContextPath() + "/member/bookIntro/selectBookIntroList.jsp");
+	} else {
+		out.print("실패임돠");
+	}
+%>
