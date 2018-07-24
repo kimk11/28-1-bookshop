@@ -106,9 +106,9 @@ public class QnaDAO {
 				QnaDTO qnaDTO = new QnaDTO();
 				qnaDTO.setQnaNo(JdbcObject.getResultSet().getInt(1));
 				qnaDTO.setMemberNo(JdbcObject.getResultSet().getInt(2));
-				qnaDTO.setQnaTitle(JdbcObject.getResultSet().getString(4));
-				qnaDTO.setQnaContent(JdbcObject.getResultSet().getString(5));
-				qnaDTO.setQnaDate(JdbcObject.getResultSet().getString(6));
+				qnaDTO.setQnaTitle(JdbcObject.getResultSet().getString(3));
+				qnaDTO.setQnaContent(JdbcObject.getResultSet().getString(4));
+				qnaDTO.setQnaDate(JdbcObject.getResultSet().getString(5));
 				arrayList.add(qnaDTO);
 			}
 		}catch (Exception e) {
