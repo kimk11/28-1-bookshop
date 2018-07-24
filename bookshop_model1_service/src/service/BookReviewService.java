@@ -1,5 +1,6 @@
 package service;
 
+import dto.BookIntroDTO;
 import dto.BookReviewDTO;
 import jdbcObject.JdbcObject;
 import jdbcUtil.JdbcUtil;
@@ -40,13 +41,13 @@ public class BookReviewService {
 	}
 	
 	//책 하나의 리뷰정보를 검색하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
-	public BookReviewDTO selectBookReviewService(BookReviewDTO bookReviewDTO) {
+	public BookReviewDTO selectBookReviewService(int bookReviewNo) {
+		BookReviewDTO bookReviewDTO = null;
 		
 		try {
 			BookReviewDAO bookReviewDAO = new BookReviewDAO();
 			//책을 식별하기위해 bookNo를 매개변수로 책 리뷰 정보를 검색하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
-			bookReviewDTO = bookReviewDAO.selectBookReview(bookReviewDTO.getBookNo());
-			bookReviewDTO = bookReviewDAO.selectBookReview(bookReviewDTO.getMemberNo());
+			bookReviewDTO = bookReviewDAO.selectBookReview(bookReviewNo);
 			
 			if(null == bookReviewDTO) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
@@ -108,7 +109,7 @@ public class BookReviewService {
 		try {
 			BookReviewDAO bookReviewDAO = new BookReviewDAO();
 			//책 리뷰정보가 담겨있는 객체의 참조값을 매개변수로 책 소개 정보를 db에 수정하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
-			check = bookReviewDAO.insertBookReview(bookReviewDTO);
+			check = bookReviewDAO.updateBookReview(bookReviewDTO);
 			
 			if(1 == check) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
@@ -133,14 +134,14 @@ public class BookReviewService {
 	}
 	
 	//책 리뷰정보 삭제를 처리하는 Service메서드(책 테이블의 기본키가되는 bookNo를 매개변수로 받음)
-	public int deleteBookReviewService(int bookNo) {
+	public int deleteBookReviewService(BookReviewDTO bookReviewDTO) {
 		//리턴결과값을 담을 변수
 		int check = 0;
 		
 		try {
 			BookReviewDAO bookReviewDAO = new BookReviewDAO();
 			//책을 식별하기위해 bookNo를 매개변수로 책 리뷰정보를 삭제하는 메서드 호출, 처리에 대한 결과값을 리턴받는다.
-			check = bookReviewDAO.deleteBookReview(bookNo);
+			check = bookReviewDAO.deleteBookReview(bookReviewDTO);
 			
 			if(1 == check) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
