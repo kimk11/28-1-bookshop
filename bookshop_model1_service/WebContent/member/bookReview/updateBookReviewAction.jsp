@@ -23,5 +23,5 @@
 	int check = bookReviewService.updateBookReviewService(bookReviewDTO);
 	
 	// 처리가 끝난후 리스트로
-	response.sendRedirect(request.getContextPath()+"/member/bookReview/selectBookReviewList.jsp");
+	response.sendRedirect(request.getContextPath()+"/member/book/selectBook.jsp?bookNo="+bookNo);
 %>

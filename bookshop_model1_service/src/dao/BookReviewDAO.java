@@ -3,7 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import dto.BookJoinListDTO;
 import dto.BookReviewDTO;
+import dto.BookDTO;
+import dto.MemberDTO;
 import jdbcObject.JdbcObject;
 import java.util.ArrayList;
 
@@ -77,14 +80,14 @@ public class BookReviewDAO {
 	}
 	
 	// 책 리뷰 리스트 메서드
-	public ArrayList<BookReviewDTO> selectBookReviewList(int bookNo) {
-		ArrayList<BookReviewDTO> bookReviewList = new ArrayList<BookReviewDTO>();
+	public ArrayList<BookJoinListDTO> selectBookReviewList(int bookNo) {
+		ArrayList<BookJoinListDTO> bookReviewList = new ArrayList<BookJoinListDTO>();
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
 			JdbcObject.setConnection(connection);
 			// 쿼리 실행 문장
-			String sql = "SELECT bookreview_no, book_no, member_no, bookreview_content FROM bookreview where book_no=? ORDER BY book_no ASC";
+			String sql = "SELECT a.bookreview_no, a.book_no, a.member_no, b.book_name, c.member_name, a.bookreview_content FROM bookreview a INNER JOIN book b ON a.book_no = b.book_no INNER JOIN member c ON a.member_no = c.member_no where a.book_no=? ORDER BY a.bookreview_no ASC";
 			
 			PreparedStatement preparedStatement = JdbcObject.getConnection().prepareStatement(sql);
 			
@@ -95,12 +98,24 @@ public class BookReviewDAO {
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			while(JdbcObject.getResultSet().next()) {
-				BookReviewDTO bookReviewDTO = new BookReviewDTO();
+				BookReviewDTO bookReviewDTO = new BookReviewDTO(); // BookReviewDTO
 				bookReviewDTO.setBookReviewNo(JdbcObject.getResultSet().getInt("bookreview_no"));
 				bookReviewDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
 				bookReviewDTO.setMemberNo(JdbcObject.getResultSet().getInt("member_no"));
 				bookReviewDTO.setBookReviewContent(JdbcObject.getResultSet().getString("bookreview_content"));
-				bookReviewList.add(bookReviewDTO);
+				
+				BookDTO bookDTO = new BookDTO(); // BookDTO
+				bookDTO.setBookName(JdbcObject.getResultSet().getString("book_name"));
+				
+				MemberDTO memberDTO = new MemberDTO(); // MemberDTO
+				memberDTO.setMemberName(JdbcObject.getResultSet().getString("member_name"));
+				
+				BookJoinListDTO bookJoinDTO = new BookJoinListDTO(); //BookJoinListDTO
+				bookJoinDTO.setBookReviewDTO(bookReviewDTO);
+				bookJoinDTO.setBookDTO(bookDTO);
+				bookJoinDTO.setMemberDTO(memberDTO);
+				
+				bookReviewList.add(bookJoinDTO);
 			}
 						
 		} catch (Exception e) {
