@@ -2,6 +2,7 @@ package dao;
 
 import dto.AdminDTO;
 import jdbcObject.JdbcObject;
+import java.util.ArrayList;
 
 public class AdminDAO {
 	
@@ -35,10 +36,38 @@ public class AdminDAO {
 		return check;
 	}
 	
+	//한명의 관리자를 조회하는 메서드
+	//관리자 컬럼 admin_no값을 넘김
+	public AdminDTO selectOneAdmin(int AdminNo) {
+		AdminDTO adminDTO = new AdminDTO();
+		
+		String sql = "SELECT admin_no, admin_id, admin_pw , admin_name FROM admin WHERE admin_no=?";
+		
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+			JdbcObject.getPreparedStatement().setInt(1, AdminNo);
+
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			
+			if(JdbcObject.getResultSet().next()) {
+				adminDTO.setAdminNo(JdbcObject.getResultSet().getInt(1));
+				adminDTO.setAdminId(JdbcObject.getResultSet().getString(2));
+				adminDTO.setAdminPw(JdbcObject.getResultSet().getString(3));
+				adminDTO.setAdminName(JdbcObject.getResultSet().getString(4));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return adminDTO;
+	}
+	
 	//관리자 수정 메서드
 	public int updateAdmin(AdminDTO adminDTO) {
 		
-		String sql = "UPDATE admin SET admin_pw=?, admin_name=? WHERE admin_no = ?;";
+		String sql = "UPDATE admin SET admin_pw=?, admin_name=? WHERE admin_no=?";
 		
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
 		int check = 0;
