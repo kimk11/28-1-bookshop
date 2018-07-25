@@ -9,7 +9,6 @@ public class BookJoinListDTO {
 	private BookPublisherDTO bookPublisherDTO;
 	private BookIntroDTO bookIntroDTO;
 	private BookReviewDTO bookReviewDTO;
-	private MemberDTO memberDTO;
 	private ArrayList<BookDTO> bookListDTO;
 	private ArrayList<BookCodeDTO> bookCodeListDTO;
 	private ArrayList<BookPublisherDTO> bookPublisherListDTO;
@@ -46,12 +45,6 @@ public class BookJoinListDTO {
 	public void setBookReviewDTO(BookReviewDTO bookReviewDTO) {
 		this.bookReviewDTO = bookReviewDTO;
 	}
-	public MemberDTO getMemberDTO() {
-		return memberDTO;
-	}
-	public void setMemberDTO(MemberDTO memberDTO) {
-		this.memberDTO = memberDTO;
-	}
 	public ArrayList<BookDTO> getBookListDTO() {
 		return bookListDTO;
 	}
@@ -82,5 +75,4 @@ public class BookJoinListDTO {
 	public void setBookReviewListDTO(ArrayList<BookReviewDTO> bookReviewListDTO) {
 		this.bookReviewListDTO = bookReviewListDTO;
 	}
-
 }

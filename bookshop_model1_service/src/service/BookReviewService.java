@@ -2,6 +2,7 @@ package service;
 
 import dto.BookJoinListDTO;
 import dto.BookReviewDTO;
+import dto.BookMemberJoinDTO;
 import jdbcObject.JdbcObject;
 import jdbcUtil.JdbcUtil;
 import java.util.ArrayList;
@@ -71,9 +72,9 @@ public class BookReviewService {
 	}
 	
 	//책 리뷰정보의 내용을 리스트처리하는 Service메서드
-	public ArrayList<BookJoinListDTO> selectBookReviewListService(int bookNo) {
+	public ArrayList<BookMemberJoinDTO> selectBookReviewListService(int bookNo) {
 		//리턴결과값을 담을 변수
-		ArrayList<BookJoinListDTO> bookReviewList = null;
+		ArrayList<BookMemberJoinDTO> bookReviewList = null;
 		
 		try {
 			BookReviewDAO bookReviewDAO = new BookReviewDAO();
