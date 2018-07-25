@@ -1,15 +1,15 @@
 package dto;
 
-public class MemberinterDTO {
-	private int memberinterNo;
+public class MemberInterDTO {
+	private int memberInterNo;
 	private int memberNo;
 	private int bookcodeNo;
 	
-	public int getMemberinterNo() {
-		return memberinterNo;
+	public int getMemberInterNo() {
+		return memberInterNo;
 	}
-	public void setMemberinterNo(int memberinterNo) {
-		this.memberinterNo = memberinterNo;
+	public void setMemberInterNo(int memberinterNo) {
+		this.memberInterNo = memberinterNo;
 	}
 	public int getMemberNo() {
 		return memberNo;

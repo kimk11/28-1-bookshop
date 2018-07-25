@@ -50,6 +50,7 @@
 			<th>비밀번호</th>
 			<th>이름</th>
 			<th>주소</th>
+			<th>취미</th>
 			<th>포인트</th>
 			<th>등록날짜</th>
 			<th>수정</th>
@@ -65,6 +66,7 @@
 			<td><%=memberDTO.getMemberPw()%></td>
 			<td><%=memberDTO.getMemberName()%></td>
 			<td><%=memberDTO.getMemberAddr()%></td>
+			<td></td>
 			<td><%=memberDTO.getMemberPoint()%></td>
 			<td><%=memberDTO.getMemberDate()%></td>
 			<td><a href="<%= request.getContextPath()%>/member/member/updateMemberForm.jsp?memberNo=<%=memberDTO.getMemberNo()%>">수정</a></td>

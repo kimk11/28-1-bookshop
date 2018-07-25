@@ -9,6 +9,7 @@
 <body>
 <%
 	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+	System.out.println(memberNo + "<-- memberNo");
 
 	MemberService memberService = new MemberService();
 	int check = memberService.deleteMemberService(memberNo);

@@ -7,11 +7,14 @@ import jdbcObject.JdbcObject;
 import jdbcUtil.JdbcUtil;
 import java.util.ArrayList;
 import dao.MemberDAO;
+import dao.MemberInterDAO;
 
 public class MemberService {
 	private MemberDAO memberDAO;
+	private MemberInterDAO memberInterDAO;
 	
 	public MemberService() {
+		this.memberInterDAO = new MemberInterDAO();
 		this.memberDAO = new MemberDAO();
 	}
 	//member 테이블 추가
@@ -52,29 +55,36 @@ public class MemberService {
 	//리턴값(check) - 0 : 실패, 1 : 성공
 	public int deleteMemberService(int memberNo) {
 		//리턴값 담을 변수
-		int check = 0;
+		int deleteMemberCheck = 0;
+		int deleteMemberInterCheck = 0;
 			
 		try {
-			int deleteCheck = memberDAO.deleteMember(memberNo);
 			
-			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
-			if(0 != deleteCheck) {
+			deleteMemberInterCheck = memberInterDAO.deleteMemberInter(memberNo);
+			System.out.println(deleteMemberInterCheck);
+			
+			if(deleteMemberInterCheck > 0) {
+				deleteMemberCheck = memberDAO.deleteMember(memberNo);
+				System.out.println(deleteMemberCheck);
+				
 				JdbcObject.getConnection().commit();
-				check = 1;
 			}else {
 				JdbcUtil.rollback(JdbcObject.getConnection());
+				
 			}
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 			JdbcUtil.rollback(JdbcObject.getConnection());
 		} finally {
+			
 			JdbcUtil.close(JdbcObject.getResultSet());
 			JdbcUtil.close(JdbcObject.getPreparedStatement());
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
 		
-		return check;
+		return deleteMemberCheck;
 	}
 	
 	//member 테이블 수정
