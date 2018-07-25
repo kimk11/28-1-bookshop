@@ -1,9 +1,9 @@
 package dto;
 
-public class MemberNinterjoinDTO {
+public class MemberNInterjoinDTO {
 
 	private MemberDTO memberDTO;
-	private MemberinterDTO memberinterDTO;
+	private MemberInterDTO memberinterDTO;
 	
 	
 	public MemberDTO getMemberDTO() {
@@ -12,10 +12,10 @@ public class MemberNinterjoinDTO {
 	public void setMemberDTO(MemberDTO memberDTO) {
 		this.memberDTO = memberDTO;
 	}
-	public MemberinterDTO getMemberinterDTO() {
+	public MemberInterDTO getMemberinterDTO() {
 		return memberinterDTO;
 	}
-	public void setMemberinterDTO(MemberinterDTO memberinterDTO) {
+	public void setMemberinterDTO(MemberInterDTO memberinterDTO) {
 		this.memberinterDTO = memberinterDTO;
 	}
 	
