@@ -6,7 +6,7 @@
 <%
 	int bookNo = 0;
 	BookReviewService bookReviewService = new BookReviewService();
-	ArrayList<BookReviewDTO> bookReviewList = bookReviewService.selectBookReviewListService(bookNo);
+	ArrayList<BookMemberJoinDTO> bookReviewList = bookReviewService.selectBookReviewListService(bookNo);
 %>
 
 <html>
@@ -17,15 +17,20 @@
 	<body>
 		<h1>리뷰 리스트</h1><br>
 			<table>
+				<tr>
+	        		<th>댓글 내용</th>
+	        		<th>작성자</th>
+	        		<th>삭제</th>
+	        		<th>수정</th>
+        		</tr>
 			<%
-				for(BookReviewDTO bookReviewListService : bookReviewList) {
+				for(BookMemberJoinDTO bookReviewListService : bookReviewList) {
 			%>
 				<tr>
-					<th><%=bookReviewListService.getBookNo()%>번 책</th>
-					<th><%=bookReviewListService.getMemberNo()%>번 회원</th>
-					<td><%=bookReviewListService.getBookReviewContent()%></td>
-					<td><a href="<%=request.getContextPath() %>/member/bookReview/deleteBookReviewForm.jsp?bookReviewNo=<%=bookReviewListService.getBookReviewNo() %>">삭제</a></td>
-					<td><a href="<%=request.getContextPath() %>/member/bookReview/updateBookReviewForm.jsp?bookReviewNo=<%=bookReviewListService.getBookReviewNo() %>">수정</a></td>
+					<th><%=bookReviewListService.getBookReviewDTO().getBookReviewContent()%></th>
+					<th><%=bookReviewListService.getMemberDTO().getMemberName()%></th>
+					<td><a href="<%=request.getContextPath() %>/member/bookReview/deleteBookReviewForm.jsp?bookReviewNo=<%=bookReviewListService.getBookReviewDTO().getBookReviewNo() %>">삭제</a></td>
+					<td><a href="<%=request.getContextPath() %>/member/bookReview/updateBookReviewForm.jsp?bookReviewNo=<%=bookReviewListService.getBookReviewDTO().getBookReviewNo() %>">수정</a></td>
 				</tr>
 			<%		
 				}

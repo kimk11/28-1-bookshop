@@ -5,8 +5,9 @@
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <%
+	int bookNo = 0;
 	BookIntroService bookIntroService = new BookIntroService();
-	ArrayList<BookIntroDTO> bookIntroList = bookIntroService.selectBookIntroListService();
+	ArrayList<BookIntroDTO> bookIntroList = bookIntroService.selectBookIntroListService(bookNo);
 %>
 <html>
 	<head>
