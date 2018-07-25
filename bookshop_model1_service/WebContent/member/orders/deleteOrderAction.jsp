@@ -13,7 +13,7 @@
 	int ordersNo = Integer.parseInt(request.getParameter("ordersNo"));
 
 	OrdersService orderService = new OrdersService();
-	int check = orderService.deleteOrders(ordersNo);
+	int check = orderService.deleteCart(ordersNo);
 	
 	//삭제 성공 시 
 	if(1==check){

@@ -3,7 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "service.OrdersService" %>
 <%@ page import = "dto.OrdersDTO" %>
+<%@ page import = "java.util.ArrayList" %>
 <%@ page import = "dao.OrdersDAO" %>
+<%@ page import = "dto.BookJoinOrdersDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +14,8 @@
 </head>
 <body>
 <%
+	int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+
 	//검색 조건 변수
 	String searchKey = request.getParameter("searchKey");
 	if(searchKey == null){
@@ -24,8 +28,24 @@
 		searchKey="";
 	}
 	
+	// 페이징작업
+	int currentPage = 1; //현재페이지
+	int pagePerRow = 5; //한 페이지에 나올 row 수
+	if (request.getParameter("currentPage") != null) {
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
+	int startRow = (currentPage - 1) * pagePerRow; // 시작 페이지
+	int endRow = startRow + (pagePerRow - 1); // 끝날 페이지
+	
+	OrdersDAO ordersDAO = new OrdersDAO(); 
+	int totalRow = ordersDAO.selectLastPage(pagePerRow); // 총 row 수 
 	
 	
+	OrdersService ordersService = new OrdersService();
+	ArrayList<BookJoinOrdersDTO> arrayList = ordersService.selectCartList(currentPage, pagePerRow, searchValue, searchKey);
+	if (endRow > arrayList.size() - 1) {
+		endRow = arrayList.size() - 1;
+	}
 %>	
 	<h2>주문 내역</h2>
 	
@@ -44,28 +64,32 @@
 	<!-- 목록 테이블 -->
 	<table border="1">
 		<tr>
+			<th>도서번호</th>
 			<th>주문번호</th>
 			<th>도서이름</th>
-			<th>구매자이름</th>
+			<th>회원번호</th>
 			<th>가격</th>
 			<th>수량</th>
 			<th>날짜</th>
 			<th>기존배송지</th>
 			<th>신규배송지</th>
+			<th>삭제</th>
 		</tr>
 <%
-	for(int i =0; i<list.size(); i++) {
-		OrdersDTO ordersDTO = list.get(i);
+	for(int i =0; i<arrayList.size(); i++) {
+		BookJoinOrdersDTO bookJoinOrdersDTO = arrayList.get(i);
 %>
 		<tr>
-			<td><%= ordersDTO.getOrdersNo() %></td>
-			<td><%= ordersDTO.getBookNo() %></td>
-			<td><%= ordersDTO.getMemberNo() %></td>		
-			<td><%= ordersDTO.getOrdersPrice() %></td>
-			<td><%= ordersDTO.getOrdersAmount() %></td>
-			<td><%= ordersDTO.getOrdersDate() %></td>
-			<td><%= ordersDTO.getOrdersAddr() %></td>
-			<td><%= ordersDTO.getOrdersState() %></td>
+			<td><%= bookJoinOrdersDTO.getBookDTO().getBookNo()%></td>
+			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersNo() %></td>
+			<td><%= bookJoinOrdersDTO.getBookDTO().getBookName() %></td>	<!-- 도서이름 -->
+			<td><%= bookJoinOrdersDTO.getOrdersDTO().getMemberNo() %></td>
+			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersPrice() %></td>
+			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersAmount() %></td>
+			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersDate() %></td>
+			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersAddr() %></td>
+			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersState() %></td>
+			<td><a href ="<%= request.getContextPath() %>/member/orders/deleteOrderAction.jsp?orderNo=<%=orderNo %>">삭제</a></td>
 		</tr>
 <%
 	}
@@ -75,7 +99,7 @@
 <%
 	if (currentPage > 1) {
 %>
-<a href="<%= request.getContextPath() %>/teacher/teacherList.jsp?currentPage=<%=currentPage - 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">이전</a>
+<a href="<%= request.getContextPath() %>/member/orders/searchOrderList.jsp?currentPage=<%=currentPage - 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">이전</a>
 <%
 	}
 
@@ -85,7 +109,7 @@
 	}
 	if (currentPage < lastPage) {
 %>
-<a href="<%= request.getContextPath() %>/teacher/teacherList.jsp?currentPage=<%=currentPage + 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">다음</a> <br>
+<a href="<%= request.getContextPath() %>/member/orders/searchOrderList.jspteacherList.jsp?currentPage=<%=currentPage + 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">다음</a> <br>
 <br>
 <%
 	}

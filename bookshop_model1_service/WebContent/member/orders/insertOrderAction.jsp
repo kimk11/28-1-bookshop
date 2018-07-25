@@ -12,10 +12,17 @@
 <body>
 <%
 	request.setCharacterEncoding("utf8");
-	int check = 0; 
+	int shoppingCartNo = (Integer.parseInt(request.getParameter("shoppingCartNo")));
+	
 	OrdersDTO ordersDTO = new OrdersDTO(); 
+	ordersDTO.setOrdersState(request.getParameter("ordersState"));
+	ordersDTO.setOrdersAmount(Integer.parseInt(request.getParameter("ordersAmount")));
+	
 	OrdersService orderService = new OrdersService();
-	check = orderService.insertOrders(ordersDTO);
+	int check = orderService.insertCart(ordersDTO);
+
+	
+	
 	
 %>
 </body>
