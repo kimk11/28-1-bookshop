@@ -76,7 +76,6 @@ public class ShoppingCartService {
 		ArrayList<BookJoinCartDTO> arrayList = null;
 		
 		try {
-			//dao delete메서드 성공 유무
 			arrayList = shoppingCartDAO.selectCartList(currentPage, rowPage);
 			
 			if(null != arrayList) {
@@ -102,7 +101,6 @@ public class ShoppingCartService {
 		int lastPage = 0;
 		
 		try {
-			//dao delete메서드 성공 유무
 			lastPage = shoppingCartDAO.selectLastPage(rowPage);
 			
 			if(0 != lastPage) {
