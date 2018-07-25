@@ -9,7 +9,7 @@
 	request.setCharacterEncoding("utf8");
 
 	//페이징 작업
-	int pagePerRow = 3; //한 페이지당 보는 갯수
+	int pagePerRow = 7; //한 페이지당 보는 갯수
 	int currentPage = 1; //현재 페이지
 	if(request.getParameter("currentPage") != null){ //페이지 이동 후 currentPage가 String타입이 되기때문에 int 데이터타입으로 변경
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -66,7 +66,6 @@
 				<th>출판일</th>
 				<th>수정</th>
 				<th>삭제</th>
-				<th>책소개(테스트)</th>
 			</tr>
 			<%
 				for(BookJoinListDTO bookJoin : bookList){
@@ -84,7 +83,6 @@
 				<td><%=bookJoin.getBookDTO().getBookDate() %></td>
 				<td><a href="<%=request.getContextPath() %>/member/book/updateBookForm.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">수정</a></td>
 				<td><a href="<%=request.getContextPath() %>/member/book/deleteBookAction.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">삭제</a></td>
-				<td><a href="<%=request.getContextPath() %>/member/bookIntro/insertBookIntroForm.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">책소개(임시)</a></td>
 			</tr>
 			<%
 				}

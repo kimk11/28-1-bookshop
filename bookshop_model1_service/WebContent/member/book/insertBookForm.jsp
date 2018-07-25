@@ -53,7 +53,6 @@
 				<div>
 					<label>책 수량</label>
 					<input type="text" name="bookAmount">
-					<input type="hidden" name="bookOut" value="재고있음">
 					<input type="submit" value="입력">
 				</div>
 			</form>

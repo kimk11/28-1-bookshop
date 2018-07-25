@@ -15,8 +15,8 @@
 	String bookAuthor = request.getParameter("bookAuthor");
 	int bookPrice = Integer.parseInt(request.getParameter("bookPrice"));
 	int bookAmount = Integer.parseInt(request.getParameter("bookAmount"));
-	String bookOut = request.getParameter("bookOut");
-	String bookDate = null;
+	String bookOut = null;
+
 	
 	// 넘어온 값들이 정상적으로 출력되는 지 확인
 	System.out.println(bookCodeNo + "<-- 카테고리넘버값");
@@ -27,6 +27,12 @@
 	System.out.println(bookAmount + "<-- 수량값");
 	System.out.println(bookOut + "<-- 등록일");
 	
+	if(bookAmount > 0){
+		bookOut = "있음";
+	} else {
+		bookOut = "없음";
+	}
+	
 	// 새로운 객체를 생성하여 파라미터에 값들을 셋팅
 	BookDTO bookDTO = new BookDTO();
 	bookDTO.setBookcodeNo(bookCodeNo);
@@ -36,7 +42,6 @@
 	bookDTO.setBookPrice(bookPrice);
 	bookDTO.setBookAmount(bookAmount);
 	bookDTO.setBookOut(bookOut);
-	bookDTO.setBookDate(bookDate);
 	
 	
 	BookService bookService = new BookService();

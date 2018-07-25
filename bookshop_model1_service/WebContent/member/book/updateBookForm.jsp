@@ -71,17 +71,11 @@
 					<div>
 						<label>책 수량</label>
 						<input type="text" name="bookAmount" value="<%=bookDTO.getBookAmount()%>">
-						<input type="hidden" name="bookOut" value="<%=bookDTO.getBookOut()%>">
-						<input type="submit" value="입력">
+						<input type="submit" value="수정">
 					</div>
-			<%		
-				// 실패할 경우 화면에 수정화면이 나오지 않음
-				} else {
-			%>
-				
-			<%		
-				}
-			%>			
+				<%
+					}
+				%>
 			</form>
 		</div>
 	</body>
