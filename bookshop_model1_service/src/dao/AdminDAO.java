@@ -21,7 +21,7 @@ public class AdminDAO {
 
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
-			//삭제 실패 0, 삭제 성공 1
+			//실패시 리턴값=0,아이디 일치 리턴값=1, 그 해당하는 아이디 비번 일치 리턴값=2
 			if(JdbcObject.getResultSet().next()) {
 				check = 1;
 				if(JdbcObject.getResultSet().getString(1).equals(adminPw)) {
