@@ -14,6 +14,7 @@
 <title>Q&A 목록</title>
 </head>
 <body>
+	<jsp:include page="../member/memberLoginForm.jsp"></jsp:include><br>
 <%	
 	request.setCharacterEncoding("utf8");
 	

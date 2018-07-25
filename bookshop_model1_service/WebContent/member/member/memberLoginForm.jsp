@@ -25,12 +25,16 @@
 				</div>
 				<div>
 					<label>PASSWORD : </label>
-					<input type="text" name="memberPw">
+					<input type="password" name="memberPw">
 				</div>
 				<div>
 					<input type="submit" value="로그인">
 				</div>
 			</form>
+		</div>
+		
+		<div>
+			<a href="<%= request.getContextPath() %>/member/member/insertMemberForm.jsp">회원가입</a>
 		</div>
 <%
 	} else {

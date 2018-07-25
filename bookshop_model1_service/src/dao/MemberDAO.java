@@ -135,6 +135,7 @@ public class MemberDAO {
 	// 리턴 0:실패, 1:성공
 	public int deleteMember(int memberNo) {
 		System.out.println("deleteMember");
+		System.out.println(memberNo+"<<memberDao delete");
 		//회원가입 시 입력한 아이디로 member 테이블의 member_id 컬럼 값을 조회하여 중복확인
 		String sql = "DELETE FROM member WHERE member_no = ?";
 		

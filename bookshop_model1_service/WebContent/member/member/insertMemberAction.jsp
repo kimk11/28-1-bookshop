@@ -49,7 +49,7 @@
 		
 		if(insertCheck > 0){
 			//메인화면으로
-			response.sendRedirect(request.getContextPath()+"#");
+			response.sendRedirect(request.getContextPath()+"/member/index.jsp");
 		}else{
 			response.sendRedirect(request.getContextPath()+"/member/member/insertMemberForm.jsp");
 		}

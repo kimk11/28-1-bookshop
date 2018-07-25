@@ -61,13 +61,14 @@ public class MemberService {
 		try {
 			
 			deleteMemberInterCheck = memberInterDAO.deleteMemberInter(memberNo);
-			System.out.println(deleteMemberInterCheck);
+			System.out.println(deleteMemberInterCheck+"inter delete");
 			
-			if(deleteMemberInterCheck > 0) {
-				deleteMemberCheck = memberDAO.deleteMember(memberNo);
-				System.out.println(deleteMemberCheck);
-				
+			deleteMemberCheck = memberDAO.deleteMember(memberNo);
+			System.out.println(deleteMemberCheck+"member delete");
+			
+			if(deleteMemberCheck > 0) {
 				JdbcObject.getConnection().commit();
+				System.out.println("commit ture");
 			}else {
 				JdbcUtil.rollback(JdbcObject.getConnection());
 				
