@@ -36,6 +36,37 @@ public class AdminDAO {
 		return check;
 	}
 	
+	//관리자 전체 조회하는 메서드
+	//관리자는 많이 존재하지 않으므로 페이징 처리는 하지 않음(매개변수 x), 검색 없이도 관리자는 전체 조회 가능
+	public ArrayList<AdminDTO> selectAdminList() {
+		ArrayList<AdminDTO> list = new ArrayList<AdminDTO>();
+			
+		String sql = "SELECT admin_no, admin_id, admin_pw, admin_name, admin_date FROM admin ORDER BY admin_no DESC";
+			
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+			
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			
+			while(JdbcObject.getResultSet().next()) {
+				AdminDTO adminDTO = new AdminDTO();
+				adminDTO.setAdminNo(JdbcObject.getResultSet().getInt(1));
+				adminDTO.setAdminId(JdbcObject.getResultSet().getString(2));
+				adminDTO.setAdminPw(JdbcObject.getResultSet().getString(3));
+				adminDTO.setAdminName(JdbcObject.getResultSet().getString(4));
+				adminDTO.setAdminDate(JdbcObject.getResultSet().getString(5));
+				
+				list.add(adminDTO);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		// 관리자 전체 정보를 리턴받음
+		return list;
+	}
+	
 	//한명의 관리자를 조회하는 메서드
 	//관리자 컬럼 admin_no값을 넘김
 	public AdminDTO selectOneAdmin(int adminNo) {
