@@ -42,7 +42,7 @@
 		}
 
 		OrdersService orderService = new OrdersService();
-		int check = orderService.insertCart(ordersDTO);
+		int check = orderService.insertCart(ordersDTO, shoppingCartNo);
 		System.out.println(check + "체크");
 
 		response.sendRedirect(request.getContextPath() + "/member/orders/searchOrderList.jsp");

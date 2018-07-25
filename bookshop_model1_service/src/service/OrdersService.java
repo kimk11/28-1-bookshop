@@ -5,6 +5,7 @@ package service;
 import java.util.ArrayList;
 
 import dao.OrdersDAO;
+import dao.ShoppingCartDAO;
 import dto.BookJoinOrdersDTO;
 import dto.OrdersDTO;
 import jdbcObject.JdbcObject;
@@ -19,7 +20,7 @@ public class OrdersService {
 	
 	//주문시 목록에 추가
 	//리턴값 0:실패, 1:성공
-	public int insertCart(OrdersDTO ordersDTO) {
+	public int insertCart(OrdersDTO ordersDTO, int shoppingcartNo) {
 		// 리턴값 변수
 		int insertCheck = 0;
 		
@@ -27,6 +28,9 @@ public class OrdersService {
 			//dao insert메서드 성공 유무
 			boolean check = ordersDAO.insertOders(ordersDTO);
 //			System.out.println(check+"dasdsad");
+			
+			new ShoppingCartDAO().deleteCart(shoppingcartNo);
+
 			
 			if(check) {
 				JdbcObject.getConnection().commit();
