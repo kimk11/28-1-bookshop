@@ -1,7 +1,9 @@
 <!-- 2018.07.23 송유빈 -->
 <!-- searchQnaList.jsp -->
+<%@page import="dto.QnaJoinMemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "dto.QnaDTO" %>
+<%@ page import = "dto.QnaJoinMemberDTO" %>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "dao.QnaDAO" %>
 <%@ page import = "service.QnaService" %>
@@ -12,9 +14,16 @@
 <title>Q&A 목록</title>
 </head>
 <body>
-<%
+<%	
 	request.setCharacterEncoding("utf8");
+	
 
+	//세션추가
+	int sessionMemberNo = (int)session.getAttribute("sessionMemberNo");
+	String sessionId = (String)session.getAttribute("sessionMemberId");
+	String sessionName = (String)session.getAttribute("sessionMemberName");
+	
+	
 	//검색 조건 변수
 	String searchKey = request.getParameter("searchKey");
 	if(searchKey == null){
@@ -24,7 +33,7 @@
 	//검색 단어 변수
 	String searchValue =request.getParameter("searchValue");
 	if(searchValue == null){
-		searchKey="";
+		searchValue="";
 	}
 	
 	// 페이징작업
@@ -42,10 +51,10 @@
 	
 
 	QnaService qnaService = new QnaService();
-	ArrayList<QnaDTO> list = qnaService.selectSearchQnaService(startRow, pagePerRow, searchKey, searchValue);
+	ArrayList<QnaJoinMemberDTO> arrayList = qnaService.selectSearchQnaService(startRow, pagePerRow, searchKey, searchValue);
 	
-	if (endRow > list.size() - 1) {
-		endRow = list.size() - 1;
+	if (endRow > arrayList.size() - 1) {
+		endRow = arrayList.size() - 1;
 	}
 %>
 	<!-- 리스트 테이블 -->
@@ -66,14 +75,15 @@
 			</th>
 		</tr>
 <%
-	for(int i=0; i<list.size(); i++) {
-		QnaDTO qnaDTO = list.get(i);
+	for(int i=0; i<arrayList.size(); i++) {
+		QnaJoinMemberDTO qnaJoinMemberDTO= arrayList.get(i);
+		
 %>		
 		<tr>
-			<td><%= qnaDTO.getQnaNo() %></td>	<!-- 번호 -->
-			<td><%= qnaDTO.getQnaTitle()%></td>	<!-- 제목 -->
-			<td><%= %></td>	<!-- 세션 -->			<!-- 작성자 -->
-			<td><%= qnaDTO.getQnaDate()%></td>	<!-- 날짜 -->
+			<td><%= qnaJoinMemberDTO.getQnaDTO().getQnaNo() %></td>	<!-- 번호 -->
+			<td><a href ="<%= request.getContextPath()%>/member/qna/viewQna.jsp?qnaNo=<%=qnaJoinMemberDTO.getQnaDTO().getQnaNo()%>"><%= qnaJoinMemberDTO.getQnaDTO().getQnaTitle()%></a></td>	<!-- 제목 -->
+			<td><%= qnaJoinMemberDTO.getMemberDTO().getMemberName() %></td><!-- 작성자 -->
+			<td><%= qnaJoinMemberDTO.getQnaDTO().getQnaDate()%></td>	<!-- 날짜 -->
 		</tr>
 <%
 	}
@@ -91,7 +101,7 @@
 			<%
 				if (currentPage > 1) {
 			%>
-			<a href="<%= request.getContextPath() %>/teacher/teacherList.jsp?currentPage=<%=currentPage - 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">이전</a>
+			<a href="<%= request.getContextPath() %>/member/qna/searchQnaList.jsp?currentPage=<%=currentPage - 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">이전</a>
 			<%
 				}
 
@@ -101,7 +111,7 @@
 				}
 				if (currentPage < lastPage) {
 			%>
-			<a href="<%= request.getContextPath() %>/teacher/teacherList.jsp?currentPage=<%=currentPage + 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">다음</a> <br>
+			<a href="<%= request.getContextPath() %>/member/qna/searchQnaList.jsp?currentPage=<%=currentPage + 1%>&searchKey=<%=searchKey%>&searchValue=<%= searchValue%>">다음</a> <br>
 			<br>
 			<%
 				}

@@ -1,5 +1,6 @@
 <!-- 2018.07.23 송유빈 -->
 <!-- updateQnaAction.jsp -->
+<%@page import="dto.QnaJoinMemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "dto.QnaDTO" %>
 <%@ page import = "service.QnaService" %>
@@ -15,15 +16,18 @@
 
 	int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 	QnaDTO qnaDTO = new QnaDTO();
+	QnaJoinMemberDTO qnaJoinMemberDTO = new QnaJoinMemberDTO();
+	qnaDTO.setQnaNo(Integer.parseInt(request.getParameter("qnaNo")));
 	qnaDTO.setQnaTitle(request.getParameter("qnaTitle"));
 	qnaDTO.setQnaContent(request.getParameter("qnaContent"));
 	QnaService qnaService = new QnaService();	
 	int check = qnaService.updateQnaService(qnaDTO, qnaNo);
-
+	System.out.println(check+"qnaaction check");
+	System.out.println(request.getParameter("qnaTitle")+"<--qnaTitle");
 	//수정 성공 시 
 	if(1==check){
 		//Q&A 뷰 화면으로 
-		response.sendRedirect(request.getContextPath()+"/member/qna/viewQna.jsp");
+		response.sendRedirect(request.getContextPath()+"/member/qna/viewQna.jsp?qnaNo="+qnaDTO.getQnaNo());
 	// 수정 실패 시
 	}else{
 		//실패시 경로

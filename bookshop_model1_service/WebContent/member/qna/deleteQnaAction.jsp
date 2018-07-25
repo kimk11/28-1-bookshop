@@ -11,7 +11,7 @@
 <body>
 <%
 int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
-
+System.out.println(qnaNo+"<--qnaNo");
 QnaService qnaService = new QnaService();
 int check = qnaService.deleteQnaService(qnaNo);
 
@@ -22,7 +22,7 @@ if(1==check){
 // db저장 실패시
 }else{
 	//실패시 경로
-	System.out.print("입력실패");
+	System.out.print("삭제실패");
 }
 
 %>
