@@ -11,8 +11,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<a href="<%= request.getContextPath() %>/member/index.jsp">홈으로 가기</a>
 <jsp:include page="../member/memberLoginForm.jsp"></jsp:include><br>
 <%
+	int memberNo = (Integer)session.getAttribute("sessionMemberNo");
+
 	//현재페이지 변수
 	int currentPage = 1;
 	if(null != request.getParameter("currentPage")){
@@ -24,7 +27,7 @@
 	
 	ShoppingCartService shoppingCartService = new ShoppingCartService();
 	
-	ArrayList<BookJoinCartDTO> arrayList = shoppingCartService.selectCartList(currentPage, rowPage);
+	ArrayList<BookJoinCartDTO> arrayList = shoppingCartService.selectCartList(currentPage, rowPage, memberNo);
 	
 	//장바구니에 담긴 책 총 가격
 	int totalPrice=0;

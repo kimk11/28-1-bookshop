@@ -72,11 +72,11 @@ public class ShoppingCartService {
 	}
 	
 	//장바구니 리스트
-	public ArrayList<BookJoinCartDTO> selectCartList(int currentPage, int rowPage){
+	public ArrayList<BookJoinCartDTO> selectCartList(int currentPage, int rowPage, int memberNo){
 		ArrayList<BookJoinCartDTO> arrayList = null;
 		
 		try {
-			arrayList = shoppingCartDAO.selectCartList(currentPage, rowPage);
+			arrayList = shoppingCartDAO.selectCartList(currentPage, rowPage, memberNo);
 			
 			if(null != arrayList) {
 				JdbcObject.getConnection().commit();

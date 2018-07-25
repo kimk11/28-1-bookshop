@@ -13,6 +13,7 @@
 <title>주문 목록</title>
 </head>
 <body>
+<a href="<%= request.getContextPath() %>/member/index.jsp">홈으로 가기</a>
 <jsp:include page="../member/memberLoginForm.jsp"></jsp:include>
 <%
 	int memberNo = (Integer)session.getAttribute("sessionMemberNo");

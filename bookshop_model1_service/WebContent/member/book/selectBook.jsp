@@ -26,6 +26,7 @@
 		<title>책 상세정보</title>
 	</head>
 	<body>
+		<a href="<%= request.getContextPath() %>/member/index.jsp">홈으로 가기</a>
 		<jsp:include page="../member/memberLoginForm.jsp"></jsp:include><br>
 		<h3>책의 상세정보</h3>
 		<table border="1">
@@ -96,8 +97,6 @@
 				<th>책 소개글 번호</th>
 				<th>책 소개 내용</th>
 				<th>작성자</th>
-				<th>수정</th>
-				<th>삭제</th>
 			</tr>
 		<%
 			for(BookIntroDTO bookIntroDTO : detailBookDTO.getBookIntroListDTO()){
@@ -106,8 +105,6 @@
 				<td><%=bookIntroDTO.getBookIntroNo() %></td>
 				<td><%=bookIntroDTO.getBookIntroContent() %></td>
 				<td><%=bookIntroDTO.getBookIntroWrite() %></td>
-				<td><a href="<%=request.getContextPath()%>/member/book/selectBook.jsp?bookIntroNo=<%=bookIntroDTO.getBookIntroNo() %>&bookNo=<%=bookNo %>">수정</a></td>
-				<td><a href="<%=request.getContextPath()%>/member/bookIntro/deleteBookIntroAction.jsp?bookIntroNo=<%=bookIntroDTO.getBookIntroNo() %>&bookNo=<%=bookNo %>">삭제</a></td>
 			</tr>
 		<%
 			}

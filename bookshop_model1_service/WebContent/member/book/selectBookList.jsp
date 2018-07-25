@@ -64,8 +64,6 @@
 				<th>책수량</th>
 				<th>책절판상태</th>
 				<th>출판일</th>
-				<th>수정</th>
-				<th>삭제</th>
 			</tr>
 			<%
 				for(BookJoinListDTO bookJoin : bookList){
@@ -81,8 +79,6 @@
 				<td><%=bookJoin.getBookDTO().getBookAmount() %></td>
 				<td><%=bookJoin.getBookDTO().getBookOut() %></td>
 				<td><%=bookJoin.getBookDTO().getBookDate() %></td>
-				<td><a href="<%=request.getContextPath() %>/member/book/updateBookForm.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">수정</a></td>
-				<td><a href="<%=request.getContextPath() %>/member/book/deleteBookAction.jsp?bookNo=<%=bookJoin.getBookDTO().getBookNo() %>">삭제</a></td>
 			</tr>
 			<%
 				}

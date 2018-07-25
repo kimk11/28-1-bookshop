@@ -43,6 +43,8 @@
 			<p><%= sessionName %>님 환영합니다.</p>
 			<div>
 				<a href="<%= request.getContextPath() %>/member/member/memberLogoutAction.jsp">로그아웃</a>
+				<a href="<%= request.getContextPath() %>/member/cart/selectShoppingCart.jsp">장바구니로 가기</a>
+				<a href="<%= request.getContextPath() %>/member/orders/searchOrderList.jsp">주문목록 보기</a>
 			</div>
 		</div>
 	<%
