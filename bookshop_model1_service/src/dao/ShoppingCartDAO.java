@@ -130,4 +130,34 @@ public class ShoppingCartDAO {
 		
 		return lastPage;
 	}
+	
+	//장바구니 번호로 상세정보 조회
+	public ShoppingCartDTO selectOneCart(int shoppingCartNo) {
+		ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
+		
+		String sql = "SELECT shoppingcart_no,book_no,member_no,shoppingcart_amount,shoppingcart_price,shoppingcart_date FROM shoppingcart WHERE shoppingcart_no=?";
+		
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+			JdbcObject.getPreparedStatement().setInt(1, shoppingCartNo);
+			
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			
+			if(JdbcObject.getResultSet().next()) {
+				shoppingCartDTO.setShoppingcartNo(JdbcObject.getResultSet().getInt(1));
+				shoppingCartDTO.setBookNo(JdbcObject.getResultSet().getInt(2));
+				shoppingCartDTO.setMemberNo(JdbcObject.getResultSet().getInt(3));
+				shoppingCartDTO.setShoppingcartAmount(JdbcObject.getResultSet().getInt(4));
+				shoppingCartDTO.setShoppingcartPrice(JdbcObject.getResultSet().getInt(5));
+				shoppingCartDTO.setShoppingcartDate(JdbcObject.getResultSet().getString(6));
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return shoppingCartDTO;
+	}
 }

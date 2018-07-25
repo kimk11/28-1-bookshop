@@ -22,7 +22,8 @@
 	if(null != memberDTO){
 		session.setAttribute("sessionMemberNo", memberDTO.getMemberNo());
 		session.setAttribute("sessionMemberId", memberDTO.getMemberId());
-		session.setAttribute("sessionMerberName", memberDTO.getMemberName());
+		session.setAttribute("sessionMemberName", memberDTO.getMemberName());
+		session.setAttribute("sessionMemberAddr", memberDTO.getMemberAddr());
 	}
 	
 	response.sendRedirect(request.getContextPath()+"/member/member/memberLoginForm.jsp");

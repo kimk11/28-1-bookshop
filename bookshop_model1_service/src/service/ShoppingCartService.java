@@ -119,4 +119,28 @@ public class ShoppingCartService {
 		
 		return lastPage;
 	}
+	
+	//장바구니 상세조회
+	public ShoppingCartDTO selectOneCart(int shoppingCartNo) {
+		ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
+		
+		try {
+			shoppingCartDTO = shoppingCartDAO.selectOneCart(shoppingCartNo);
+			
+			if(null != shoppingCartDTO) {
+				JdbcObject.getConnection().commit();
+			}else {
+				
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			JdbcUtil.rollback(JdbcObject.getConnection());
+		}finally {
+			JdbcUtil.close(JdbcObject.getResultSet());
+			JdbcUtil.close(JdbcObject.getPreparedStatement());
+			JdbcUtil.close(JdbcObject.getConnection());
+		}
+		
+		return shoppingCartDTO;
+	}
 }

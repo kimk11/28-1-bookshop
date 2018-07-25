@@ -31,7 +31,7 @@ public class OrdersService {
 				JdbcObject.getConnection().commit();
 				
 			}else {
-				
+				JdbcUtil.rollback(JdbcObject.getConnection());
 			}
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -58,7 +58,7 @@ public class OrdersService {
 				JdbcObject.getConnection().commit();
 				
 			}else {
-				
+				JdbcUtil.rollback(JdbcObject.getConnection());
 			}
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -74,16 +74,19 @@ public class OrdersService {
 	//주문 리스트
 	//페이지
 	//검색
-	public ArrayList<BookJoinOrdersDTO> selectCartList(int currentPage, int rowPage, String searchValue, String searchKey){
+	public ArrayList<BookJoinOrdersDTO> selectCartList(int currentPage, int rowPage, String searchValue, String searchKey , int memberNo){
 		ArrayList<BookJoinOrdersDTO> arrayList = null;
 		
 		try {
-			arrayList = ordersDAO.selectCartList(currentPage, rowPage, searchValue, searchKey);
+			arrayList = ordersDAO.selectCartList(currentPage, rowPage, searchValue, searchKey, memberNo);
+			
+//			System.out.println("DAO");
+//			System.out.println(arrayList.get(1).getOrdersDTO().getOrdersState());
 			
 			if(null != arrayList) {
 				JdbcObject.getConnection().commit();
 			}else {
-				
+				JdbcUtil.rollback(JdbcObject.getConnection());
 			}
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -108,7 +111,7 @@ public class OrdersService {
 			if(0 != lastPage) {
 				JdbcObject.getConnection().commit();
 			}else {
-				
+				JdbcUtil.rollback(JdbcObject.getConnection());
 			}
 		}catch (Exception e) {
 			// TODO: handle exception

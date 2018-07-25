@@ -30,7 +30,7 @@
 	
 %>
 	<div>
-		<form action="#" method="post">
+		<form action="<%= request.getContextPath() %>/member/orders/insertOrderForm.jsp" method="post">
 			<table>
 				<thead>
 					<tr>
@@ -44,6 +44,7 @@
 						<tbody>
 							<tr>
 								<td>
+									<input type="hidden" name="shoppingCartNo" value="<%= bookJoinCartDTO.getShoppingCartDTO().getShoppingcartNo() %>">
 									<input type="radio" name="bookNo" value="<%= bookJoinCartDTO.getShoppingCartDTO().getBookNo() %>">
 								</td>
 								<td><%= bookJoinCartDTO.getShoppingCartDTO().getShoppingcartNo() %></td>
@@ -52,7 +53,7 @@
 								<td><%= bookJoinCartDTO.getShoppingCartDTO().getShoppingcartAmount() %></td>
 								<td><%= bookJoinCartDTO.getShoppingCartDTO().getShoppingcartPrice() %></td>
 								<td><%= bookJoinCartDTO.getShoppingCartDTO().getShoppingcartDate() %></td>
-								<td><a href="<%= request.getContextPath() %>/member/cart/deleteShoppingCartAction.jsp?bookNo=<%= bookJoinCartDTO.getShoppingCartDTO().getBookNo() %>">삭제</a></td>
+								<td><a href="<%= request.getContextPath() %>/member/cart/deleteShoppingCartAction.jsp?shoppingcartNo=<%= bookJoinCartDTO.getShoppingCartDTO().getShoppingcartNo() %>">삭제</a></td>
 							</tr>
 						</tbody>
 					<%

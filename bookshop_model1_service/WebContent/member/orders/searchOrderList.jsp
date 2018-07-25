@@ -14,17 +14,17 @@
 </head>
 <body>
 <%
-	int orderNo = Integer.parseInt(request.getParameter("orderNo"));
+	int memberNo = (Integer)session.getAttribute("sessionMemberNo");
 
 	//검색 조건 변수
 	String searchKey = request.getParameter("searchKey");
-	if(searchKey == null){
+	if(request.getParameter("searchKey") == null){
 		searchKey="";
 	}
 	
 	//검색 단어 변수
 	String searchValue =request.getParameter("searchValue");
-	if(searchValue == null){
+	if(request.getParameter("searchValue") == null){
 		searchKey="";
 	}
 	
@@ -42,7 +42,7 @@
 	
 	
 	OrdersService ordersService = new OrdersService();
-	ArrayList<BookJoinOrdersDTO> arrayList = ordersService.selectCartList(currentPage, pagePerRow, searchValue, searchKey);
+	ArrayList<BookJoinOrdersDTO> arrayList = ordersService.selectCartList(currentPage, pagePerRow, searchValue, searchKey, memberNo);
 	if (endRow > arrayList.size() - 1) {
 		endRow = arrayList.size() - 1;
 	}
@@ -50,7 +50,7 @@
 	<h2>주문 내역</h2>
 	
 	<!-- 검색창  -->
-	<form action="<%= request.getContextPath()%>/member/qna/searchQnaList.jsp"  method="post">
+	<form action="<%= request.getContextPath()%>/member/orders/searchOrderList.jsp"  method="post">
 		<select name="searchKey">
 			<option value ="">전체</option>
 			<optgroup label="----------"></optgroup>
@@ -89,7 +89,7 @@
 			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersDate() %></td>
 			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersAddr() %></td>
 			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersState() %></td>
-			<td><a href ="<%= request.getContextPath() %>/member/orders/deleteOrderAction.jsp?orderNo=<%=orderNo %>">삭제</a></td>
+			<td><a href ="<%= request.getContextPath() %>/member/orders/deleteOrderAction.jsp?orderNo=<%= bookJoinOrdersDTO.getOrdersDTO().getOrdersNo() %>">삭제</a></td>
 		</tr>
 <%
 	}

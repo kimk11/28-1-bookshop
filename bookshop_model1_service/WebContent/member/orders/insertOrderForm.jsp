@@ -14,7 +14,7 @@
 <body>
 <%
 	int shoppingCartNo = Integer.parseInt(request.getParameter("shoppingCartNo"));
-	int memberNo = Integer.parseInt(request.getParameter("memberNo"));	//세션
+	int memberNo = (Integer)session.getAttribute("sessionMemberNo");	//세션
 
 	OrdersService ordersService = new OrdersService();
 	MemberService memberService= new MemberService();
@@ -29,7 +29,7 @@
 					<hr><div>기존배송지 : </div>
 					<%= memberDTO.getMemberAddr() %><br><br><br>
 					<div>신규 배송지 : </div>	
-					<textarea name="ordersState" rows="3" cols="40" placeholder="미작성시 자동으로 기존배송지로 선택됩니다"></textarea>	
+					<textarea name="ordersAddr" rows="3" cols="40" placeholder="미작성시 자동으로 기존배송지로 선택됩니다"></textarea>	
 				</td>	
 			</tr>
 			<tr>
