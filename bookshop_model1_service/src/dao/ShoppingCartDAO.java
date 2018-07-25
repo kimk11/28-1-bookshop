@@ -67,6 +67,7 @@ public class ShoppingCartDAO {
 	
 	//장바구니 리스트 보여주기
 	//페이지기능
+	//개인 장바구니
 	public ArrayList<BookJoinCartDTO> selectCartList(int currentPage, int rowPage, int memberNo){
 		ArrayList<BookJoinCartDTO> arrayList = new ArrayList<>();
 		
@@ -78,6 +79,46 @@ public class ShoppingCartDAO {
 			JdbcObject.getPreparedStatement().setInt(1, memberNo);
 			JdbcObject.getPreparedStatement().setInt(2, (currentPage-1)*rowPage);
 			JdbcObject.getPreparedStatement().setInt(3, rowPage);
+			
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			
+			while(JdbcObject.getResultSet().next()) {
+				BookJoinCartDTO bookJoinCartDTO = new BookJoinCartDTO();
+				ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
+				BookDTO bookDTO = new BookDTO();
+				shoppingCartDTO.setShoppingcartNo(JdbcObject.getResultSet().getInt(1));
+				shoppingCartDTO.setBookNo(JdbcObject.getResultSet().getInt(2));
+				shoppingCartDTO.setMemberNo(JdbcObject.getResultSet().getInt(3));
+				shoppingCartDTO.setShoppingcartAmount(JdbcObject.getResultSet().getInt(4));
+				shoppingCartDTO.setShoppingcartPrice(JdbcObject.getResultSet().getInt(5));
+				shoppingCartDTO.setShoppingcartDate(JdbcObject.getResultSet().getString(6));
+				bookDTO.setBookName(JdbcObject.getResultSet().getString(7));
+				bookJoinCartDTO.setBookDTO(bookDTO);
+				bookJoinCartDTO.setShoppingCartDTO(shoppingCartDTO);
+				arrayList.add(bookJoinCartDTO);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return arrayList;
+	}
+	
+	//장바구니 리스트 보여주기
+	//페이지기능
+	//전체장바구니
+	public ArrayList<BookJoinCartDTO> selectCartList(int currentPage, int rowPage){
+		ArrayList<BookJoinCartDTO> arrayList = new ArrayList<>();
+		
+		String sql = "SELECT s.shoppingcart_no, s.book_no, s.member_no, s.shoppingcart_amount, s.shoppingcart_price, s.shoppingcart_date, b.book_name FROM shoppingcart s JOIN book b ON s.book_no = b.book_no LIMIT ?, ?";
+		
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+			JdbcObject.getPreparedStatement().setInt(1, (currentPage-1)*rowPage);
+			JdbcObject.getPreparedStatement().setInt(2, rowPage);
 			
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			

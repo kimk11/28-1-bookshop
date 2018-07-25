@@ -71,7 +71,7 @@ public class ShoppingCartService {
 		return insertCheck;
 	}
 	
-	//장바구니 리스트
+	//개인 장바구니 리스트
 	public ArrayList<BookJoinCartDTO> selectCartList(int currentPage, int rowPage, int memberNo){
 		ArrayList<BookJoinCartDTO> arrayList = null;
 		
@@ -92,6 +92,29 @@ public class ShoppingCartService {
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
 		
+		return arrayList;
+	}
+	
+	//전체 장바구니 리스트
+	public ArrayList<BookJoinCartDTO> selectCartList(int currentPage, int rowPage){
+		ArrayList<BookJoinCartDTO> arrayList = null;
+		
+		try {
+			arrayList = shoppingCartDAO.selectCartList(currentPage, rowPage);
+			
+			if(null != arrayList) {
+				JdbcObject.getConnection().commit();
+			}else {
+				
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			JdbcUtil.rollback(JdbcObject.getConnection());
+		}finally {
+			JdbcUtil.close(JdbcObject.getResultSet());
+			JdbcUtil.close(JdbcObject.getPreparedStatement());
+			JdbcUtil.close(JdbcObject.getConnection());
+		}
 		return arrayList;
 	}
 	

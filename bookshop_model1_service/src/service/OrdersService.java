@@ -72,7 +72,7 @@ public class OrdersService {
 		return insertCheck;
 	}
 	
-	//주문 리스트
+	//개인 주문 리스트
 	//페이지
 	//검색
 	public ArrayList<BookJoinOrdersDTO> selectCartList(int currentPage, int rowPage, String searchValue, String searchKey , int memberNo){
@@ -80,6 +80,35 @@ public class OrdersService {
 		
 		try {
 			arrayList = ordersDAO.selectCartList(currentPage, rowPage, searchValue, searchKey, memberNo);
+			
+//			System.out.println("DAO");
+//			System.out.println(arrayList.get(1).getOrdersDTO().getOrdersState());
+			
+			if(null != arrayList) {
+				JdbcObject.getConnection().commit();
+			}else {
+				JdbcUtil.rollback(JdbcObject.getConnection());
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			JdbcUtil.rollback(JdbcObject.getConnection());
+		}finally {
+			JdbcUtil.close(JdbcObject.getResultSet());
+			JdbcUtil.close(JdbcObject.getPreparedStatement());
+			JdbcUtil.close(JdbcObject.getConnection());
+		}
+		
+		return arrayList;
+	}
+	
+	//전체 주문 리스트
+	//페이지
+	//검색
+	public ArrayList<BookJoinOrdersDTO> selectCartList(int currentPage, int rowPage, String searchValue, String searchKey){
+		ArrayList<BookJoinOrdersDTO> arrayList = null;
+		
+		try {
+			arrayList = ordersDAO.selectCartList(currentPage, rowPage, searchValue, searchKey);
 			
 //			System.out.println("DAO");
 //			System.out.println(arrayList.get(1).getOrdersDTO().getOrdersState());
