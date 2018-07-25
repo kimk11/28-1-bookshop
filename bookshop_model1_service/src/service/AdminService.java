@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import dao.AdminDAO;
 import dto.AdminDTO;
 import jdbcObject.JdbcObject;
@@ -10,6 +11,32 @@ public class AdminService {
 	
 	public AdminService() {
 		this.adminDAO = new AdminDAO();
+	}
+	
+	//member 테이블 조회(검색)
+	public ArrayList<AdminDTO> selectAdminListService(){
+		ArrayList<AdminDTO> arrayList = new ArrayList<>();
+		
+		try {
+			arrayList = adminDAO.selectAdminList();
+			
+			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
+			if(null != arrayList.get(0)) {
+				JdbcObject.getConnection().commit();
+			}else {
+				JdbcUtil.rollback(JdbcObject.getConnection());
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			JdbcUtil.rollback(JdbcObject.getConnection());
+		} finally {
+			JdbcUtil.close(JdbcObject.getResultSet());
+			JdbcUtil.close(JdbcObject.getPreparedStatement());
+			JdbcUtil.close(JdbcObject.getConnection());
+		}
+		
+		return arrayList;
 	}
 	
 	// adminLogin 세션처리
