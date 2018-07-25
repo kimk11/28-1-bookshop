@@ -55,7 +55,7 @@ public class BookCodeService {
 			bookCodeList = bookCodeDAO.selectBookCodeList();
 			
 			//배열객체의 주소값이 있으면 커밋
-			if(null != bookCodeList) {
+			if(bookCodeList.size() != 0) {
 				// Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
 				JdbcObject.getConnection().commit();
 			} else {

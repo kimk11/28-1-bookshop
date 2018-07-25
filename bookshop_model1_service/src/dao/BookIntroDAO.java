@@ -142,7 +142,7 @@ public class BookIntroDAO {
 	// 책 인트로 하나의 정보를 불러오기 위한 메서드
 	public BookIntroDTO selectBookIntro(int bookIntroNo) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
-		BookIntroDTO bookIntroDTO = new BookIntroDTO();
+		BookIntroDTO bookIntroDTO = null;
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
@@ -159,7 +159,7 @@ public class BookIntroDAO {
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			if(JdbcObject.getResultSet().next()) {
-				
+				bookIntroDTO = new BookIntroDTO();
 				bookIntroDTO.setBookIntroNo(JdbcObject.getResultSet().getInt("bookintro_no"));
 				bookIntroDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
 				bookIntroDTO.setBookIntroContent(JdbcObject.getResultSet().getString("bookintro_content"));

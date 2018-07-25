@@ -1,6 +1,5 @@
 package service;
 
-import dto.BookJoinListDTO;
 import dto.BookReviewDTO;
 import dto.BookMemberJoinDTO;
 import jdbcObject.JdbcObject;
@@ -50,7 +49,7 @@ public class BookReviewService {
 			//책을 식별하기위해 bookNo를 매개변수로 책 리뷰 정보를 검색하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
 			bookReviewDTO = bookReviewDAO.selectBookReview(bookReviewNo);
 			
-			if(null == bookReviewDTO) {
+			if(null != bookReviewDTO) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
 				JdbcObject.getConnection().commit();
 			}else {
@@ -81,7 +80,7 @@ public class BookReviewService {
 			//책 리뷰정보를 리스트 처리하는 메서드 호출, 처리에 대한 결과값을 리턴받는다.
 			bookReviewList = bookReviewDAO.selectBookReviewList(bookNo);
 			
-			if(null == bookReviewList) {
+			if(bookReviewList.size() != 0) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
 				JdbcObject.getConnection().commit();
 			}else {
