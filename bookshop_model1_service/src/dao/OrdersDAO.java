@@ -71,10 +71,10 @@ public class OrdersDAO {
 	//페이지기능
 	//검색기능
 	public ArrayList<BookJoinOrdersDTO> selectCartList(int currentPage, int rowPage, String searchValue, String searchKey, int memberNo) {
-		System.out.println(rowPage);
-		System.out.println(searchValue);
-		System.out.println(searchKey);
-		System.out.println(memberNo);
+		System.out.println(rowPage+"리스트행");
+		System.out.println(searchValue+"검색값");
+		System.out.println(searchKey+"검색키");
+		System.out.println(memberNo+"멤버넘버");
 		
 		
 		
@@ -87,21 +87,21 @@ public class OrdersDAO {
 
 			
 			// 처음 실행 시켰을 경우
-			if(searchValue.equals("") && searchKey.equals("")) {
+			if(null == searchValue && searchKey.equals("")) {
 				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
 				JdbcObject.getPreparedStatement().setInt(1, memberNo);
 				JdbcObject.getPreparedStatement().setInt(2, (currentPage-1)*rowPage);
 				JdbcObject.getPreparedStatement().setInt(3, rowPage);
 			
 			// 검색단어가 없는 경우
-			}else if(!searchValue.equals("") && searchKey.equals("")) {
+			}else if(null != searchValue && searchKey.equals("")) {
 				sql = "select b.book_name, o.orders_no, o.book_no, o.member_no, o.orders_amount, o.orders_price, o.orders_date, o.orders_addr, o.orders_state from book b join orders o on b.book_no=o.book_no where member_no=? limit ?,?";
 				JdbcObject.getPreparedStatement().setInt(1, memberNo);
 				JdbcObject.getPreparedStatement().setInt(2, (currentPage-1)*rowPage);
 				JdbcObject.getPreparedStatement().setInt(3, rowPage);
 				
 			// 검색단어가 있을 경우
-			}else if(!searchValue.equals("") && !searchKey.equals("")) {
+			}else if(null != searchValue && !searchKey.equals("")) {
 				sql = "select b.book_name, o.orders_no, o.book_no, o.member_no, o.orders_amount, o.orders_price, o.orders_date, o.orders_addr, o.orders_state from book b join orders o on b.book_no=o.book_no like book_name=? where member_no=? limit ?,?";
 				JdbcObject.getPreparedStatement().setString(1, "%"+searchKey+"%");
 				JdbcObject.getPreparedStatement().setInt(2, memberNo);

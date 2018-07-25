@@ -17,7 +17,7 @@ public class ShoppingCartDAO {
 		//데이터 추가 성공 여부 변수
 		int check = 0;
 		
-		String sql = "INSERT INTO shoppingcart(book_no,member_no,shoppingcart_amount,shoppingcart_price,shoppingcart_date) VALUES(?,?,?,?,?,now())";
+		String sql = "INSERT INTO shoppingcart(book_no,member_no,shoppingcart_amount,shoppingcart_price,shoppingcart_date) VALUES(?,?,?,?,now())";
 
 		try {
 			JdbcObject.setConnection(JdbcObject.getConnetionInfo());

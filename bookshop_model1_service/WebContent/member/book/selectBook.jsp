@@ -14,8 +14,7 @@
 	//책 댓글에 대한 식별넘버
 	String bookReviewNo = request.getParameter("bookReviewNo");
 	// 로그인을 성공한 멤버 넘버 세션값으로 멤버번호를 등록한다.
-	String memberNo = (String)session.getAttribute("sessionMemberNo");
-	
+	String memberNo = String.valueOf(session.getAttribute("sessionMemberNo"));
 	
 	// 책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();

@@ -13,7 +13,7 @@
 	int bookPrice = Integer.parseInt(request.getParameter("bookPrice"));
 %>
 	<div>
-		<form action="<%= request.getContextPath() %>/member/cart/insertShoppingAction.jsp" method="post">
+		<form action="<%= request.getContextPath() %>/member/cart/insertShoppingCartAction.jsp" method="post">
 			<input type="hidden" name="bookNo" value="<%= bookNo %>">
 			<input type="hidden" name="bookPrice" value="<%= bookPrice %>">
 			<div>

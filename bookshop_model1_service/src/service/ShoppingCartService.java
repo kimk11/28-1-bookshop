@@ -29,7 +29,7 @@ public class ShoppingCartService {
 			
 			if(check) {
 				JdbcObject.getConnection().commit();
-				
+				insertCheck = 1;
 			}else {
 				
 			}
