@@ -1,11 +1,9 @@
 package service;
 
-import java.util.ArrayList;
 
 import dao.QnaCommentDAO;
 import dto.QnaCommentDTO;
 import dto.QnaCommentJoinAdminDTO;
-import dto.QnaDTO;
 import jdbcObject.JdbcObject;
 import jdbcUtil.JdbcUtil;
 

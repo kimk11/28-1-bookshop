@@ -3,7 +3,6 @@ package service;
 
 import java.util.ArrayList;
 
-import dao.MemberDAO;
 import dao.QnaDAO;
 import dto.QnaDTO;
 import dto.QnaJoinMemberDTO;
@@ -148,7 +147,7 @@ public class QnaService {
 				
 				arrayList = qnaDAO.selectSearchQna(startRow, pagePerRow, searchKey, searchValue);
 				
-				if(arrayList.get(0) != null) {
+				if(arrayList.size() != 0) {
 					JdbcObject.getConnection().commit(); // Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
 				}else {
 					// Connection 수행 중 예기치 않은 에러가 발생하였다면 모든 과정을 취소하고 DB를 Connection이 수행되기 이전상태로 변경

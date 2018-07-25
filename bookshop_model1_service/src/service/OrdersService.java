@@ -88,7 +88,7 @@ public class OrdersService {
 //			System.out.println("DAO");
 //			System.out.println(arrayList.get(1).getOrdersDTO().getOrdersState());
 			
-			if(null != arrayList) {
+			if(arrayList.size() != 0) {
 				JdbcObject.getConnection().commit();
 			}else {
 				JdbcUtil.rollback(JdbcObject.getConnection());
@@ -117,7 +117,7 @@ public class OrdersService {
 //			System.out.println("DAO");
 //			System.out.println(arrayList.get(1).getOrdersDTO().getOrdersState());
 			
-			if(null != arrayList) {
+			if(arrayList.size() != 0) {
 				JdbcObject.getConnection().commit();
 			}else {
 				JdbcUtil.rollback(JdbcObject.getConnection());

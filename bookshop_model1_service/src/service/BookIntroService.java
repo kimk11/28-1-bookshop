@@ -50,7 +50,7 @@ public class BookIntroService {
 			//책을 식별하기위해 bookNo를 매개변수로 책 소개 정보를 검색하는 메서드를 호출, 처리에 대한 결과값을 리턴받는다.
 			bookintroDTO = bookIntroDAO.selectBookIntro(bookIntroNo);
 			
-			if(null == bookintroDTO) {
+			if(null != bookintroDTO) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
 				JdbcObject.getConnection().commit();
 			}else {
@@ -81,7 +81,7 @@ public class BookIntroService {
 			//책 소개정보를 리스트 처리하는 메서드 호출, 처리에 대한 결과값을 리턴받는다.
 			bookIntroList = bookIntroDAO.selectBookIntroList(bookNo);
 			
-			if(null == bookIntroList) {
+			if(bookIntroList.size() != 0) {
 				//Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
 				JdbcObject.getConnection().commit();
 			}else {

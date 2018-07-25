@@ -159,7 +159,7 @@ public class BookReviewDAO {
 	// 책 리뷰 하나의 정보를 불러오기 위한 메서드
 	public BookReviewDTO selectBookReview(int bookReviewNo) {
 		// 리턴값 0으로 초기화 , 리턴값을 담을 변수
-		BookReviewDTO bookReviewDTO = new BookReviewDTO();
+		BookReviewDTO bookReviewDTO = null;
 		
 		try {
 			Connection connection = JdbcObject.getConnetionInfo();
@@ -176,7 +176,7 @@ public class BookReviewDAO {
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			if(JdbcObject.getResultSet().next()) {
-
+				bookReviewDTO = new BookReviewDTO();
 				bookReviewDTO.setBookReviewNo(JdbcObject.getResultSet().getInt("bookreview_no"));
 				bookReviewDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
 				bookReviewDTO.setMemberNo(JdbcObject.getResultSet().getInt("member_no"));

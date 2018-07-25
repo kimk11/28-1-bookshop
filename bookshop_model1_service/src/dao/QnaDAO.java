@@ -99,7 +99,7 @@ public class QnaDAO {
 		ArrayList<QnaJoinMemberDTO> arrayList = new ArrayList<>();
 		
 		// 질문 게시판의[Q&A번호, 멤버번호 , 제목, 내용, 날짜] 전체 데이터 조회하는 쿼리
-		String sql = "SELECT q.qna_no,q.member_no,m.member_name,q.qna_title, q.qna_content, q.qna_date FROM qna q INNER JOIN member m ON q.member_no = m.member_no";
+		String sql = "SELECT q.qna_no,q.member_no,m.member_name,q.qna_title, q.qna_content, q.qna_date FROM qna q INNER JOIN member m ON q.member_no = m.member_no ORDER BY qna_no ASC";
 	
 		try {
 			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
@@ -161,7 +161,7 @@ public class QnaDAO {
 		
 		// searchKey == null 이고,  searchValue == null 일 때 
 		// 혹은 전체리스트 일 때 
-		String sql = "SELECT q.qna_no,q.member_no,m.member_name,q.qna_title, q.qna_content, q.qna_date FROM qna q INNER JOIN member m ON q.member_no = m.member_no limit ?,?";
+		String sql = "SELECT q.qna_no,q.member_no,m.member_name,q.qna_title, q.qna_content, q.qna_date FROM qna q INNER JOIN member m ON q.member_no = m.member_no ORDER BY qna_no ASC limit ?,?";
 		
 		// searchKey(이름) null이 아니고(이름,  searchValue = null 일 때 
 		String sql2 = "SELECT q.qna_no,q.member_no,m.member_name,q.qna_title, q.qna_content, q.qna_date FROM qna q INNER JOIN member m ON q.member_no = m.member_no WHERE m.member_name like ? limit ?,?";

@@ -78,7 +78,7 @@ public class ShoppingCartService {
 		try {
 			arrayList = shoppingCartDAO.selectCartList(currentPage, rowPage, memberNo);
 			
-			if(null != arrayList) {
+			if(arrayList.size() != 0) {
 				JdbcObject.getConnection().commit();
 			}else {
 				
@@ -102,7 +102,7 @@ public class ShoppingCartService {
 		try {
 			arrayList = shoppingCartDAO.selectCartList(currentPage, rowPage);
 			
-			if(null != arrayList) {
+			if(arrayList.size() != 0) {
 				JdbcObject.getConnection().commit();
 			}else {
 				
