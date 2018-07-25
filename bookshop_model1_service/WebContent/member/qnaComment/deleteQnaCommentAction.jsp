@@ -14,6 +14,7 @@
 	
 	QnaCommentService qnaCommentService = new QnaCommentService();
 	int check = qnaCommentService.deleteQnaCommentService(qnaCommentNo);
+	
 	//삭제 성공 시 
 	if(1==check){
 		//Q&A 뷰 화면으로 
@@ -21,7 +22,7 @@
 	// db저장 실패시
 	}else{
 		//실패시 경로
-		System.out.print("입력실패");
+		System.out.print("삭제실패");
 	}
 
 %>

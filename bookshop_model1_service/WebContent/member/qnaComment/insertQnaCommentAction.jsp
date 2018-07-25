@@ -17,9 +17,13 @@
 	QnaCommentDTO qnaCommentDTO = new QnaCommentDTO();
 	qnaCommentDTO.setQnaNo(Integer.parseInt(request.getParameter("qnaTitle")));
 	qnaCommentDTO.setCommentContent(request.getParameter("commentContent"));
+	System.out.println(request.getParameter("commentContent") + "<--commentContent");
+	System.out.println(request.getParameter("qnaTitle") + "<--qnaTitle");
 	
 	QnaCommentService qnaCommentService = new QnaCommentService();
 	qnaCommentService.insertQnaCommentService(qnaCommentDTO, adminNo);
+	
+	response.sendRedirect(request.getContextPath()+"/member/qna/viewQna.jsp");
 %>	
 </body>
 </html>

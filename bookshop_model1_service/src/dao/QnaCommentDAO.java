@@ -2,7 +2,10 @@ package dao;
 
 
 import java.util.ArrayList;
+
+import dto.AdminDTO;
 import dto.QnaCommentDTO;
+import dto.QnaCommentJoinAdminDTO;
 import jdbcObject.JdbcObject;
 
 public class QnaCommentDAO {
@@ -59,11 +62,11 @@ public class QnaCommentDAO {
 	
 	
 	// Q&A 게시글 번호에 대한 댓글 리스트 조회 
-	public QnaCommentDTO selectQnaComment(int qnaNo) {
-		QnaCommentDTO qnaCommentDTO = new QnaCommentDTO();
+	public QnaCommentJoinAdminDTO selectQnaComment(int qnaNo) {
+		QnaCommentJoinAdminDTO qnaCommentJoinAdminDTO = new QnaCommentJoinAdminDTO();
 		
 		// 한 게시글에 달린 모든 댓글 조회 
-		String sql = "SELECT qna_comment_no,qna_no,admin_no,comment_content,comment_date FROM qna_comment WHERE qna_no ='1'";
+		String sql = "SELECT q.qna_comment_no,q.qna_no,q.admin_no,a.admin_name,q.comment_date FROM qna_comment q, admin a WHERE qna_no =?";
 				
 		try {
 			JdbcObject.setConnection(JdbcObject.getConnection());
@@ -72,19 +75,28 @@ public class QnaCommentDAO {
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			while(JdbcObject.getResultSet().next()) {
+				// ResultSet에 나온 리턴값을 DTO에서 셋팅 
+				QnaCommentDTO qnaCommentDTO = new QnaCommentDTO();
 				qnaCommentDTO.setQnaCommentNo(JdbcObject.getResultSet().getInt("qna_comment_no"));
 				qnaCommentDTO.setQnaNo(JdbcObject.getResultSet().getInt("qna_no"));
 				qnaCommentDTO.setAdminNo(JdbcObject.getResultSet().getInt("admin_no"));
 				qnaCommentDTO.setCommentContent(JdbcObject.getResultSet().getString("comment_content"));
 				qnaCommentDTO.setCommentDate(JdbcObject.getResultSet().getString("comment_date"));
-			
+				
+				// ResultSet에 나온 리턴값을 DTO에서 셋팅 
+				AdminDTO adminDTO = new AdminDTO();
+				adminDTO.setAdminName(JdbcObject.getResultSet().getString("admin_name"));
+				
+				//QNA COMMENT와 ADMIN를 조인한 변수에  DTO객체의 주소값을 대입
+				qnaCommentJoinAdminDTO.setAdminDTO(adminDTO);
+				qnaCommentJoinAdminDTO.setQnaCommentDTO(qnaCommentDTO);
 			}
 			
 		}catch (Exception e) {
 		
 			e.printStackTrace();
 		}
-		return qnaCommentDTO;
+		return qnaCommentJoinAdminDTO;
 	}
 	
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dao.QnaCommentDAO;
 import dto.QnaCommentDTO;
+import dto.QnaCommentJoinAdminDTO;
 import dto.QnaDTO;
 import jdbcObject.JdbcObject;
 import jdbcUtil.JdbcUtil;
@@ -22,7 +23,7 @@ public class QnaCommentService {
 		int check = 0;
 		
 		try {
-			qnaCommentDAO.insertQnaComment(qnaCommentDTO, adminNo);
+			check = qnaCommentDAO.insertQnaComment(qnaCommentDTO, adminNo);
 			
 			if(1 == check) {
 				check = 1;	// 리턴값을 담을 변수에 1을 대입
@@ -54,7 +55,7 @@ public class QnaCommentService {
 		int check = 0;
 		
 		try {
-			qnaCommentDAO.deleteQnaComment(qnaCommentNo);
+			check = qnaCommentDAO.deleteQnaComment(qnaCommentNo);
 			
 			if(1 == check) {
 				check = 1;	// 리턴값을 담을 변수에 1을 대입
@@ -83,13 +84,13 @@ public class QnaCommentService {
 	
 	//Q&A 게시글 번호에 대한 댓글 리스트 조회 
 	// check 리턴값  0 : 실패 , 1: 성공
-	public QnaCommentDTO selectQnaCommentService(int qnaNo) {
-		QnaCommentDTO qnaCommentDTO = new QnaCommentDTO();
+	public QnaCommentJoinAdminDTO selectQnaCommentService(int qnaNo) {
+		QnaCommentJoinAdminDTO qnaCommentJoinAdminDTO = new QnaCommentJoinAdminDTO();
 		try {
 			
-			qnaCommentDTO = qnaCommentDAO.selectQnaComment(qnaNo);
+			qnaCommentJoinAdminDTO = qnaCommentDAO.selectQnaComment(qnaNo);
 			
-			if(qnaCommentDTO.getCommentContent() != null) {		// dto 안의 내용이 있다면 
+			if(qnaCommentJoinAdminDTO.getQnaCommentDTO().getCommentContent() != null) {		// dto 안의 내용이 있다면 
 				JdbcObject.getConnection().commit(); // Connection의 요청을 완료하고 특별한 에러가 없다면 결과를 DB에 반영
 			}else {
 				// Connection 수행 중 예기치 않은 에러가 발생하였다면 모든 과정을 취소하고 DB를 Connection이 수행되기 이전상태로 변경
@@ -104,7 +105,7 @@ public class QnaCommentService {
 			JdbcUtil.close(JdbcObject.getPreparedStatement());
 			JdbcUtil.close(JdbcObject.getConnection());
 		}
-		return qnaCommentDTO;
+		return qnaCommentJoinAdminDTO;
 		
 	}
 	

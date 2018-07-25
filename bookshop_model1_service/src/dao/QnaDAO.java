@@ -241,12 +241,6 @@ public class QnaDAO {
 				qnaJoinMemberDTO.setMemberDTO(memberDTO);
 				arrayList.add(qnaJoinMemberDTO);
 				
-				/*qnaJoinMemberDTO.getQnaDTO().setQnaNo(JdbcObject.getResultSet().getInt("qna_no"));
-				qnaJoinMemberDTO.getQnaDTO().setMemberNo(JdbcObject.getResultSet().getInt("member_no"));
-				qnaJoinMemberDTO.getMemberDTO().setMemberName(JdbcObject.getResultSet().getString("member_name"));
-				qnaJoinMemberDTO.getQnaDTO().setQnaTitle(JdbcObject.getResultSet().getString("qna_title"));
-				qnaJoinMemberDTO.getQnaDTO().setQnaContent(JdbcObject.getResultSet().getString("qna_content"));
-				qnaJoinMemberDTO.getQnaDTO().setQnaDate(JdbcObject.getResultSet().getString("qna_date"));*/
 			
 			}
 			
