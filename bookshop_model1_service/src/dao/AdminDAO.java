@@ -38,7 +38,7 @@ public class AdminDAO {
 	
 	//한명의 관리자를 조회하는 메서드
 	//관리자 컬럼 admin_no값을 넘김
-	public AdminDTO selectOneAdmin(int AdminNo) {
+	public AdminDTO selectOneAdmin(int adminNo) {
 		AdminDTO adminDTO = new AdminDTO();
 		
 		String sql = "SELECT admin_no, admin_id, admin_pw , admin_name FROM admin WHERE admin_no=?";
@@ -47,7 +47,7 @@ public class AdminDAO {
 			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
 
 			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
-			JdbcObject.getPreparedStatement().setInt(1, AdminNo);
+			JdbcObject.getPreparedStatement().setInt(1, adminNo);
 
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
