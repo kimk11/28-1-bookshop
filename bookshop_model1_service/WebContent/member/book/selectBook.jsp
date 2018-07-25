@@ -26,6 +26,7 @@
 		<title>책 상세정보</title>
 	</head>
 	<body>
+		<jsp:include page="../member/memberLoginForm.jsp"></jsp:include><br>
 		<h3>책의 상세정보</h3>
 		<table border="1">
 			<tr>

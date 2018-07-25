@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="../member/memberLoginForm.jsp"></jsp:include><br>
 <%
 	//현재페이지 변수
 	int currentPage = 1;

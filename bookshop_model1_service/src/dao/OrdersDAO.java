@@ -14,7 +14,7 @@ public class OrdersDAO {
 	//장바구니에서 주문했을 시 테이블에 데이터 추가
 	//리턴값 boolean으로 메서드 성공 유무
 	public boolean insertOders(OrdersDTO ordersDTO) {
-
+//		System.out.println(ordersDTO.getBookNo()+"DTO값");
 		//데이터 추가 성공 여부 변수
 		int check = 0;
 		
@@ -31,7 +31,10 @@ public class OrdersDAO {
 			JdbcObject.getPreparedStatement().setString(5, ordersDTO.getOrdersAddr());
 			
 			check = JdbcObject.getPreparedStatement().executeUpdate();
-			if(0 == check)return false;
+//			System.out.println(check+"채크값");
+			if(0 == check) {
+				return false;
+			}
 			
 			return true;
 		} catch (Exception e) {
@@ -71,12 +74,10 @@ public class OrdersDAO {
 	//페이지기능
 	//검색기능
 	public ArrayList<BookJoinOrdersDTO> selectCartList(int currentPage, int rowPage, String searchValue, String searchKey, int memberNo) {
-		System.out.println(rowPage+"리스트행");
-		System.out.println(searchValue+"검색값");
-		System.out.println(searchKey+"검색키");
-		System.out.println(memberNo+"멤버넘버");
-		
-		
+//		System.out.println(rowPage+"리스트행");
+//		System.out.println(searchValue+"검색값");
+//		System.out.println(searchKey+"검색키");
+//		System.out.println(memberNo+"멤버넘버");
 		
 		ArrayList<BookJoinOrdersDTO> arrayList = new ArrayList<>();
 		
@@ -88,6 +89,7 @@ public class OrdersDAO {
 			
 			// 처음 실행 시켰을 경우
 			if(null == searchValue && searchKey.equals("")) {
+//				System.out.println("1번째 쿼리문");
 				JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
 				JdbcObject.getPreparedStatement().setInt(1, memberNo);
 				JdbcObject.getPreparedStatement().setInt(2, (currentPage-1)*rowPage);
@@ -95,6 +97,7 @@ public class OrdersDAO {
 			
 			// 검색단어가 없는 경우
 			}else if(null != searchValue && searchKey.equals("")) {
+//				System.out.println("2번째 쿼리문");
 				sql = "select b.book_name, o.orders_no, o.book_no, o.member_no, o.orders_amount, o.orders_price, o.orders_date, o.orders_addr, o.orders_state from book b join orders o on b.book_no=o.book_no where member_no=? limit ?,?";
 				JdbcObject.getPreparedStatement().setInt(1, memberNo);
 				JdbcObject.getPreparedStatement().setInt(2, (currentPage-1)*rowPage);
@@ -102,6 +105,7 @@ public class OrdersDAO {
 				
 			// 검색단어가 있을 경우
 			}else if(null != searchValue && !searchKey.equals("")) {
+//				System.out.println("3번째 쿼리문");
 				sql = "select b.book_name, o.orders_no, o.book_no, o.member_no, o.orders_amount, o.orders_price, o.orders_date, o.orders_addr, o.orders_state from book b join orders o on b.book_no=o.book_no like book_name=? where member_no=? limit ?,?";
 				JdbcObject.getPreparedStatement().setString(1, "%"+searchKey+"%");
 				JdbcObject.getPreparedStatement().setInt(2, memberNo);
@@ -112,6 +116,7 @@ public class OrdersDAO {
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
 			while(JdbcObject.getResultSet().next()) {
+//				System.out.println("4번째");
 				BookJoinOrdersDTO bookJoinOrdersDTO = new BookJoinOrdersDTO();
 				BookDTO bookDTO = new BookDTO();
 				OrdersDTO ordersDTO = new OrdersDTO();
@@ -129,8 +134,7 @@ public class OrdersDAO {
 				bookJoinOrdersDTO.setOrdersDTO(ordersDTO);
 				arrayList.add(bookJoinOrdersDTO);
 				
-				System.out.println("DAO");
-				System.out.println(arrayList.get(1).getOrdersDTO().getOrdersState());
+//				System.out.println("DAO");
 			}
 
 		} catch (Exception e) {

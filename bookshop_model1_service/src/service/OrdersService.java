@@ -26,10 +26,11 @@ public class OrdersService {
 		try {
 			//dao insert메서드 성공 유무
 			boolean check = ordersDAO.insertOders(ordersDTO);
+//			System.out.println(check+"dasdsad");
 			
 			if(check) {
 				JdbcObject.getConnection().commit();
-				
+				insertCheck = 1;
 			}else {
 				JdbcUtil.rollback(JdbcObject.getConnection());
 			}

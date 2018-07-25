@@ -24,6 +24,8 @@
 		//실패시 경로
 		System.out.print("입력실패");
 	}
+	
+	response.sendRedirect(request.getContextPath()+"/member/orders/searchOrderList.jsp");
 %>
 </body>
 </html>

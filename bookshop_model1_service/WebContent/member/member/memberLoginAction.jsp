@@ -26,7 +26,7 @@
 		session.setAttribute("sessionMemberAddr", memberDTO.getMemberAddr());
 	}
 	
-	response.sendRedirect(request.getContextPath()+"/member/member/memberLoginForm.jsp");
+	response.sendRedirect(request.getContextPath()+"/member/index.jsp");
 %>
 </body>
 </html>

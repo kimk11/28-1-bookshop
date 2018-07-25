@@ -10,7 +10,7 @@
 <body>
 	<%
 		session.invalidate();
-		response.sendRedirect(request.getContextPath()+"/member/member/memberLoginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/member/index.jsp");
 	%>
 </body>
 </html>

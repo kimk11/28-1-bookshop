@@ -13,6 +13,7 @@
 <title>주문 목록</title>
 </head>
 <body>
+<jsp:include page="../member/memberLoginForm.jsp"></jsp:include>
 <%
 	int memberNo = (Integer)session.getAttribute("sessionMemberNo");
 
@@ -78,9 +79,11 @@
 <%
 	for(int i =0; i<arrayList.size(); i++) {
 		BookJoinOrdersDTO bookJoinOrdersDTO = arrayList.get(i);
+		
+		System.out.println(bookJoinOrdersDTO.getOrdersDTO().getBookNo()+"adsad");
 %>
 		<tr>
-			<td><%= bookJoinOrdersDTO.getBookDTO().getBookNo()%></td>
+			<td><%= bookJoinOrdersDTO.getOrdersDTO().getBookNo()%></td>
 			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersNo() %></td>
 			<td><%= bookJoinOrdersDTO.getBookDTO().getBookName() %></td>	<!-- 도서이름 -->
 			<td><%= bookJoinOrdersDTO.getOrdersDTO().getMemberNo() %></td>
@@ -89,7 +92,7 @@
 			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersDate() %></td>
 			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersAddr() %></td>
 			<td><%= bookJoinOrdersDTO.getOrdersDTO().getOrdersState() %></td>
-			<td><a href ="<%= request.getContextPath() %>/member/orders/deleteOrderAction.jsp?orderNo=<%= bookJoinOrdersDTO.getOrdersDTO().getOrdersNo() %>">삭제</a></td>
+			<td><a href ="<%= request.getContextPath() %>/member/orders/deleteOrderAction.jsp?ordersNo=<%= bookJoinOrdersDTO.getOrdersDTO().getOrdersNo() %>">삭제</a></td>
 		</tr>
 <%
 	}
