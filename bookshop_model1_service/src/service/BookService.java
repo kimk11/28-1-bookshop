@@ -9,10 +9,10 @@ import dao.BookPublisherDAO;
 import dao.BookReviewDAO;
 import dto.BookCodeDTO;
 import dto.BookJoinListDTO;
+import dto.BookMemberJoinDTO;
 import dto.BookDTO;
 import dto.BookIntroDTO;
 import dto.BookPublisherDTO;
-import dto.BookReviewDTO;
 import jdbcObject.JdbcObject;
 import jdbcUtil.JdbcUtil;
 
@@ -191,8 +191,8 @@ public class BookService {
 			
 			BookReviewDAO bookReviewDAO = new BookReviewDAO();
 			//댓글정보를 리스트 처리하는 메서드 호출, 댓글정보가 담겨있는 객체의 참조값을 가진 배열객체의 참조값을 리턴받는다.
-			ArrayList<BookReviewDTO> bookReviewList = bookReviewDAO.selectBookReviewList(bookNo);
-			bookJoinListDTO.setBookReviewListDTO(bookReviewList);
+			ArrayList<BookMemberJoinDTO> bookReviewList = bookReviewDAO.selectBookReviewList(bookNo);
+			bookJoinListDTO.setBookMemberJoinDTO(bookReviewList);
 			
 			if(bookIntroNo.equals("")) {
 				

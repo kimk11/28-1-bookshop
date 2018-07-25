@@ -3,9 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import dto.BookJoinListDTO;
 import dto.BookReviewDTO;
-import dto.BookDTO;
 import dto.BookMemberJoinDTO;
 import dto.MemberDTO;
 import jdbcObject.JdbcObject;
@@ -101,7 +99,6 @@ public class BookReviewDAO {
 			while(JdbcObject.getResultSet().next()) {
 				BookReviewDTO bookReviewDTO = new BookReviewDTO(); // BookReviewDTO
 				bookReviewDTO.setBookReviewNo(JdbcObject.getResultSet().getInt("bookreview_no"));
-				bookReviewDTO.setBookNo(JdbcObject.getResultSet().getInt("book_no"));
 				bookReviewDTO.setMemberNo(JdbcObject.getResultSet().getInt("member_no"));
 				bookReviewDTO.setBookReviewContent(JdbcObject.getResultSet().getString("bookreview_content"));
 							
