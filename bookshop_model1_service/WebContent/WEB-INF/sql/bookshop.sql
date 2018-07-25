@@ -241,6 +241,22 @@ CREATE TABLE IF NOT EXISTS `qna` (
 /*!40000 ALTER TABLE `qna` ENABLE KEYS */;
 
 
+/*!40000 ALTER TABLE `qna` DISABLE KEYS */;
+INSERT INTO `qna` (`qna_no`, `member_no`, `qna_title`, `qna_content`, `qna_date`) VALUES
+	(1, 1, '제목', '내용', '2018-07-25 16:47:40'),
+	(2, 2, '제목', '내용', '2018-07-25 16:47:40'),
+	(3, 3, '제목', '내용', '2018-07-25 16:47:40'),
+	(4, 4, '제목', '내용', '2018-07-25 16:47:40'),
+	(5, 5, '제목', '내용', '2018-07-25 16:47:40'),
+	(6, 1, '제목', '내용', '2018-07-25 16:47:40'),
+	(7, 2, '제목', '내용', '2018-07-25 16:47:40'),
+	(8, 3, '제목', '내용', '2018-07-25 16:47:40'),
+	(9, 4, '제목', '내용', '2018-07-25 16:47:40'),
+	(10, 5, '제목', '내용', '2018-07-25 16:47:40'),
+	(11, 1, '제목', '내용', '2018-07-25 16:47:40');
+/*!40000 ALTER TABLE `qna` ENABLE KEYS */;
+
+
 -- 테이블 bookshop의 구조를 덤프합니다. qna_comment
 CREATE TABLE IF NOT EXISTS `qna_comment` (
   `qna_comment_no` int(10) NOT NULL AUTO_INCREMENT,
@@ -258,6 +274,20 @@ CREATE TABLE IF NOT EXISTS `qna_comment` (
 -- Dumping data for table bookshop.qna_comment: ~0 rows (대략적)
 /*!40000 ALTER TABLE `qna_comment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `qna_comment` ENABLE KEYS */;
+
+
+/*!40000 ALTER TABLE `qna_comment` DISABLE KEYS */;
+INSERT INTO `qna_comment` (`qna_comment_no`, `qna_no`, `admin_no`, `comment_content`, `comment_date`) VALUES
+	(1, 1, 1, '댓글내용입니다', '2018-07-24 13:59:06'),
+	(2, 2, 2, '댓글내용입니다', '2018-07-24 13:59:06'),
+	(3, 3, 2, '댓글내용입니다', '2018-07-24 13:59:06'),
+	(4, 4, 1, '댓글내용입니다', '2018-07-24 13:59:06'),
+	(5, 5, 2, '댓글내용입니다', '2018-07-24 13:59:06'),
+	(6, 6, 1, '댓글내용입니다', '2018-07-24 13:59:06'),
+	(7, 7, 2, '댓글내용입니다', '2018-07-24 13:59:06'),
+	(8, 8, 1, '댓글내용입니다', '2018-07-24 13:59:06');
+/*!40000 ALTER TABLE `qna_comment` ENABLE KEYS */;
+
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. shoppingcart
