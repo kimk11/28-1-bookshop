@@ -71,11 +71,11 @@ public class AdminService {
 }
 	
 	// 수정할 데이터 조회
-	public AdminDTO selectOneAdminService(String adminId) {
+	public AdminDTO selectOneAdminService(int adminNo) {
 		AdminDTO adminDTO = new AdminDTO();
 		
 		try {
-			adminDTO = adminDAO.selectOneAdmin(adminId);
+			adminDTO = adminDAO.selectOneAdmin(adminNo);
 			
 			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
 			if(adminDTO.getAdminId() != null) {
