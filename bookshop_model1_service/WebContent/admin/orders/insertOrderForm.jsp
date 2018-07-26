@@ -12,7 +12,7 @@
 <title>배송지 입력</title>
 </head>
 <body>
-<jsp:include page="../admin/memberLoginForm.jsp"></jsp:include><br>
+<jsp:include page="../admin/adminLoginForm.jsp"></jsp:include><br>
 <%
 	int shoppingCartNo = Integer.parseInt(request.getParameter("shoppingCartNo"));
 	int memberNo = (Integer)session.getAttribute("sessionMemberNo");	//세션

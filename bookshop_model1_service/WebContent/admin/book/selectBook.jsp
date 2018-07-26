@@ -14,7 +14,8 @@
 	//책 댓글에 대한 식별넘버
 	String bookReviewNo = request.getParameter("bookReviewNo");
 	// 로그인을 성공한 멤버 넘버 세션값으로 멤버번호를 등록한다.
-	String memberNo = String.valueOf(session.getAttribute("sessionMemberNo"));
+	String adminNo = String.valueOf(session.getAttribute("sessionAdminNo"));
+	System.out.println(adminNo+"아이디값");
 	
 	// 책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
@@ -26,7 +27,7 @@
 		<title>책 상세정보</title>
 	</head>
 	<body>
-		<jsp:include page="../admin/memberLoginForm.jsp"></jsp:include><br>
+		<jsp:include page="../admin/adminLoginForm.jsp"></jsp:include><br>
 		<h3>책의 상세정보</h3>
 		<table border="1">
 			<tr>
@@ -106,21 +107,25 @@
 				<td><%=bookIntroDTO.getBookIntroNo() %></td>
 				<td><%=bookIntroDTO.getBookIntroContent() %></td>
 				<td><%=bookIntroDTO.getBookIntroWrite() %></td>
+		<%
+				if(null != adminNo){
+		%>
 				<td><a href="<%=request.getContextPath()%>/admin/book/selectBook.jsp?bookIntroNo=<%=bookIntroDTO.getBookIntroNo() %>&bookNo=<%=bookNo %>">수정</a></td>
 				<td><a href="<%=request.getContextPath()%>/admin/bookIntro/deleteBookIntroAction.jsp?bookIntroNo=<%=bookIntroDTO.getBookIntroNo() %>&bookNo=<%=bookNo %>">삭제</a></td>
 			</tr>
 		<%
+				}
 			}
 		%>
 		</table><br>
 	<%
-		if(null != memberNo){
+		if(null != adminNo){
 			if(detailBookDTO.getBookMemberJoinDTO().size() < 5){
 	%>
 			<h3>댓글</h3>
 			<form action="<%= request.getContextPath() %>/admin/bookReview/insertBookReviewAction.jsp" method="post">
 				<input type="hidden" name="bookNo" value="<%= bookNo %>">
-				<input type="hidden" name="memberNo" value="<%= memberNo %>">
+				<input type="hidden" name="adminNo" value="<%= adminNo %>">
 			    <textarea cols="50" rows="5" name="bookReviewContent"></textarea><br><br>
 				<input type="submit" value="리뷰  등록">
 	        </form><br><br>
@@ -143,7 +148,7 @@
 				<td><%=bookMemberJoinDTO.getBookReviewDTO().getBookReviewContent() %></td>
 				<td><%=bookMemberJoinDTO.getMemberDTO().getMemberName() %></td>
 			<%
-				if(String.valueOf(bookMemberJoinDTO.getBookReviewDTO().getMemberNo()).equals(memberNo)){
+				if(String.valueOf(bookMemberJoinDTO.getBookReviewDTO().getMemberNo()).equals(adminNo)){
 			%>
 				<td><a href="<%=request.getContextPath() %>/admin/bookReview/updateBookReviewForm.jsp?bookReviewNo=<%=bookMemberJoinDTO.getBookReviewDTO().getBookReviewNo() %>&bookNo=<%=bookNo %>">수정</a></td>
 				<td><a href="<%=request.getContextPath() %>/admin/bookReview/deleteBookReviewAction.jsp?bookReviewNo=<%=bookMemberJoinDTO.getBookReviewDTO().getBookReviewNo() %>&bookNo=<%=bookNo %>">삭제</a></td>

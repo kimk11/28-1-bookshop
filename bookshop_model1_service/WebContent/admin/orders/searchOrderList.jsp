@@ -13,7 +13,7 @@
 <title>주문 목록</title>
 </head>
 <body>
-<jsp:include page="../admin/memberLoginForm.jsp"></jsp:include>
+<jsp:include page="../admin/adminLoginForm.jsp"></jsp:include>
 <%
 	int memberNo = (Integer)session.getAttribute("sessionMemberNo");
 

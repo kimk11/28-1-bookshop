@@ -15,7 +15,7 @@
 </head>
 <body>
 	<a href="<%= request.getContextPath() %>/member/index.jsp">홈으로 가기</a>
-	<jsp:include page="../admin/memberLoginForm.jsp"></jsp:include><br>
+	<jsp:include page="../admin/adminLoginForm.jsp"></jsp:include><br>
 <%	
 	request.setCharacterEncoding("utf8");
 	

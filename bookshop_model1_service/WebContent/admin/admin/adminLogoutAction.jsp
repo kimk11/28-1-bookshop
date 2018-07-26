@@ -1,3 +1,5 @@
+<!-- 28기 김진우 -->
+<!-- 2018/07/24 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,8 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="./admin/adminLoginForm.jsp"></jsp:include><br>
-	
-	<jsp:include page="./book/selectBookList.jsp"></jsp:include>
+	<%
+		session.invalidate();
+		response.sendRedirect(request.getContextPath()+"/admin/index.jsp");
+	%>
 </body>
 </html>
