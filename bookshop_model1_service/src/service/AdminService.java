@@ -14,7 +14,7 @@ public class AdminService {
 	}
 	
 	//member 테이블 조회(검색)
-	public ArrayList<AdminDTO> selectAdminListService(){
+	public ArrayList<AdminDTO> selectSearchAdminService() {
 		ArrayList<AdminDTO> arrayList = new ArrayList<>();
 		
 		try {
@@ -40,7 +40,7 @@ public class AdminService {
 	}
 	
 	// adminLogin 세션처리
-	public AdminDTO selectAdminLoginCheckService(String adminId, String adminPw, int adminNo) {
+	public AdminDTO selectAdminLoginCheckService(String adminId, String adminPw) {
 		AdminDTO adminDTO = null;
 		
 		try {
@@ -49,7 +49,7 @@ public class AdminService {
 			
 			//입력값과 db데이터가 같을 경우만 회원 정보를 가져옴
 			if(2==check) {
-				adminDTO = adminDAO.selectOneAdmin(adminNo);
+				adminDTO = adminDAO.selectOneAdmin(adminId);
 			}
 			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
 			if(null != adminDTO) {
@@ -71,11 +71,11 @@ public class AdminService {
 }
 	
 	// 수정할 데이터 조회
-	public AdminDTO selectOneAdminService(int adminNo) {
+	public AdminDTO selectOneAdminService(String adminId) {
 		AdminDTO adminDTO = new AdminDTO();
 		
 		try {
-			adminDTO = adminDAO.selectOneAdmin(adminNo);
+			adminDTO = adminDAO.selectOneAdmin(adminId);
 			
 			//DAO에 예외가 없다면 DB에 값 저장, 아니면 db변경사항 취소
 			if(adminDTO.getAdminId() != null) {
