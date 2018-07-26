@@ -25,12 +25,11 @@ public class OrdersService {
 		int insertCheck = 0;
 		
 		try {
+			new ShoppingCartDAO().deleteCart(shoppingcartNo);
+			
 			//dao insert메서드 성공 유무
 			boolean check = ordersDAO.insertOders(ordersDTO);
 //			System.out.println(check+"dasdsad");
-			
-			new ShoppingCartDAO().deleteCart(shoppingcartNo);
-
 			
 			if(check) {
 				JdbcObject.getConnection().commit();
