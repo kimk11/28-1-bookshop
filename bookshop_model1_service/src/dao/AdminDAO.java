@@ -100,7 +100,7 @@ public class AdminDAO {
 	public AdminDTO selectOneAdmin(int adminNo) {
 		AdminDTO adminDTO = new AdminDTO();
 		
-		String sql = "SELECT admin_no, admin_id, admin_pw , admin_name FROM admin WHERE admin_id=?";
+		String sql = "SELECT admin_no, admin_id, admin_pw , admin_name FROM admin WHERE admin_no=?";
 		
 		try {
 			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
