@@ -68,7 +68,7 @@ public class AdminDAO {
 	}
 	
 	//한명의 관리자를 조회하는 메서드
-	//관리자 컬럼 admin_no값을 넘김
+	//관리자 컬럼 admin_id값을 넘김
 	public AdminDTO selectOneAdmin(String adminId) {
 		AdminDTO adminDTO = new AdminDTO();
 		
@@ -79,6 +79,34 @@ public class AdminDAO {
 
 			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
 			JdbcObject.getPreparedStatement().setString(1, adminId);
+
+			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
+			
+			if(JdbcObject.getResultSet().next()) {
+				adminDTO.setAdminNo(JdbcObject.getResultSet().getInt(1));
+				adminDTO.setAdminId(JdbcObject.getResultSet().getString(2));
+				adminDTO.setAdminPw(JdbcObject.getResultSet().getString(3));
+				adminDTO.setAdminName(JdbcObject.getResultSet().getString(4));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return adminDTO;
+	}
+	
+	//한명의 관리자를 조회하는 메서드
+	//관리자 컬럼 admin_no값을 넘김
+	public AdminDTO selectOneAdmin(int adminNo) {
+		AdminDTO adminDTO = new AdminDTO();
+		
+		String sql = "SELECT admin_no, admin_id, admin_pw , admin_name FROM admin WHERE admin_id=?";
+		
+		try {
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
+
+			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
+			JdbcObject.getPreparedStatement().setInt(1, adminNo);
 
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
