@@ -69,16 +69,16 @@ public class AdminDAO {
 	
 	//한명의 관리자를 조회하는 메서드
 	//관리자 컬럼 admin_no값을 넘김
-	public AdminDTO selectOneAdmin(int adminNo) {
+	public AdminDTO selectOneAdmin(int adminId) {
 		AdminDTO adminDTO = new AdminDTO();
 		
-		String sql = "SELECT admin_no, admin_id, admin_pw , admin_name FROM admin WHERE admin_no=?";
+		String sql = "SELECT admin_no, admin_id, admin_pw , admin_name FROM admin WHERE admin_id=?";
 		
 		try {
 			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
 
 			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
-			JdbcObject.getPreparedStatement().setInt(1, adminNo);
+			JdbcObject.getPreparedStatement().setInt(1, adminId);
 
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
 			
