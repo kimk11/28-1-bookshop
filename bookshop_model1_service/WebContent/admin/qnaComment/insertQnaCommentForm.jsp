@@ -13,17 +13,17 @@
 	System.out.println(qnaNo +"<--qnaNo");
 	
 	//세션추가
-	int sessionAdminNo = (int)session.getAttribute("sessionAdminNo");
+	int sessionNo = (Integer)session.getAttribute("sessionAdminNo");
 	String sessionId = (String)session.getAttribute("sessionAdminId");
 	String sessionName = (String)session.getAttribute("sessionAdminName");
 %>
 	
-	<form action = "<%=request.getContextPath() %>/member/qnaComment/insertQnaCommentAction.jsp" method="post">
+	<form action = "<%=request.getContextPath() %>/admin/qnaComment/insertQnaCommentAction.jsp" method="post">
 		<hr>
 		<h3> 댓글입력 </h3><p>50자 이내로 쓰시오,</p>
 		<div>
 			<input type = "hidden" name ="qnaNo" value="<%= qnaNo %>">		<!-- qna_no -->
-			<input type = "hidden" name ="adminNo" value="<%=sessionAdminNo %>"><!-- admin_no(세선) -->
+			<input type = "hidden" name ="adminNo" value="<%=sessionNo %>"><!-- admin_no(세선) -->
 			<textarea name="commentContent" rows="3" cols="40"></textarea>	<!-- 댓글내용 -->
 			<button type="submit">등록</button>
 		</div>

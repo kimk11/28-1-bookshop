@@ -12,18 +12,23 @@
 <body>
 <%
 	request.setCharacterEncoding("utf8");
-	int adminNo = Integer.parseInt(request.getParameter("adminNo"));	// 세션
+	int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+	String sessionId = (String)session.getAttribute("sessionAdminId");
+	String sessionName = (String)session.getAttribute("sessionAdminName");
+	int sessionNo = (Integer)session.getAttribute("sessionAdminNo");
+	System.out.println(sessionNo +"<--sessionNo");
 
 	QnaCommentDTO qnaCommentDTO = new QnaCommentDTO();
-	qnaCommentDTO.setQnaNo(Integer.parseInt(request.getParameter("qnaTitle")));
+	qnaCommentDTO.setAdminNo(sessionNo);
+	qnaCommentDTO.setQnaNo(Integer.parseInt(request.getParameter("qnaNo")));
 	qnaCommentDTO.setCommentContent(request.getParameter("commentContent"));
 	System.out.println(request.getParameter("commentContent") + "<--commentContent");
-	System.out.println(request.getParameter("qnaTitle") + "<--qnaTitle");
+	System.out.println(request.getParameter("qnaNo") + "<--qnaNo");
+	System.out.println(request.getParameter("adminNo") + "<--adminNo");
 	
 	QnaCommentService qnaCommentService = new QnaCommentService();
-	qnaCommentService.insertQnaCommentService(qnaCommentDTO, adminNo);
-	
-	response.sendRedirect(request.getContextPath()+"/member/qna/viewQna.jsp");
+	qnaCommentService.insertQnaCommentService(qnaCommentDTO, sessionNo);
+ 	response.sendRedirect(request.getContextPath()+"/admin/qna/viewQnaAdmin.jsp?qnaNo="+qnaNo);
 %>	
 </body>
 </html>

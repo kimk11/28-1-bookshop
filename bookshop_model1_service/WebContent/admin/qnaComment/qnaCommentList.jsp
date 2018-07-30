@@ -4,6 +4,7 @@
 <%@ page import = "dto.QnaCommentDTO" %>
 <%@ page import = "dto.QnaCommentJoinAdminDTO" %>
 <%@ page import = "service.QnaCommentService" %>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,27 +13,37 @@
 </head>
 <body>
 <%
-	int qnaNo =1; //Integer.parseInt(request.getParameter("qnaNo"));
-	QnaCommentService qnaCommentService = new QnaCommentService();
-	QnaCommentJoinAdminDTO QnaCommentJoinAdminDTO = qnaCommentService.selectQnaCommentService(qnaNo);
-
+	int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+	System.out.println(qnaNo+"<--qnaNo commentList");
 	
-	//세션추가
-	int sessionAdminNo = (Integer)session.getAttribute("sessionAdminNo");
-	String sessionId = (String)session.getAttribute("sessionAdminId");
-	String sessionName = (String)session.getAttribute("sessionAdminName");
+	QnaCommentService qnaCommentService = new QnaCommentService();
+	ArrayList<QnaCommentJoinAdminDTO> CommentList = qnaCommentService.selectQnaCommentService(qnaNo);
+	
+	/* int qnaCommentNo = Integer.parseInt(request.getParameter("QnaCommentJoinAdminDTO.getQnaCommentDTO().getQnaCommentNo()")); */
+	/* System.out.println(qnaCommentNo+"<--qnaCommentNo commentList"); */
+
 %>
 	<table>
+<%
+	for(int i= 0; i<CommentList.size(); i++) {
+		QnaCommentJoinAdminDTO qnaCommentJoinAdminDTO = CommentList.get(i);
+%>
 		<tr>
-			<td>관리자 : <%= QnaCommentJoinAdminDTO.getAdminDTO().getAdminName() %></td>	
-			<td>날짜 : <%= QnaCommentJoinAdminDTO.getQnaCommentDTO().getCommentDate() %></td>	<!-- comment_date(날짜)  -->
+			<td colspan="2" width="400"><hr>
+				관리자 : <%= qnaCommentJoinAdminDTO.getAdminDTO().getAdminName() %>	
+				날짜 : <%= qnaCommentJoinAdminDTO.getQnaCommentDTO().getCommentDate() %>
+			</td>	<!-- comment_date(날짜)  -->
 		</tr>
 		<tr>
-			<td><%= QnaCommentJoinAdminDTO.getQnaCommentDTO().getCommentContent()%></td>		<!-- comment_content(내용)  -->
+			<td><%=qnaCommentJoinAdminDTO.getQnaCommentDTO().getCommentContent() %></td>		<!-- comment_content(내용)  -->
 			<td align="right">
-				<a href ="<%=request.getContextPath() %>/admin/qnaComment/deleteQnaCommentAction.jsp?qnaNo=<%=qnaNo%>">삭제</a>
+				<a href ="<%=request.getContextPath() %>/admin/qnaComment/deleteQnaCommentAction.jsp?qnaNo=<%=qnaNo%>&qnaCommentNo=<%=qnaCommentJoinAdminDTO.getQnaCommentDTO().getQnaCommentNo()%>">삭제</a>
 			</td>
 		</tr>
+<%
+	}
+%>
 	</table>
+
 </body>
 </html>

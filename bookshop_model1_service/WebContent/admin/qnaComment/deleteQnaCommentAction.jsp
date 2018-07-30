@@ -11,6 +11,7 @@
 <body>
 <%
 	int qnaCommentNo = Integer.parseInt(request.getParameter("qnaCommentNo"));
+	int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 	
 	QnaCommentService qnaCommentService = new QnaCommentService();
 	int check = qnaCommentService.deleteQnaCommentService(qnaCommentNo);
@@ -18,7 +19,7 @@
 	//삭제 성공 시 
 	if(1==check){
 		//Q&A 뷰 화면으로 
-		response.sendRedirect(request.getContextPath()+"/member/qna/viewQna.jsp");
+		response.sendRedirect(request.getContextPath()+"/admin/qna/viewQnaAdmin.jsp?qnaNo="+qnaNo);
 	// db저장 실패시
 	}else{
 		//실패시 경로

@@ -22,7 +22,7 @@ public class QnaCommentDAO {
 		String sql = "INSERT INTO qna_comment(qna_no,admin_no,comment_content,comment_date) VALUES(?,?,?,now())";
 				
 		try {
-			JdbcObject.setConnection(JdbcObject.getConnection());
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
 			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
 			JdbcObject.getPreparedStatement().setInt(1, qnaCommentDTO.getQnaNo());
 			JdbcObject.getPreparedStatement().setInt(2, adminNo);	//세션
@@ -48,7 +48,7 @@ public class QnaCommentDAO {
 		String sql = "DELETE FROM qna_comment WHERE qna_comment_no =?";
 				
 		try {
-			JdbcObject.setConnection(JdbcObject.getConnection());
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
 			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
 			JdbcObject.getPreparedStatement().setInt(1, qnaCommentNo);
 			check = JdbcObject.getPreparedStatement().executeUpdate();
@@ -62,14 +62,15 @@ public class QnaCommentDAO {
 	
 	
 	// Q&A 게시글 번호에 대한 댓글 리스트 조회 
-	public QnaCommentJoinAdminDTO selectQnaComment(int qnaNo) {
-		QnaCommentJoinAdminDTO qnaCommentJoinAdminDTO = new QnaCommentJoinAdminDTO();
+	public ArrayList<QnaCommentJoinAdminDTO> selectQnaComment(int qnaNo) {
+		ArrayList<QnaCommentJoinAdminDTO> CommentList = new ArrayList<>();
+		
 		
 		// 한 게시글에 달린 모든 댓글 조회 
-		String sql = "SELECT q.qna_comment_no,q.qna_no,q.admin_no,a.admin_name,q.comment_date FROM qna_comment q, admin a WHERE qna_no =?";
+		String sql = "SELECT q.qna_comment_no,q.qna_no,q.admin_no,a.admin_name,q.comment_content,q.comment_date FROM qna_comment q, admin a WHERE qna_no =?";
 				
 		try {
-			JdbcObject.setConnection(JdbcObject.getConnection());
+			JdbcObject.setConnection(JdbcObject.getConnetionInfo());
 			JdbcObject.setPreparedStatement(JdbcObject.getConnection().prepareStatement(sql));
 			JdbcObject.getPreparedStatement().setInt(1, qnaNo);
 			JdbcObject.setResultSet(JdbcObject.getPreparedStatement().executeQuery());
@@ -88,15 +89,17 @@ public class QnaCommentDAO {
 				adminDTO.setAdminName(JdbcObject.getResultSet().getString("admin_name"));
 				
 				//QNA COMMENT와 ADMIN를 조인한 변수에  DTO객체의 주소값을 대입
+				QnaCommentJoinAdminDTO qnaCommentJoinAdminDTO = new QnaCommentJoinAdminDTO();
 				qnaCommentJoinAdminDTO.setAdminDTO(adminDTO);
 				qnaCommentJoinAdminDTO.setQnaCommentDTO(qnaCommentDTO);
+				CommentList.add(qnaCommentJoinAdminDTO);
 			}
 			
 		}catch (Exception e) {
 		
 			e.printStackTrace();
 		}
-		return qnaCommentJoinAdminDTO;
+		return CommentList;
 	}
 	
 	

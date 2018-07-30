@@ -14,7 +14,7 @@
 <body>
 <%
 	int qnaNo =Integer.parseInt(request.getParameter("qnaNo"));
-	System.out.println(qnaNo+"<--qnaNo");
+	System.out.println(qnaNo+"<--qnaNo viewAdmin");
 	QnaService qnaService = new QnaService();
 	QnaJoinMemberDTO qnaJoinMemberDTO  = qnaService.selectQnaForUpdateService(qnaNo);
 	String sessionName = (String)session.getAttribute("sessionAdminName");
@@ -51,6 +51,8 @@
 			</tr>
 		</table>
 		
-<%-- 	<jsp:include page="../qnaComment/qnaCommentList.jsp"></jsp:include> --%>
+		<jsp:include page="../qnaComment/insertQnaCommentForm.jsp"></jsp:include>
+
+ 		<jsp:include page="../qnaComment/qnaCommentList.jsp"></jsp:include>
 </body>
 </html>
