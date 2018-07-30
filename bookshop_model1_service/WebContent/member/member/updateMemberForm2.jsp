@@ -18,7 +18,7 @@
 	MemberDTO memberDTO = memberService.selectOneMemberService(memberNo);
 
 %>
-	<form action = "<%=request.getContextPath()+ "/member/member/updateMemberAction.jsp" %>" method="post">
+	<form action = "<%=request.getContextPath()+ "/member/member/updateMemberAction2.jsp" %>" method="post">
 		<input type="hidden" name = "memberNo" value="<%= memberNo %>">	
 		<label>아이디 : </label>
 		<input type ="text" name="memberId" value="<%= memberDTO.getMemberId() %>" size="7" readonly="readonly"><br>
@@ -31,6 +31,6 @@
 		<button type ="submit">수정</button>
 	</form>
 	
-	<a href="<%= request.getContextPath() %>/member/member/deleteMemberAction.jsp">회원 탈퇴</a>
+	<a href="<%= request.getContextPath() %>/member/member/deleteMemberAction2.jsp">회원 탈퇴</a>
 </body>
 </html>

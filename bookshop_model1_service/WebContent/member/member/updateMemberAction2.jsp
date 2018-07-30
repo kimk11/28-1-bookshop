@@ -25,7 +25,7 @@
 	MemberService memberService = new MemberService();
 	memberService.updateMemberService(memberDTO);
 	
-	response.sendRedirect(request.getContextPath()+"/member/index.jsp");
+	response.sendRedirect(request.getContextPath()+"/admin/index.jsp");
 %>
 </body>
 </html>
