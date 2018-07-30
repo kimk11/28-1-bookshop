@@ -14,8 +14,8 @@
 	//책 댓글에 대한 식별넘버
 	String bookReviewNo = request.getParameter("bookReviewNo");
 	// 로그인을 성공한 멤버 넘버 세션값으로 멤버번호를 등록한다.
-	String adminNo = String.valueOf(session.getAttribute("sessionAdminNo"));
-	System.out.println(adminNo+"아이디값");
+	String adminNo = (String)(session.getAttribute("sessionAdminNo"));
+	System.out.println(adminNo+"관리자넘버값");
 	
 	// 책 하나의 정보를 조회하기 위한 객체들을 생성
 	BookService bookService = new BookService();
@@ -59,11 +59,6 @@
 				<td><%=detailBookDTO.getBookDTO().getBookDate() %></td>
 			</tr>
 		</table>
-		<h3>장바구니에 넣기</h3>
-		<jsp:include page="/admin/cart/insertShoppingCartForm.jsp" flush="false">
-			<jsp:param name="bookNo" value="<%=bookNo %>" />
-			<jsp:param name="bookPrice" value="<%=detailBookDTO.getBookDTO().getBookPrice() %>" />
-		</jsp:include>
 	<%
 		}
 		if(detailBookDTO.getBookIntroListDTO().size() < 3){
@@ -148,7 +143,7 @@
 				<td><%=bookMemberJoinDTO.getBookReviewDTO().getBookReviewContent() %></td>
 				<td><%=bookMemberJoinDTO.getMemberDTO().getMemberName() %></td>
 			<%
-				if(String.valueOf(bookMemberJoinDTO.getBookReviewDTO().getMemberNo()).equals(adminNo)){
+				if(null != adminNo){
 			%>
 				<td><a href="<%=request.getContextPath() %>/admin/bookReview/updateBookReviewForm.jsp?bookReviewNo=<%=bookMemberJoinDTO.getBookReviewDTO().getBookReviewNo() %>&bookNo=<%=bookNo %>">수정</a></td>
 				<td><a href="<%=request.getContextPath() %>/admin/bookReview/deleteBookReviewAction.jsp?bookReviewNo=<%=bookMemberJoinDTO.getBookReviewDTO().getBookReviewNo() %>&bookNo=<%=bookNo %>">삭제</a></td>

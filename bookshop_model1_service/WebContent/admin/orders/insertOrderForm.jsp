@@ -2,9 +2,9 @@
 <!-- insertOrderForm.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="service.OrdersService"%>
-<%@ page import="service.MemberService"%>
+<%@ page import="service.AdminService"%>
 <%@ page import="dto.OrdersDTO"%>
-<%@ page import="dto.MemberDTO"%>
+<%@ page import="dto.AdminDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,11 +15,11 @@
 <jsp:include page="../admin/adminLoginForm.jsp"></jsp:include><br>
 <%
 	int shoppingCartNo = Integer.parseInt(request.getParameter("shoppingCartNo"));
-	int memberNo = (Integer)session.getAttribute("sessionMemberNo");	//세션
+	int adminNo = (Integer)session.getAttribute("sessionAdminNo");	//세션
 
 	OrdersService ordersService = new OrdersService();
-	MemberService memberService= new MemberService();
-	MemberDTO memberDTO = memberService.selectOneMemberService(memberNo);
+	AdminService adminService= new AdminService();
+	AdminDTO adminDTO = adminService.selectOneAdminService(adminNo);
 %>
 	<form action="<%=request.getContextPath()%>/admin/orders/insertOrderAction.jsp" method="post">
 		<table>
@@ -28,7 +28,7 @@
 				<td>
 					<input type="hidden" name="shoppingCartNo" value="<%=shoppingCartNo%>">
 					<hr><div>기존배송지 : </div>
-					<%= memberDTO.getMemberAddr() %><br><br><br>
+					<%= adminDTO.getAdminNo() %><br><br><br>
 					<div>신규 배송지 : </div>	
 					<textarea name="ordersAddr" rows="3" cols="40" placeholder="미작성시 자동으로 기존배송지로 선택됩니다"></textarea>	
 				</td>	
