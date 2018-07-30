@@ -12,13 +12,13 @@
 </head>
 <body>
 <%
-	int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
+	int qnaNo =1; //Integer.parseInt(request.getParameter("qnaNo"));
 	QnaCommentService qnaCommentService = new QnaCommentService();
 	QnaCommentJoinAdminDTO QnaCommentJoinAdminDTO = qnaCommentService.selectQnaCommentService(qnaNo);
 
 	
 	//세션추가
-	int sessionAdminNo = (int)session.getAttribute("sessionAdminNo");
+	int sessionAdminNo = (Integer)session.getAttribute("sessionAdminNo");
 	String sessionId = (String)session.getAttribute("sessionAdminId");
 	String sessionName = (String)session.getAttribute("sessionAdminName");
 %>
@@ -30,7 +30,7 @@
 		<tr>
 			<td><%= QnaCommentJoinAdminDTO.getQnaCommentDTO().getCommentContent()%></td>		<!-- comment_content(내용)  -->
 			<td align="right">
-				<a href ="<%=request.getContextPath() %>/member/qnaComment/deleteQnaCommentAction.jsp?qnaNo=<%=qnaNo%>">삭제</a>
+				<a href ="<%=request.getContextPath() %>/admin/qnaComment/deleteQnaCommentAction.jsp?qnaNo=<%=qnaNo%>">삭제</a>
 			</td>
 		</tr>
 	</table>

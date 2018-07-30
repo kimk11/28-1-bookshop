@@ -14,9 +14,9 @@
 	request.setCharacterEncoding("utf8");
 	
 	//세션추가
-	int sessionMemberNo = (int)session.getAttribute("sessionMemberNo");
-	String sessionId = (String)session.getAttribute("sessionMemberId");
-	String sessionName = (String)session.getAttribute("sessionMemberName");
+	int sessionMemberNo = (int)session.getAttribute("sessionAdminNo");
+	String sessionId = (String)session.getAttribute("sessionAdminId");
+	String sessionName = (String)session.getAttribute("sessionAdminName");
 
 	QnaDTO qnaDTO = new QnaDTO();
 	qnaDTO.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));

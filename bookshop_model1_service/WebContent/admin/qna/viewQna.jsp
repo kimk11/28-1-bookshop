@@ -17,7 +17,7 @@
 	System.out.println(qnaNo+"<--qnaNo");
 	QnaService qnaService = new QnaService();
 	QnaJoinMemberDTO qnaJoinMemberDTO  = qnaService.selectQnaForUpdateService(qnaNo);
-	String sessionName = (String)session.getAttribute("sessionMemberName");
+	String sessionName = (String)session.getAttribute("sessionAdminName");
 	
 %>
 	

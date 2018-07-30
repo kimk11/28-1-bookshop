@@ -9,5 +9,8 @@
 	<jsp:include page="./admin/adminLoginForm.jsp"></jsp:include><br>
 	
 	<jsp:include page="./book/selectBookList.jsp"></jsp:include>
+	
+	
+	<a href="<%= request.getContextPath() %>/admin/qna/searchQnaList.jsp"><h3>Q & A 보기</h3></a>
 </body>
 </html>

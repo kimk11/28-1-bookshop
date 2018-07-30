@@ -10,9 +10,9 @@
 <body>
 <%
 	//세션추가
-	int sessionMemberNo = (int)session.getAttribute("sessionMemberNo");
-	String sessionId = (String)session.getAttribute("sessionMemberId");
-	String sessionName = (String)session.getAttribute("sessionMemberName");
+	int sessionMemberNo = (int)session.getAttribute("sessionAdminNo");
+	String sessionId = (String)session.getAttribute("sessionAdminId");
+	String sessionName = (String)session.getAttribute("sessionAdminName");
 %>
 	<form action="<%=request.getContextPath()%>/admin/qna/insertQnaAction.jsp" method="post">
 		<table>

@@ -14,7 +14,7 @@
 	//책 댓글에 대한 식별넘버
 	String bookReviewNo = request.getParameter("bookReviewNo");
 	// 로그인을 성공한 멤버 넘버 세션값으로 멤버번호를 등록한다.
-	String adminNo = (String)(session.getAttribute("sessionAdminNo"));
+	int adminNo = (Integer)(session.getAttribute("sessionAdminNo"));
 	System.out.println(adminNo+"관리자넘버값");
 	
 	// 책 하나의 정보를 조회하기 위한 객체들을 생성
@@ -103,7 +103,7 @@
 				<td><%=bookIntroDTO.getBookIntroContent() %></td>
 				<td><%=bookIntroDTO.getBookIntroWrite() %></td>
 		<%
-				if(null != adminNo){
+				if(0 != adminNo){
 		%>
 				<td><a href="<%=request.getContextPath()%>/admin/book/selectBook.jsp?bookIntroNo=<%=bookIntroDTO.getBookIntroNo() %>&bookNo=<%=bookNo %>">수정</a></td>
 				<td><a href="<%=request.getContextPath()%>/admin/bookIntro/deleteBookIntroAction.jsp?bookIntroNo=<%=bookIntroDTO.getBookIntroNo() %>&bookNo=<%=bookNo %>">삭제</a></td>
@@ -114,7 +114,7 @@
 		%>
 		</table><br>
 	<%
-		if(null != adminNo){
+		if(0 != adminNo){
 			if(detailBookDTO.getBookMemberJoinDTO().size() < 5){
 	%>
 			<h3>댓글</h3>
@@ -143,7 +143,7 @@
 				<td><%=bookMemberJoinDTO.getBookReviewDTO().getBookReviewContent() %></td>
 				<td><%=bookMemberJoinDTO.getMemberDTO().getMemberName() %></td>
 			<%
-				if(null != adminNo){
+				if(0 != adminNo){
 			%>
 				<td><a href="<%=request.getContextPath() %>/admin/bookReview/updateBookReviewForm.jsp?bookReviewNo=<%=bookMemberJoinDTO.getBookReviewDTO().getBookReviewNo() %>&bookNo=<%=bookNo %>">수정</a></td>
 				<td><a href="<%=request.getContextPath() %>/admin/bookReview/deleteBookReviewAction.jsp?bookReviewNo=<%=bookMemberJoinDTO.getBookReviewDTO().getBookReviewNo() %>&bookNo=<%=bookNo %>">삭제</a></td>

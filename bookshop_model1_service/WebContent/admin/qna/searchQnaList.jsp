@@ -21,9 +21,9 @@
 	
 
 	//세션추가
-	int sessionMemberNo = (int)session.getAttribute("sessionMemberNo");
-	String sessionId = (String)session.getAttribute("sessionMemberId");
-	String sessionName = (String)session.getAttribute("sessionMemberName");
+	int sessionNo = (int)session.getAttribute("sessionAdminNo");
+	String sessionId = (String)session.getAttribute("sessionAdminId");
+	String sessionName = (String)session.getAttribute("sessionAdminName");
 	
 	
 	//검색 조건 변수
