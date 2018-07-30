@@ -8,8 +8,15 @@
 </head>
 <body>
 <%
-	int adminNo = Integer.parseInt(request.getParameter("adminNo"));
-	System.out.println(adminNo + "<-- adminNo");
+	int adminNo = 0;
+
+	try{
+		adminNo = Integer.parseInt(request.getParameter("adminNo"));
+		System.out.println(adminNo + "<-- adminNo");
+		
+	} catch(NullPointerException n) {
+		response.sendRedirect(request.getContextPath() + "/admin/admin/searchAdminList.jsp");
+	}
 
 	AdminService adminService = new AdminService();
 	int check = adminService.deleteAdminService(adminNo);
@@ -24,8 +31,6 @@
 		response.sendRedirect(request.getContextPath()+"/admin/admin/searchAdminList.jsp");
 		System.out.print("입력실패");
 	}
-	
-	response.sendRedirect(request.getContextPath()+"/admin/index.jsp");
 %>
 </body>
 </html>

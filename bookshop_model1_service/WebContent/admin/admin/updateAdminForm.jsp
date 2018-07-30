@@ -12,11 +12,17 @@
 <body>
 <%
 	request.setCharacterEncoding("utf8");
-	int adminNo = (Integer)session.getAttribute("sessionAdminNo");
-	System.out.println("adminNo : " + adminNo);
+	int adminNo = 0;
+	
+	try{
+		adminNo = (Integer)session.getAttribute("sessionAdminNo");
+		
+	} catch(NullPointerException n) {
+		response.sendRedirect(request.getContextPath() + "/admin/admin/searchAdminList.jsp");
+	}
+	
 	AdminService adminService = new AdminService();
 	AdminDTO adminDTO = adminService.selectOneAdminService(adminNo);
-
 %>
 	<form action = "<%=request.getContextPath()+ "/admin/admin/updateAdminAction.jsp" %>" method="post">
 		<input type="hidden" name = "adminNo" value="<%= adminNo %>">	

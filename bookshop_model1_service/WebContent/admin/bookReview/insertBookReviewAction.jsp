@@ -6,12 +6,12 @@
 	request.setCharacterEncoding("utf-8");
 	
 	int bookNo = Integer.parseInt(request.getParameter("bookNo"));
-	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+	int adminNo = Integer.parseInt(request.getParameter("adminNo"));
 	String bookReviewContent = request.getParameter("bookReviewContent");
 	
 	BookReviewDTO bookReviewDTO = new BookReviewDTO();
 	bookReviewDTO.setBookNo(bookNo);
-	bookReviewDTO.setMemberNo(memberNo);
+	bookReviewDTO.setMemberNo(adminNo);
 	bookReviewDTO.setBookReviewContent(bookReviewContent);
 	
 	BookReviewService bookReviewService = new BookReviewService();
