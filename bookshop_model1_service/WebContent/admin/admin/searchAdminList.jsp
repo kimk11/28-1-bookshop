@@ -15,6 +15,10 @@
 <%
 	request.setCharacterEncoding("utf8");
 	
+	//로그인을 성공한 멤버 넘버 세션값으로 멤버번호를 등록한다.
+	int adminNo = (Integer)(session.getAttribute("sessionAdminNo"));
+	System.out.println(adminNo+"관리자넘버값");
+	
 	AdminService adminService = new AdminService();
 	ArrayList<AdminDTO> list = adminService.selectSearchAdminService();
 %>
@@ -38,10 +42,14 @@
 			<td><%=adminDTO.getAdminId() %></td>
 			<td><%=adminDTO.getAdminName() %></td>
 			<td><%=adminDTO.getAdminDate() %></td>
+		<%
+			if(adminNo == adminDTO.getAdminNo()){
+		%>
 			<td><a href="<%= request.getContextPath()%>/admin/admin/updateAdminForm.jsp?adminNo=<%=adminDTO.getAdminNo() %>">수정</a></td>
 			<td><a href="<%= request.getContextPath()%>/admin/admin/deleteAdminAction.jsp?adminNo=<%=adminDTO.getAdminNo() %>">삭제</a></td>
 		</tr>
 <%
+			}
 		}
 %>
 	</table>
