@@ -15,15 +15,16 @@
 	request.setCharacterEncoding("utf8");
 
 	AdminDTO adminDTO = new AdminDTO();
-	adminDTO.setAdminNo(Integer.parseInt(request.getParameter("memberNo")));
-	adminDTO.setAdminId(request.getParameter("memberId"));
-	adminDTO.setAdminPw(request.getParameter("memberPw"));
-	adminDTO.setAdminName(request.getParameter("memberName"));
-	System.out.println(request.getParameter("memberPw"));
+	adminDTO.setAdminNo(Integer.parseInt(request.getParameter("adminNo")));
+	adminDTO.setAdminId(request.getParameter("adminId"));
+	adminDTO.setAdminPw(request.getParameter("adminPw"));
+	adminDTO.setAdminName(request.getParameter("adminName"));
+// 	System.out.println(request.getParameter("memberPw"));
 	
 	AdminService adminService = new AdminService();
 	adminService.updateAdminService(adminDTO);
 	
+	response.sendRedirect(request.getContextPath()+"/admin/index.jsp");
 %>
 </body>
 </html>

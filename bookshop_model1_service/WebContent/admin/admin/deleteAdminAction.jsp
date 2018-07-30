@@ -24,6 +24,8 @@
 		response.sendRedirect(request.getContextPath()+"/admin/admin/searchAdminList.jsp");
 		System.out.print("입력실패");
 	}
+	
+	response.sendRedirect(request.getContextPath()+"/admin/index.jsp");
 %>
 </body>
 </html>

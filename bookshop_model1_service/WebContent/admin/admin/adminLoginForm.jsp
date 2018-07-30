@@ -37,9 +37,13 @@
 	%>
 		<div>
 			<p><%= sessionName %>님 환영합니다.</p>
-			<div><a href="<%= request.getContextPath() %>/admin/admin/adminLogoutAction.jsp">로그아웃</a></div>
+			<div>
+				<a href="<%= request.getContextPath() %>/admin/admin/updateAdminForm.jsp">정보수정</a>
+				<a href="<%= request.getContextPath() %>/admin/admin/adminLogoutAction.jsp">로그아웃</a>
+			</div>
 		</div>
 	<%
+
 	}
 %>
 </body>

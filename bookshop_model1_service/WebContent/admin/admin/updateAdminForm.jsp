@@ -12,7 +12,7 @@
 <body>
 <%
 	request.setCharacterEncoding("utf8");
-	int adminNo = Integer.parseInt(request.getParameter("adminNo"));	
+	int adminNo = (Integer)session.getAttribute("sessionAdminNo");
 	System.out.println("adminNo : " + adminNo);
 	AdminService adminService = new AdminService();
 	AdminDTO adminDTO = adminService.selectOneAdminService(adminNo);
