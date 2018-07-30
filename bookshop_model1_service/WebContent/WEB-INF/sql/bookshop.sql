@@ -112,6 +112,9 @@ CREATE TABLE IF NOT EXISTS `bookintro` (
 
 -- Dumping data for table bookshop.bookintro: ~0 rows (대략적)
 /*!40000 ALTER TABLE `bookintro` DISABLE KEYS */;
+INSERT INTO `bookintro` (`bookintro_no`, `book_no`, `bookintro_content`, `bookintro_write`) VALUES
+	(1, 17, '2017년에 발간된 책이라 내용도 알차고 마음에 듭니다!\r\n\r\n사진으로도 정리가 잘 되있고 나머지 부분도 상세하게 정리되어있어요!\r\n\r\n답지도 설명이 정말 잘 되어있습니다\r\n\r\n모르는 내용도 섬세하게 잘 찝어주고 기본기도 완뱍하게 정리되어 있어서 공부에 도움이 되요 :)\r\n\r\n과학 공부하는 중학생들한테는 꼭 필수템인것 같습니다\r\n\r\n기본기가 아직 부족한 중학생들한테 적극추천합니다', '탁재은'),
+	(2, 17, '오투 중등과학 3-2 참고서 추천합니다.\r\n\r\n오투 중등과학 3-2 책은 체계적으로 구성되어 있어서\r\n\r\n깜빡 잊고 지나갔던 내용에 대해서도 꼼꼼하게 잘 알려주고 있어서\r\n\r\n공부하다 보면 하나도 빠짐없이 점검하고 지나갈 수 있어서 공부하는 학생에게 \r\n\r\n좋은 참고서 책이 될 거 같습니다.\r\n\r\n과학에 대해서 공부한 만큼 성적이 안나오는 학생에게 더할나위 없는 책인듯 합니다.\r\n\r\n완전 추천합니다!!!', '송원민');
 /*!40000 ALTER TABLE `bookintro` ENABLE KEYS */;
 
 
@@ -128,9 +131,18 @@ CREATE TABLE IF NOT EXISTS `bookreview` (
   CONSTRAINT `FK_bookreview_member` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 -- Dumping data for table bookshop.bookreview: ~0 rows (대략적)
 /*!40000 ALTER TABLE `bookreview` DISABLE KEYS */;
+INSERT INTO `bookreview` (`bookreview_no`, `book_no`, `member_no`, `bookreview_content`) VALUES
+	(9, 17, 1, '빠른 배송과 정확한 잭으로 도움이 되었습니다'),
+	(10, 17, 2, '과학은 역시 오투'),
+	(11, 17, 3, '방학에 공부할 목적으로 구입했는데 만족해요'),
+	(12, 17, 4, '오투가 입맛에 맞나봅니다. 요것만 보네요');
 /*!40000 ALTER TABLE `bookreview` ENABLE KEYS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. member
